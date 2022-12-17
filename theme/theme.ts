@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme,  responsiveFontSizes } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
    interface Theme {
@@ -10,7 +10,7 @@ declare module '@mui/material/styles' {
            lg: number
            xl: number
          }
-       },
+       }
        palette: {
           primary: {
              main: string
@@ -23,9 +23,13 @@ declare module '@mui/material/styles' {
             }
 
        }
+       typography: {
+         fontFamily: string
+       }
    }
 }
-export const theme = createTheme({
+
+const simpleTheme = createTheme({
    breakpoints: {
       values: {
         xs: 0,
@@ -45,5 +49,10 @@ export const theme = createTheme({
       background: {
          paper: '#fff'
       }
-    }
+    },
+    typography: {
+      fontFamily: "'Montserrat', sans-serif"
+    },
 })
+
+export const theme = responsiveFontSizes(simpleTheme)
