@@ -10,4 +10,4 @@ export default function App({ Component, pageProps }: AppProps) {
   ) 
 }
 
-//todo: responsiveFont dosnt work
+//todo: margin in container

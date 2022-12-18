@@ -1,5 +1,6 @@
 import { Typography } from '@mui/material';
 import Head from 'next/head'
+import { theme } from '../theme/theme';
 
 const Home = () => {
   return (
@@ -10,7 +11,7 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Typography sx={{fontSize: '100px'}}>main</Typography>
+      <Typography variant='h1' fontWeight={theme.typography.fontWeightBold}>main</Typography>
     </>
   )
 }
