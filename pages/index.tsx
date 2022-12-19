@@ -1,8 +1,63 @@
-import { Typography } from '@mui/material';
+import { Box, Tab, Tabs, Typography } from '@mui/material';
 import Head from 'next/head'
+import { useState, SyntheticEvent } from 'react';
 import { theme } from '../theme/theme';
+import { styled } from '@mui/material/styles';
+interface StyledTabProps {
+  label: string;
+}
+
+const AntTabs = styled(Tabs)({
+  '& .MuiTabs-indicator': {
+    backgroundColor: 'transparent',
+  },
+});
+
+const AntTab = styled((props: StyledTabProps) => <Tab disableRipple {...props} />)(
+  ({ theme }) => ({
+    textTransform: 'none',
+    minWidth: 0,
+    // [theme.breakpoints.up('')]: {
+    //   minWidth: 0,
+    // },
+    fontWeight: theme.typography.fontWeightMedium,
+    marginRight: theme.spacing(1),
+    color: 'rgba(0, 0, 0, 0.85)',
+    // fontFamily: [
+    //   '-apple-system',
+    //   'BlinkMacSystemFont',
+    //   '"Segoe UI"',
+    //   'Roboto',
+    //   '"Helvetica Neue"',
+    //   'Arial',
+    //   'sans-serif',
+    //   '"Apple Color Emoji"',
+    //   '"Segoe UI Emoji"',
+    //   '"Segoe UI Symbol"',
+    // ].join(','),
+    '&:hover': {
+      color: '#40a9ff',
+      opacity: 1,
+    },
+    '&.Mui-selected': {
+      color: '#999',
+      backgroundColor: '#999',
+      fontWeight: theme.typography.fontWeightMedium,
+    },
+    '&.Mui-focusVisible': {
+      backgroundColor: '#999',
+    },
+  }),
+);
+
+
 
 const Home = () => {
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event: SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
   return (
     <>
       <Head>
@@ -11,6 +66,19 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Box sx={{ width: '100%' }}>
+      <Box sx={{ bgcolor: '#fff' }}>
+        <AntTabs value={value} onChange={handleChange} aria-label="ant example">
+          <AntTab label="Все" />
+          <AntTab label="Мясные" />
+          <AntTab label="Вегетарианская" />
+          <AntTab label="Гриль" />
+          <AntTab label="Острые" />
+          <AntTab label="Закрытые" />
+        </AntTabs>
+        <Box sx={{ p: 3 }} />
+      </Box>
+    </Box>
       <Typography variant='h1' fontWeight={theme.typography.fontWeightBold}>main</Typography>
     </>
   )

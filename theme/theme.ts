@@ -14,6 +14,8 @@ declare module '@mui/material/styles' {
        palette: {
           primary: {
              main: string
+             dark: string
+             light: string
             }
          secondary: {
                main: string
@@ -72,7 +74,6 @@ declare module '@mui/material/styles' {
             letterSpacing: string
          }
        }
-       spacing: Array<number>
    }
 }
 
@@ -148,7 +149,6 @@ const simpleTheme = createTheme({
          letterSpacing: '1.5%'
       },
     },
-   spacing: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 137],
 })
 
 export const theme = responsiveFontSizes(simpleTheme)

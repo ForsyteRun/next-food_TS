@@ -1,9 +1,15 @@
+import { Stack } from '@mui/system';
 import React from 'react'
+import { theme } from '../theme/theme';
 
 const Header = () => {
   return (
-    <header>Header</header>
+    <header>
+      <Stack height={137}>
+
+      </Stack>
+    </header>
   )
 }
 
-export default Header
+export default Header;
