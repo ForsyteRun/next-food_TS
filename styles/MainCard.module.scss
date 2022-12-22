@@ -1,0 +1,27 @@
+.active {
+   background-color: #fff;
+}
+
+.topSet {
+   height: 32px; 
+   padding: 7px;
+   border-radius: 10px;
+   cursor: pointer;
+   box-shadow: 0 2px 4px #0000;
+}
+
+.setConteiner {
+   flex-direction: row;
+   justify-content: space-around;
+   align-items: flex-end;
+   height: 50%;
+}
+
+.mainContainer {
+   flex-direction: column; 
+   justify-content: space-evenly;
+   width: 100%;
+   height: 85px;
+   padding: 7px; 
+   border-radius: 10px;
+}

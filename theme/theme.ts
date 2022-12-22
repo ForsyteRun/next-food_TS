@@ -145,6 +145,7 @@ const simpleTheme = createTheme({
          fontFamily: "'Montserrat', sans-serif",
          fontWeight: 700,
          fontSize: '14px',
+         color: '#2C2C2C',
          lineHeight: 1.21,
          letterSpacing: '1.5%'
       },
