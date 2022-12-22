@@ -1,14 +1,10 @@
-import { Box, Tab, Tabs, Typography } from '@mui/material';
-import Head from 'next/head'
-import { useState, SyntheticEvent } from 'react';
-import { theme } from '../theme/theme';
-import { styled } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import TabMain from '../components/TabMain';
-
+import { Stack } from "@mui/material";
+import Head from "next/head";
+import { cardData } from "../assets/data/card";
+import MainCard from "../components/MainCard";
+import { CardDataType } from "../types/types";
 
 const Home = () => {
- 
   return (
     <>
       <Head>
@@ -17,9 +13,13 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <TabMain/>
+      <Stack direction='row' flexWrap='wrap' justifyContent='space-between' rowGap={8.125}>
+        {cardData.map((card: CardDataType) => {
+          return <MainCard card={card} key={card.id} />;
+        })}
+      </Stack>
     </>
-  )
-}
+  );
+};
 
 export default Home;
