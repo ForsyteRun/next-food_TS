@@ -23,7 +23,7 @@ const Header = () => {
           <Typography variant="h5" component="div">самая вкусная пицца во вселенной</Typography>
         </Stack>
       </Stack>
-      <CartBtn/>
+      <CartBtn price={55} items={7}/>
     </header>
   )
 }
