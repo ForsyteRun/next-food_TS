@@ -1,7 +1,7 @@
 import { createTheme,  responsiveFontSizes } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
-   interface Theme {
+  export interface Theme {
       breakpoints: {
          values: {
            xs: number
@@ -66,6 +66,13 @@ declare module '@mui/material/styles' {
             lineHeight: number
             letterSpacing: string
          }
+         h5: {
+            fontFamily: string
+            fontWeight: number
+            fontSize: string
+            lineHeight: number
+            letterSpacing: string
+         }
          h6: {
             fontFamily: string
             fontWeight: number
@@ -115,6 +122,7 @@ const simpleTheme = createTheme({
       fontWeightBold: 800,
       h1: {
          fontFamily: "'Montserrat', sans-serif",
+         color: '#00000',
          fontWeight: 800,
          fontSize: '24px',
          lineHeight: 1.21,
@@ -122,6 +130,7 @@ const simpleTheme = createTheme({
       },
       h2: {
          fontFamily: "'Montserrat', sans-serif",
+         color: '#00000',
          fontWeight: 700,
          fontSize: '32px',
          lineHeight: 1.21,
@@ -141,6 +150,13 @@ const simpleTheme = createTheme({
          lineHeight: 1.21,
          letterSpacing: '1.5%'
       },
+      h5: {
+         fontSize: '16px',
+         color: '#7B7B7B',
+         lineHeight: '19px',
+         fontStyle: 'normal',
+         letterSpacing: 0,
+      },
       h6: {
          fontFamily: "'Montserrat', sans-serif",
          fontWeight: 700,
@@ -149,7 +165,7 @@ const simpleTheme = createTheme({
          lineHeight: 1.21,
          letterSpacing: '1.5%'
       },
-    },
+   },
 })
 
 export const theme = responsiveFontSizes(simpleTheme)

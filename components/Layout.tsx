@@ -12,9 +12,11 @@ const Layout: FC<PropsType> = ({children}) => {
     <>
     <ThemeProvider theme={theme}>
       <CssBaseline/>
-      <Container maxWidth={'xl'} sx={{backgroundColor: theme.palette.background.paper}} className='wrapper'>
+      <Container maxWidth={'xl'} sx={{backgroundColor: theme.palette.background.paper}} className='headerWrapper'>
          <Header/>
-         <main style={{flexGrow: 1}}>
+      </Container>
+      <Container maxWidth={'xl'} sx={{backgroundColor: theme.palette.background.paper}} className='wrapper'>
+         <main style={{flexGrow: 1, paddingTop: '40px'}}>
             {children}
          </main>
       </Container>

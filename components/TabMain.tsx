@@ -14,6 +14,7 @@ const AntTabs = styled(Tabs)({
   // [theme.breakpoints.down('sm')]: {
   //   flexDirection: 'column'
   // },
+  marginBottom: '35px',
   '& .MuiTabs-indicator': {//indicator under Tabs
     backgroundColor: 'transparent',
   },
