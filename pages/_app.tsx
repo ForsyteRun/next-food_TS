@@ -13,3 +13,5 @@ export default function App({ Component, pageProps }: AppProps) {
 //todo: margin in container
 //todo:  [theme.breakpoints.down('md')] - key bad reading of TypeScript
 //todo: min 600px how create burger?
+//todo: Tab not in MUI
+

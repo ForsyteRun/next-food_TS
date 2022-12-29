@@ -1,4 +1,4 @@
-import { Container, CssBaseline, Stack, ThemeProvider } from '@mui/material'
+import { Container, CssBaseline, ThemeProvider } from '@mui/material'
 import React, { FC, ReactNode } from 'react'
 import { theme } from '../theme/theme'
 import Header from './Header'

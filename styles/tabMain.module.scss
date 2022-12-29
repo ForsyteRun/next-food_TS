@@ -1,0 +1,29 @@
+
+.container {
+   width: 828px;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   list-style: none;
+   padding: 0;
+}
+
+.container li {
+   font-family: 'Proxima Nova';
+   font-style: normal;
+   font-weight: 700;
+   font-size: 16px;
+   line-height: 19px;
+   background: #F9F9F9;
+   text-align: center;
+   letter-spacing: 0.015em;
+   color: #2C2C2C;
+   padding: 13px 25px;
+   border-radius: 30px;
+   cursor: pointer;
+}
+
+.active {
+   background-color:#282828 !important;
+   color: #fff !important;
+ }

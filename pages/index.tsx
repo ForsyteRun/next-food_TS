@@ -1,12 +1,12 @@
 import { Stack, Typography } from "@mui/material";
 import Head from "next/head";
+import { useState } from "react";
 import { cardData } from "../assets/data/card";
-import MainCard from "../components/MainCard";
-import SortCard from "../components/SortCard";
-import TabMain from "../components/TabMain";
+import {MainCard, SortCard, TabMain} from "../components";
 import { CardDataType } from "../types/types";
 
 const Home = () => {
+
   return (
     <>
       <Head>
@@ -16,7 +16,7 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Stack direction='row' justifyContent='space-between'>
-        <TabMain />
+        <TabMain items={['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']} />
         <SortCard/>
       </Stack>
       <Typography variant="h2" component="div" mb='35px'>Все пиццы</Typography> 
