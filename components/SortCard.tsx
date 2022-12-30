@@ -93,6 +93,17 @@ const CustomSelect = React.forwardRef(function CustomSelect<TValue extends {}>(
 ) => JSX.Element;
 
 const SortCard = () => {
+  // const sortRef = React.useRef(null)
+
+  // const onSortClick= (e: any) => {
+  //   if (e.path.includes(sortRef.current))
+  //   console.log('Helllo');
+  // }
+
+  // React.useEffect(() => {
+  //   document.addEventListener('click', onSortClick)
+  // })
+
   return (
    <div style={{flexBasis: '270px'}}>
     <Typography gutterBottom variant="h6" component="span">сортировка по: </Typography>

@@ -15,7 +15,7 @@ const Layout: FC<PropsType> = ({children}) => {
       <Container maxWidth={'xl'} sx={{backgroundColor: theme.palette.background.paper}} className='headerWrapper'>
          <Header/>
       </Container>
-      <Container maxWidth={'xl'} sx={{backgroundColor: theme.palette.background.paper}} className='wrapper'>
+      <Container maxWidth={'xl'} sx={{backgroundColor: theme.palette.background.paper, minHeight: '100%'}} className='wrapper'>
          <main style={{flexGrow: 1, paddingTop: '40px'}}>
             {children}
          </main>

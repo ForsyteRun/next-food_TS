@@ -14,4 +14,8 @@ export default function App({ Component, pageProps }: AppProps) {
 //todo:  [theme.breakpoints.down('md')] - key bad reading of TypeScript
 //todo: min 600px how create burger?
 //todo: Tab not in MUI
+//todo: default styles MUI in body
+//todo: del styles which do not need everywhere 
+//todo: add palatte => text => default text color
+
 

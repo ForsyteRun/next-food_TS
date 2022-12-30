@@ -12,7 +12,7 @@ const TabMain: FC<PropsType> = ({items}) => {
     <ul className={s.container}>
       <li className={activeItem === null ? s.active : ''} onClick={() => setActiveItem(null)}>Все</li>
       {
-        items.map((item: string, index) => (
+       items && items.map((item: string, index) => (
           <li key={index} onClick={()=>setActiveItem(item)} className={activeItem === item ? s.active : ''}>{item}</li>
         ))
       }

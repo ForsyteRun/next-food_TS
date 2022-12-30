@@ -7,8 +7,8 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import EuroIcon from '@mui/icons-material/Euro';
 
 type PropsType = {
-  price: number;
-  items: number;
+  price?: number;
+  items?: number;
 };
 
 const CartBtn: FC<PropsType> = ({ price, items }) => {
