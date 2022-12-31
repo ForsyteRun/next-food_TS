@@ -18,7 +18,7 @@ const Home: FC<PropsType> = ({items}) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Stack direction='row' justifyContent='space-between'>
+      <Stack direction='row' justifyContent='space-between' mb='32px'>
         <TabMain items={['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']} />
         <SortCard/>
       </Stack>

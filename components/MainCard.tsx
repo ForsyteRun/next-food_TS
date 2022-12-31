@@ -30,8 +30,8 @@ const MainCard: FC<PropsType> = (props) => {
       33vw"
       className = {s.img}
       />
-      <CardContent>
-        <Typography gutterBottom variant="h3" component="div" sx={{textAlign: 'center', height: '55px'}}>
+      <CardContent sx={{pb: 0}}>
+        <Typography gutterBottom variant="h3" component="div" sx={{textAlign: 'center', height: '55px', mb: 0}}>
           {name}
         </Typography>
       </CardContent>
@@ -45,7 +45,7 @@ const MainCard: FC<PropsType> = (props) => {
               className={cn(set === index ? s.active : '', s.topSet)}
               onClick={()=>setSet(index)}
               >
-              {el}
+              {el} 
               </Typography>
             ))}
           </Stack>
@@ -58,7 +58,7 @@ const MainCard: FC<PropsType> = (props) => {
               className={cn(sizesItem === index ? s.active : '', s.topSet)}
               onClick={()=>setSizesItem(index)}
               >
-              {el}
+              {el} см
               </Typography>
             ))}
           </Stack>
