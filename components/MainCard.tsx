@@ -10,33 +10,34 @@ import { CardDataType } from "../types/types";
 import s from './../styles/MainCard.module.scss';
 import ButtonBuy from "./ButtonBuy";
 import cn from 'classnames';
+import Image from "next/image";
 
 type PropsType = {
   card: CardDataType;
 };
 
 const MainCard: FC<PropsType> = (props) => {
-  const { title, img, sets, size, price } = props.card;
+  const { imageUrl, price, id, name, types, sizes } = props.card;
   const [set, setSet] = useState(0)
-  const [sizes, setSizes] = useState(0)
+  const [sizesItem, setSizesItem] = useState(0)
   
   return (
     <Card sx={{ width: 280, boxShadow:'none' }}>
-      <CardMedia
-        component="img"
-        alt="pizza"
-        height="260"
-        image={img}
-        sx={{ objectFit: "contain" }}
+      <Image src={imageUrl} alt='pizza' 
+      width={260} height={260} priority quality={100}
+      sizes="(max-width: 768px) 100vw,
+      (max-width: 1200px) 50vw,
+      33vw"
+      className = {s.img}
       />
       <CardContent>
-        <Typography gutterBottom variant="h3" component="div" sx={{textAlign: 'center'}}>
-          {title}
+        <Typography gutterBottom variant="h3" component="div" sx={{textAlign: 'center', height: '55px'}}>
+          {name}
         </Typography>
       </CardContent>
       <Stack className={s.mainContainer} bgcolor={theme.palette.grey[300]}>
           <Stack className={s.setConteiner}>
-            {sets.map((el: string, index) => (
+            {types.map((el: number, index) => (
               <Typography 
               key={el} 
               variant="h6" 
@@ -49,13 +50,13 @@ const MainCard: FC<PropsType> = (props) => {
             ))}
           </Stack>
           <Stack className={s.setConteiner}>
-            {size.map((el: string, index) => (
+            {sizes.map((el: number, index) => (
               <Typography 
               key={el} 
               variant="h6" 
               component="div" 
-              className={cn(sizes === index ? s.active : '', s.topSet)}
-              onClick={()=>setSizes(index)}
+              className={cn(sizesItem === index ? s.active : '', s.topSet)}
+              onClick={()=>setSizesItem(index)}
               >
               {el}
               </Typography>
@@ -63,9 +64,12 @@ const MainCard: FC<PropsType> = (props) => {
           </Stack>
       </Stack>
       <CardActions sx={{ justifyContent: "space-between" }}>
-        {price}
+        <Typography gutterBottom variant="h3" component="div">
+        от {price}<span>&#36;</span>
+        </Typography>
         <ButtonBuy />
       </CardActions>
+
     </Card>
   );
 };

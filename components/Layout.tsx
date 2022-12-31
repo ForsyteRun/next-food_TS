@@ -1,13 +1,17 @@
 import { Container, CssBaseline, ThemeProvider } from '@mui/material'
-import React, { FC, ReactNode } from 'react'
+import React, { FC, ReactNode, useState } from 'react'
 import { theme } from '../theme/theme'
 import Header from './Header'
 
 type PropsType = {
    children: ReactNode
+   items: any
 }
 
-const Layout: FC<PropsType> = ({children}) => {
+const Layout: FC<PropsType> = ({children, items}) => {
+   const [pizzas, setPizzas] = useState(items)
+   console.log(pizzas);
+   
   return (
     <>
     <ThemeProvider theme={theme}>

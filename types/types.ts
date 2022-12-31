@@ -1,8 +1,10 @@
 export type CardDataType = {
    id: number
-   title: string
-   img: string
-   sets: Array<string>
-   size: Array<string>
-   price: string
+   imageUrl: string
+   name: string
+   types: Array<number>
+   sizes:  Array<number>
+   price: number
+   category: number
+   rating: number
 }

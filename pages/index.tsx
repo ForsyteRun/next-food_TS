@@ -1,12 +1,15 @@
 import { Stack, Typography } from "@mui/material";
 import Head from "next/head";
-import { useState } from "react";
-import { cardData } from "../assets/data/card";
+import { FC } from "react";
 import {MainCard, SortCard, TabMain} from "../components";
 import { CardDataType } from "../types/types";
 
-const Home = () => {
+type PropsType = {
+  items: Array<CardDataType>
+}
 
+const Home: FC<PropsType> = ({items}) => {
+  
   return (
     <>
       <Head>
@@ -21,7 +24,7 @@ const Home = () => {
       </Stack>
       <Typography variant="h2" component="div" mb='35px'>Все пиццы</Typography> 
       <Stack direction='row' flexWrap='wrap' justifyContent='space-between' rowGap={8.125}>
-        {cardData.map((card: CardDataType) => {
+        {items.map((card: CardDataType) => {
           return <MainCard card={card} key={card.id} />;
         })}
       </Stack>
