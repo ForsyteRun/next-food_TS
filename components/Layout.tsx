@@ -10,7 +10,6 @@ type PropsType = {
 
 const Layout: FC<PropsType> = ({children, items}) => {
    const [pizzas, setPizzas] = useState(items)
-   console.log(pizzas);
    
   return (
     <>

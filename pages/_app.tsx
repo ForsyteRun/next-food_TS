@@ -2,8 +2,7 @@ import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
 import Layout from '../components/Layout'
 import { CardDataType } from '../types/types'
-import { NextPage } from 'next'
-import { createStore } from 'redux'
+import { configureStore, createSlice } from '@reduxjs/toolkit'
 
 interface Props {
   items?: Array<CardDataType>
@@ -11,20 +10,26 @@ interface Props {
 
 const App = ({ Component, pageProps, items}: AppProps & Props)  => {
   
-  function counterReducer(state = { value: 0 }, action: any) {
-    switch (action.type) {
-      case 'counter/incremented':
-        return { value: state.value + 1 }
-      case 'counter/decremented':
-        return { value: state.value - 1 }
-      default:
-        return state
-    }
+  const storeSlice = createSlice({
+    name: 'counter',
+    initialState: {
+      name: 0
+    },
+    reducers: {
+      decremented: state => {
+        state.name -= 1
+      }
   }
+  })
 
-  let store = createStore(counterReducer)
+  const store = configureStore({
+   reducer: storeSlice.reducer
+  })
 
-  console.log(store)
+
+  
+  console.log(store.dispatch(storeSlice.actions.decremented))
+  
   return (
   <Layout items={items}>
     <Component {...pageProps} items={items}/>
