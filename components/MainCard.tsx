@@ -2,7 +2,6 @@ import { Stack } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { FC, useState } from "react";
 import { theme } from "../theme/theme";
@@ -17,10 +16,21 @@ type PropsType = {
 };
 
 const MainCard: FC<PropsType> = (props) => {
-  const { imageUrl, price, id, name, types, sizes } = props.card;
-  const [set, setSet] = useState(0)
-  const [sizesItem, setSizesItem] = useState(0)
-  
+  const { imageUrl, price, name, types, sizes } = props.card;
+  const [set, setSet] = useState<number>(types[0])
+  const [sizesItem, setSizesItem] = useState<number>(sizes[0])
+
+  const availableSets = ['тонкое', 'традиционное']
+  const availableSizes = [26, 30, 40]
+
+  const onSelectSets = (index: number) => {
+    setSet(index)
+  }
+
+  const onSelectSizes = (index: number) => {
+    setSizesItem(index)
+  }
+
   return (
     <Card sx={{ width: 280, boxShadow:'none' }}>
       <Image src={imageUrl} alt='pizza' 
@@ -37,26 +47,26 @@ const MainCard: FC<PropsType> = (props) => {
       </CardContent>
       <Stack className={s.mainContainer} bgcolor={theme.palette.grey[300]}>
           <Stack className={s.setConteiner}>
-            {types.map((el: number, index) => (
+            {availableSets.map((el: string, index) => (
               <Typography 
               key={el} 
               variant="h6" 
               component="div" 
-              className={cn(set === index ? s.active : '', s.topSet)}
-              onClick={()=>setSet(index)}
+              className={cn(s.topSet, set === index && s.active, !types.includes(index) && s.disabled )}
+              onClick={()=>onSelectSets(index)}
               >
               {el} 
               </Typography>
             ))}
           </Stack>
           <Stack className={s.setConteiner}>
-            {sizes.map((el: number, index) => (
+            {availableSizes.map((el: number, index: number) => (
               <Typography 
               key={el} 
               variant="h6" 
               component="div" 
-              className={cn(sizesItem === index ? s.active : '', s.topSet)}
-              onClick={()=>setSizesItem(index)}
+              className={cn(s.topSet, sizesItem === index && s.active, !sizes.includes(el) && s.disabled )}
+              onClick={()=>onSelectSizes(index)}
               >
               {el} см
               </Typography>
