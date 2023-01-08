@@ -92,25 +92,24 @@ const CustomSelect = React.forwardRef(function CustomSelect<TValue extends {}>(
   props: SelectUnstyledProps<TValue> & React.RefAttributes<HTMLButtonElement>,
 ) => JSX.Element;
 
-const SortCard = () => {
-  // const sortRef = React.useRef(null)
+type ObjType = {
+  title: String
+  type: string
+}
 
-  // const onSortClick= (e: any) => {
-  //   if (e.path.includes(sortRef.current))
-  //   console.log('Helllo');
-  // }
+type PropsType = {
+  items: Array<ObjType>
+}
 
-  // React.useEffect(() => {
-  //   document.addEventListener('click', onSortClick)
-  // })
+const SortCard: React.FC<PropsType> = ({items}) => {
 
   return (
    <div style={{flexBasis: '270px'}}>
     <Typography gutterBottom variant="h6" component="span">сортировка по: </Typography>
-    <CustomSelect defaultValue={10}>
-      <StyledOption value={10}>популярности</StyledOption>
-      <StyledOption value={20}>цене</StyledOption>
-      <StyledOption value={30}>алфавиту</StyledOption>
+    <CustomSelect defaultValue={items[0].type}>
+      <StyledOption value={items[0].type}>{items[0].title}</StyledOption>
+      <StyledOption value={items[1].type}>{items[1].title}</StyledOption>
+      <StyledOption value={items[2].type}>{items[2].title}</StyledOption>
     </CustomSelect>
    </div>
   );

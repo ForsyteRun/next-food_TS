@@ -3,8 +3,6 @@ import Head from "next/head";
 import { FC } from "react";
 import {MainCard, SortCard, TabMain} from "../components";
 import { CardDataType } from "../types/types";
-import { useAppSelector, useAppDispatch } from './../store/hooks';
-import { increment } from './../store/redusers'
 
 type PropsType = {
   items: Array<CardDataType>
@@ -12,9 +10,6 @@ type PropsType = {
 
 const Home: FC<PropsType> = ({items}) => {
   
-  const num = useAppSelector(state => state.counter.value)
-  const dispath = useAppDispatch()
-
   return (
     <>
       <Head>
@@ -25,7 +20,11 @@ const Home: FC<PropsType> = ({items}) => {
       </Head>
       <Stack direction='row' justifyContent='space-between' mb='32px'>
         <TabMain items={['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']} />
-        <SortCard/>
+        <SortCard items={[
+          {type: 'popular', title: 'популярности'},
+          {type: 'price', title: 'цене'},
+          {type: 'alphabet', title: 'алфавиту'},
+        ]}/>
       </Stack>
       <Typography variant="h2" component="div" mb='35px'>Все пиццы</Typography> 
       <Stack direction='row' flexWrap='wrap' justifyContent='space-between' rowGap={8.125}>
@@ -33,8 +32,6 @@ const Home: FC<PropsType> = ({items}) => {
           return <MainCard card={card} key={card.id} />;
         })}
       </Stack>
-      <button onClick={() => dispath(increment())}>+++++</button>
-      {num}
     </>
   );
 };
