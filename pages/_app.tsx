@@ -2,38 +2,20 @@ import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
 import Layout from '../components/Layout'
 import { CardDataType } from '../types/types'
-import { configureStore, createSlice } from '@reduxjs/toolkit'
-
+import { Provider } from 'react-redux'
+import { store } from '../store'
 interface Props {
   items?: Array<CardDataType>
 }
 
 const App = ({ Component, pageProps, items}: AppProps & Props)  => {
   
-  const storeSlice = createSlice({
-    name: 'counter',
-    initialState: {
-      name: 0
-    },
-    reducers: {
-      decremented: state => {
-        state.name -= 1
-      }
-  }
-  })
-
-  const store = configureStore({
-   reducer: storeSlice.reducer
-  })
-
-
-  
-  console.log(store.dispatch(storeSlice.actions.decremented))
-  
   return (
-  <Layout items={items}>
-    <Component {...pageProps} items={items}/>
-  </Layout>
+    <Provider store={store}>
+      <Layout items={items}>
+        <Component {...pageProps} items={items}/>
+      </Layout>
+    </Provider>
   ) 
 }
 
