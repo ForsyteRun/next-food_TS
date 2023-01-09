@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "server": "json-server --watch public/db.json"
+    "server": "json-server --watch public/db.json --port=3001",
+    "run": "concurrently \"json-server --watch public/db.json --port=3001\" \"next dev\""
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -22,6 +23,7 @@
     "@types/react-dom": "18.0.9",
     "@types/react-redux": "^7.1.25",
     "classnames": "^2.3.2",
+    "concurrently": "^7.6.0",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.7",
     "next": "13.0.7",
