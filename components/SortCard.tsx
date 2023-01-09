@@ -3,9 +3,10 @@ import PopperUnstyled from '@mui/base/PopperUnstyled';
 import SelectUnstyled, {
    selectUnstyledClasses, SelectUnstyledProps
 } from '@mui/base/SelectUnstyled';
-import { Typography } from '@mui/material';
+import { SelectChangeEvent, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import * as React from 'react';
+import { useAppSelector } from '../store/hooks';
 
 const StyledButton = styled('button')(
   ({theme}) => `
@@ -98,18 +99,18 @@ type ObjType = {
 }
 
 type PropsType = {
-  items: Array<ObjType>
+  itemsSort: Array<ObjType>
 }
 
-const SortCard: React.FC<PropsType> = ({items}) => {
-
+const SortCard: React.FC<PropsType> = ({itemsSort}) => {
+ 
   return (
    <div style={{flexBasis: '270px'}}>
     <Typography gutterBottom variant="h6" component="span">сортировка по: </Typography>
-    <CustomSelect defaultValue={items[0].type}>
-      <StyledOption value={items[0].type}>{items[0].title}</StyledOption>
-      <StyledOption value={items[1].type}>{items[1].title}</StyledOption>
-      <StyledOption value={items[2].type}>{items[2].title}</StyledOption>
+    <CustomSelect defaultValue={itemsSort[0].type} 	>
+      <StyledOption value={itemsSort[0].type}>{itemsSort[0].title}</StyledOption>
+      <StyledOption value={itemsSort[1].type}>{itemsSort[1].title}</StyledOption>
+      <StyledOption value={itemsSort[2].type}>{itemsSort[2].title}</StyledOption>
     </CustomSelect>
    </div>
   );

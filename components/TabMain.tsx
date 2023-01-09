@@ -13,6 +13,7 @@ import s from "./../styles/tabMain.module.scss";
 
 type PropsType = {
   items: Array<string>;
+  onClick: (index: number | null) => void
 };
 
 const CustomList = styled(List)<ListProps>(() => ({
@@ -36,13 +37,20 @@ const CustomListItemText = styled(ListItemText)<ListItemTextProps>(() => ({
   lineHeight: "19px",
 }));
 
-const TabMain: FC<PropsType> = ({ items }) => {
-  const [activeItem, setActiveItem] = useState<string | null>(null);
+const TabMain: FC<PropsType> = ({ items, onClick }) => {
+  const [activeItem, setActiveItem] = useState<number | null>(null);
+
+  console.log('tabMAin');
+  
+  const onItem = (index: number | null) => {
+    setActiveItem(index)
+    onClick(index)
+  }
 
   return (
     <CustomList dense>
       <CustomListItem
-        onClick={() => setActiveItem(null)}
+        onClick={() => onItem(null)}
         className={activeItem === null ? s.active : ""}
       >
         <CustomListItemText primary="Все" disableTypography />
@@ -51,8 +59,8 @@ const TabMain: FC<PropsType> = ({ items }) => {
         items.map((item: string, index) => (
           <CustomListItem
             key={index}
-            onClick={() => setActiveItem(item)}
-            className={activeItem === item ? s.active : ""}
+            onClick={() => onItem(index)}
+            className={activeItem === index ? s.active : ""}
           >
             <CustomListItemText primary={item} disableTypography />
           </CustomListItem>

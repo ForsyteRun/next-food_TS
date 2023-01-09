@@ -1,7 +1,9 @@
 import { Container, CssBaseline, ThemeProvider } from '@mui/material'
-import React, { FC, ReactNode, useState } from 'react'
+import React, { FC, ReactNode, useEffect } from 'react'
 import { theme } from '../theme/theme'
 import Header from './Header'
+import { useAppDispatch } from '../store/hooks'
+import { pizzas } from '../store/redusers/pizzas'
 
 type PropsType = {
    children: ReactNode
@@ -9,8 +11,12 @@ type PropsType = {
 }
 
 const Layout: FC<PropsType> = ({children, items}) => {
-   const [pizzas, setPizzas] = useState(items)
-   
+   const dispatch = useAppDispatch()
+
+   useEffect(() => {
+     dispatch(pizzas(items))
+   }, [])
+
   return (
     <>
     <ThemeProvider theme={theme}>

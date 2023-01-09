@@ -1,19 +1,19 @@
-import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
-import Layout from '../components/Layout'
-import { CardDataType } from '../types/types'
 import { Provider } from 'react-redux'
+import Layout from '../components/Layout'
 import { store } from '../store'
+import '../styles/globals.scss'
+import { CardDataType } from '../types/types'
 interface Props {
-  items?: Array<CardDataType>
+  items: Array<CardDataType>
 }
 
 const App = ({ Component, pageProps, items}: AppProps & Props)  => {
-  
+
   return (
     <Provider store={store}>
       <Layout items={items}>
-        <Component {...pageProps} items={items}/>
+        <Component {...pageProps}/>
       </Layout>
     </Provider>
   ) 
@@ -27,6 +27,8 @@ App.getInitialProps = async () => {
   return { items: json.pizzas }
 }
 
+
+//todo: fetch запрос каждый раз при переходе на любую старинц...это плохо
 //todo: margin in container
 //todo: поправить вёрстку после data из бека
 //todo:  [theme.breakpoints.down('md')] - key bad reading of TypeScript
@@ -40,5 +42,6 @@ App.getInitialProps = async () => {
 //todo: в карточке товара не выбирается при первом рендере первый пункт размеров пиццы
 //todo: почему при SSR нет фото в network??
 //todo: SortCard костыль исправить
+//todo: можно ли сразу с fetch next.js диспатчить в стор?
 
 

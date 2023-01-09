@@ -1,15 +1,21 @@
 import { Stack, Typography } from "@mui/material";
 import Head from "next/head";
-import { FC } from "react";
-import {MainCard, SortCard, TabMain} from "../components";
+import React from "react";
+import { MainCard, SortCard, TabMain } from "../components";
+import { useAppSelector, useAppDispatch } from "../store/hooks";
+import { tab } from "../store/redusers/tab";
 import { CardDataType } from "../types/types";
 
-type PropsType = {
-  items: Array<CardDataType>
-}
+const tabMenuItems = ['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']
 
-const Home: FC<PropsType> = ({items}) => {
-  
+const Home = () => {
+  const pizzas = useAppSelector(state => state.pizzas.pizzas);
+  const dispatch = useAppDispatch()
+
+  const onSelectTab =React.useCallback((index: number | null) => {
+    dispatch(tab(index))
+  }, [])
+
   return (
     <>
       <Head>
@@ -19,8 +25,11 @@ const Home: FC<PropsType> = ({items}) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Stack direction='row' justifyContent='space-between' mb='32px'>
-        <TabMain items={['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']} />
-        <SortCard items={[
+        <TabMain 
+          onClick={onSelectTab}
+          items={tabMenuItems} 
+          />
+        <SortCard itemsSort={[
           {type: 'popular', title: 'популярности'},
           {type: 'price', title: 'цене'},
           {type: 'alphabet', title: 'алфавиту'},
@@ -28,7 +37,7 @@ const Home: FC<PropsType> = ({items}) => {
       </Stack>
       <Typography variant="h2" component="div" mb='35px'>Все пиццы</Typography> 
       <Stack direction='row' flexWrap='wrap' justifyContent='space-between' rowGap={8.125}>
-        {items.map((card: CardDataType) => {
+        {pizzas && pizzas.map((card: CardDataType) => {
           return <MainCard card={card} key={card.id} />;
         })}
       </Stack>

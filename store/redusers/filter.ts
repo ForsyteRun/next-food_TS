@@ -1,26 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-interface FiltersState {
+interface filtersState {
   sortBy: string
   category: number
 }
 
-const initialState: FiltersState = {
+const initialState: filtersState = {
   sortBy: 'popular',
   category: 0,
 }
 
-export const counterSlice = createSlice({
+export const filterSlice = createSlice({
   name: 'filters',
   initialState,
   reducers: {
-    filters: (state: FiltersState, action: PayloadAction<string>) => {
+    filters: (state: filtersState, action: PayloadAction<string>) => {
       state.sortBy = action.payload
     }
   },
 })
 
-export const {filters} = counterSlice.actions
+export const {filters} = filterSlice.actions
 
-export default counterSlice.reducer
+export default filterSlice.reducer
