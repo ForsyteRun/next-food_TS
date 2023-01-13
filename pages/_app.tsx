@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux'
 import Layout from '../components/Layout'
-import { store } from '../store'
+import { store, wrapper } from '../store'
 import '../styles/globals.scss'
 import { CardDataType } from '../types/types'
 interface Props {
@@ -19,13 +19,14 @@ const App = ({ Component, pageProps, items}: AppProps & Props)  => {
   ) 
 }
 
-export default App;
+export default wrapper.withRedux(App);
 
-App.getInitialProps = async () => {
-  const res = await fetch('http://localhost:3000/db.json')
-  const json = await res.json()
-  return { items: json.pizzas }
-}
+
+// App.getInitialProps = async () => {
+//   const res = await fetch('http://localhost:3000/db.json')
+//   const json = await res.json()
+//   return { items: json.pizzas }
+// }
 
 
 //todo: fetch запрос каждый раз при переходе на любую старинц...это плохо
