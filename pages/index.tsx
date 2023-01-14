@@ -7,7 +7,7 @@ import { MainCard, SortCard, TabMain, Sceleton } from "../components";
 import { AppStore, wrapper } from "../store";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { items } from "../store/redusers/pizzas";
-import { tab } from "../store/redusers/tab";
+import { filterTab, tab } from "../store/redusers/tab";
 import { CardDataType } from "../types/types";
 
 const tabMenuItems = ['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']
@@ -15,8 +15,7 @@ const tabMenuItems = ['Мясные', 'Вегетарианские', 'Откр�
 const Home = () => {
   const dispatch = useAppDispatch()
   const {pizzas, loading} = useAppSelector(state => state.pizzas)
-  console.log(loading, pizzas);
-  
+  const {setTab} = useAppSelector(state => state.tab)
 
   const onSelectTab =React.useCallback((index: number | null) => {
     dispatch(tab(index))
@@ -56,12 +55,17 @@ const Home = () => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store: AppStore) => async () => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store: AppStore) => async ( ) => {
   try {
-    const response  = await axios.get<Array<CardDataType>>('http://localhost:3000/db.json')
-    const {data} = response
-    
+    await axios.get<Array<CardDataType>>(`http://localhost:3001/pizzas`).then(({data}) => {
     store.dispatch(items(data))
+    })
+      
+    // const tabRes  = await axios.get<Array<CardDataType>>('http://localhost:3000/db.json')
+    // const {data} = response
+    // const tabRes = data.pizzas.filter((el: any)=>el.category==2)
+    
+    // store.dispatch(filterTab(tabRes))
 
     return {props: {}}
   } catch (error) {

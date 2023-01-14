@@ -25,7 +25,7 @@ export const pizzasSlice = createSlice({
   extraReducers: {
     [HYDRATE]: (state: pizzaState, action) => {
       state.loading = false,
-      state.pizzas = action.payload.pizzas.pizzas.pizzas
+      state.pizzas = action.payload.pizzas.pizzas
     }
   }
 })

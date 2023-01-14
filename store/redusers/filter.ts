@@ -3,12 +3,12 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface filtersState {
   sortBy: string
-  category: number
+  category: number | null
 }
 
 const initialState: filtersState = {
   sortBy: 'popular',
-  category: 0,
+  category: null,
 }
 
 export const filterSlice = createSlice({
