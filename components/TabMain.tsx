@@ -40,8 +40,6 @@ const CustomListItemText = styled(ListItemText)<ListItemTextProps>(() => ({
 const TabMain: FC<PropsType> = ({ items, onClick }) => {
   const [activeItem, setActiveItem] = useState<number | null>(null);
 
-  console.log('tabMAin');
-  
   const onItem = (index: number | null) => {
     setActiveItem(index)
     onClick(index)

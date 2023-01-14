@@ -3,7 +3,7 @@ import { configureStore, ThunkAction} from '@reduxjs/toolkit'
 import pizzasReduser from './redusers/pizzas'
 import tabReduser from './redusers/tab'
 import {Action} from 'redux';
-import {createWrapper, HYDRATE} from 'next-redux-wrapper';
+import {createWrapper} from 'next-redux-wrapper';
 
 const makeStore  = () => 
   configureStore({
@@ -22,6 +22,6 @@ export type AppState = ReturnType<AppStore['getState']>;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppState, unknown, Action>;
 export type AppDispatch = typeof store.dispatch
 
-export const wrapper = createWrapper<AppStore>(makeStore);
+export const wrapper = createWrapper<AppStore>(makeStore, {debug: true});
 
 

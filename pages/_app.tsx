@@ -11,23 +11,13 @@ interface Props {
 const App = ({ Component, pageProps, items}: AppProps & Props)  => {
 
   return (
-    <Provider store={store}>
       <Layout items={items}>
         <Component {...pageProps}/>
       </Layout>
-    </Provider>
   ) 
 }
 
 export default wrapper.withRedux(App);
-
-
-// App.getInitialProps = async () => {
-//   const res = await fetch('http://localhost:3000/db.json')
-//   const json = await res.json()
-//   return { items: json.pizzas }
-// }
-
 
 //todo: fetch запрос каждый раз при переходе на любую старинц...это плохо
 //todo: margin in container
@@ -44,5 +34,7 @@ export default wrapper.withRedux(App);
 //todo: почему при SSR нет фото в network??
 //todo: SortCard костыль исправить
 //todo: можно ли сразу с fetch next.js диспатчить в стор?
+//todo: в index не приходит Loading: true (init), а зразу false
+
 
 

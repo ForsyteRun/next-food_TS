@@ -1,16 +1,22 @@
 import { Stack, Typography } from "@mui/material";
+import axios from "axios";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 import React from "react";
-import { MainCard, SortCard, TabMain } from "../components";
-import { useAppSelector, useAppDispatch } from "../store/hooks";
+import { MainCard, SortCard, TabMain, Sceleton } from "../components";
+import { AppStore, wrapper } from "../store";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { items } from "../store/redusers/pizzas";
 import { tab } from "../store/redusers/tab";
 import { CardDataType } from "../types/types";
 
 const tabMenuItems = ['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']
 
 const Home = () => {
-  const pizzas = useAppSelector(state => state.pizzas.pizzas);
   const dispatch = useAppDispatch()
+  const {pizzas, loading} = useAppSelector(state => state.pizzas)
+  console.log(loading, pizzas);
+  
 
   const onSelectTab =React.useCallback((index: number | null) => {
     dispatch(tab(index))
@@ -37,8 +43,11 @@ const Home = () => {
       </Stack>
       <Typography variant="h2" component="div" mb='35px'>Все пиццы</Typography> 
       <Stack direction='row' flexWrap='wrap' justifyContent='space-between' rowGap={8.125}>
-        {pizzas && pizzas.map((card: CardDataType) => {
-          return <MainCard card={card} key={card.id} />;
+        {
+          loading 
+          ? Array(12).fill(<Sceleton/>)
+          : pizzas.map((card: CardDataType) => {
+              return <MainCard card={card} key={card.id} />;
         })}
       </Stack>
     </>
@@ -46,3 +55,18 @@ const Home = () => {
 };
 
 export default Home;
+
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store: AppStore) => async () => {
+  try {
+    const response  = await axios.get<Array<CardDataType>>('http://localhost:3000/db.json')
+    const {data} = response
+    
+    store.dispatch(items(data))
+
+    return {props: {}}
+  } catch (error) {
+    throw Error('errorGetServerSideProps' + error)    
+  }
+});
+
+
