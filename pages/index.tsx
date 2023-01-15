@@ -1,22 +1,26 @@
-import { Stack, Typography } from "@mui/material";
-import axios from "axios";
+import React from "react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import React from "react";
-import { MainCard, SortCard, TabMain, Sceleton } from "../components";
+import { dehydrate, QueryClient, useQuery } from "react-query";
+import { Stack, Typography } from "@mui/material";
+import { getPizzas } from "../api/getPizzas";
+import { MainCard, Sceleton, SortCard, TabMain } from "../components";
+import { useActions } from "../hooks/useActions";
 import { AppStore, wrapper } from "../store";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { items } from "../store/redusers/pizzas";
-import { filterTab, tab } from "../store/redusers/tab";
+import { tab } from "../store/redusers/tab";
 import { CardDataType } from "../types/types";
 
 const tabMenuItems = ['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const {pizzas, loading} = useAppSelector(state => state.pizzas)
+  const {items} = useActions()
+  const {loading} = useAppSelector(state => state.pizzas)
   const {setTab} = useAppSelector(state => state.tab)
 
+  const { data } = useQuery({ queryKey: ['pizzasInit'], queryFn: getPizzas })
+  
   const onSelectTab =React.useCallback((index: number | null) => {
     dispatch(tab(index))
   }, [])
@@ -45,7 +49,7 @@ const Home = () => {
         {
           loading 
           ? Array(12).fill(<Sceleton/>)
-          : pizzas.map((card: CardDataType) => {
+          : data.map((card: CardDataType) => {
               return <MainCard card={card} key={card.id} />;
         })}
       </Stack>
@@ -56,21 +60,14 @@ const Home = () => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store: AppStore) => async ( ) => {
-  try {
-    await axios.get<Array<CardDataType>>(`http://localhost:3001/pizzas`).then(({data}) => {
-    store.dispatch(items(data))
-    })
-      
-    // const tabRes  = await axios.get<Array<CardDataType>>('http://localhost:3000/db.json')
-    // const {data} = response
-    // const tabRes = data.pizzas.filter((el: any)=>el.category==2)
-    
-    // store.dispatch(filterTab(tabRes))
 
-    return {props: {}}
-  } catch (error) {
-    throw Error('errorGetServerSideProps' + error)    
-  }
-});
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery(['pizzasInit'], getPizzas)
+  
+  return {props: {
+    dehydratedState: dehydrate(queryClient)
+  }}
+})
+
 
 

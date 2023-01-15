@@ -32,5 +32,6 @@ export const tabSlice = createSlice({
 })
 
 export const {tab, filterTab} = tabSlice.actions
+export const tabActions = tabSlice.actions
 
 export default tabSlice.reducer

@@ -4,16 +4,23 @@ import Layout from '../components/Layout'
 import { store, wrapper } from '../store'
 import '../styles/globals.scss'
 import { CardDataType } from '../types/types'
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
+import React from 'react'
 interface Props {
   items: Array<CardDataType>
 }
 
 const App = ({ Component, pageProps, items}: AppProps & Props)  => {
-
+  const [queryClient] = React.useState(() => new QueryClient())
+  
   return (
-      <Layout items={items}>
-        <Component {...pageProps}/>
-      </Layout>
+    <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+            <Layout items={items}>
+              <Component {...pageProps}/>
+            </Layout>
+        </Hydrate>
+    </QueryClientProvider>
   ) 
 }
 

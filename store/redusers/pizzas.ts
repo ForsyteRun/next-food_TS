@@ -31,5 +31,6 @@ export const pizzasSlice = createSlice({
 })
 
 export const {items} = pizzasSlice.actions
+export const pizzasActions = pizzasSlice.actions
 
 export default pizzasSlice.reducer
