@@ -1,18 +1,18 @@
 import type { AppProps } from 'next/app'
-import { Provider } from 'react-redux'
+import React from 'react'
+import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useDehydratedState } from 'use-dehydrated-state'
 import Layout from '../components/Layout'
-import { store, wrapper } from '../store'
+import { wrapper } from '../store'
 import '../styles/globals.scss'
 import { CardDataType } from '../types/types'
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
-import React from 'react'
 interface Props {
   items: Array<CardDataType>
 }
 
 const App = ({ Component, pageProps, items}: AppProps & Props)  => {
   const [queryClient] = React.useState(() => new QueryClient())
-  
+
   return (
     <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
@@ -44,6 +44,7 @@ export default wrapper.withRedux(App);
 //todo: в index не приходит Loading: true (init), а зразу false
 //todo: react-select синий цвет при нажати и удерживании
 //todo: react-select типизацыя и анимация
+//todo: ошибки в консоле и в терминале
 
 
 

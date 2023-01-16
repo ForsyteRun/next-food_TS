@@ -4,12 +4,12 @@ import { CardDataType } from '../../types/types';
 import {HYDRATE} from 'next-redux-wrapper';
 interface pizzaState {
   pizzas: Array<CardDataType>
-  loading: boolean
+  isLoading: boolean
 }
 
 const initialState: pizzaState = {
   pizzas: [],
-  loading: true
+  isLoading: false
 }
 
 export const pizzasSlice = createSlice({
@@ -17,15 +17,18 @@ export const pizzasSlice = createSlice({
   initialState,
   reducers: {
     items: (state: pizzaState, action: PayloadAction<Array<CardDataType>>) => {
-      state.loading = false,
       state.pizzas = action.payload
+      state.isLoading = true
+    },
+    isLoadingItems: (state: pizzaState, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload
     }
   },
   //reduser for async req to backend - combine redux from server whith redux from front
   extraReducers: {
     [HYDRATE]: (state: pizzaState, action) => {
-      state.loading = false,
       state.pizzas = action.payload.pizzas.pizzas
+      state.isLoading = false
     }
   }
 })

@@ -1,11 +1,9 @@
 import { Stack, Typography } from '@mui/material';
 import * as React from 'react';
+import Select, { SingleValue } from 'react-select';
+import { StylesConfig } from 'react-select/dist/declarations/src/styles';
 import { useActions } from "../hooks/useActions";
 import { useAppDispatch } from "../store/hooks";
-import Select, { GroupBase, SingleValue } from 'react-select'
-import { AnyIfEmpty } from 'react-redux';
-import { IndexedAccessType } from 'typescript';
-import { StylesConfig, StylesProps } from 'react-select/dist/declarations/src/styles';
 
 type ItemSortBy = {
   value: String
@@ -15,11 +13,14 @@ type ItemSortBy = {
 
 type PropsType = {
   itemsSort: Array<ItemSortBy>
+  isLoading: boolean
 }
 
-const SortBy: React.FC<PropsType> = ({itemsSort}) => {
+const SortBy: React.FC<PropsType> = ({itemsSort, isLoading}) => {
   const dispatch = useAppDispatch()
-  const {filters} = useActions()
+  console.log(isLoading)
+  const {filters, isLoadingItems} = useActions()
+
   
  const onChange = (newValue: SingleValue<ItemSortBy | null>) => {
     newValue && dispatch(filters(newValue.id))

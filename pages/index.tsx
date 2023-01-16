@@ -1,7 +1,7 @@
 import React from "react";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { dehydrate, QueryClient, useQuery } from "react-query";
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { Stack, Typography } from "@mui/material";
 import { getPizzas } from "../api/getPizzas";
 import { MainCard, Sceleton, SortCard, TabMain, SortBy } from "../components";
@@ -10,20 +10,21 @@ import { AppStore, wrapper } from "../store";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { tab } from "../store/redusers/tab";
 import { CardDataType } from "../types/types";
+import { items } from "../store/redusers/pizzas";
 
 const tabMenuItems = ['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const {loading} = useAppSelector(state => state.pizzas)
+  const {isLoading, pizzas} = useAppSelector(state => state.pizzas)
   const {sortBy} = useAppSelector(state => state.filters)
+  const {items} = useActions()
 
-  const { data } = useQuery({ queryKey: ['pizzasInit', {sortByItem: sortBy}], queryFn: getPizzas })
-  console.log(data);
-  
-  
+  // const { data } = useQuery({ queryKey: ['pizzasInit', {sortByItem: sortBy}], queryFn: getPizzas })
+  useQuery(['pizzasInit'], getPizzas)
+
   const onSelectTab =React.useCallback((index: number | null) => {
-    dispatch(tab(index))
+    // dispatch(tab(index))
   }, [])
 
   return (
@@ -43,17 +44,16 @@ const Home = () => {
           {value: 'popular', label: 'популярности', id: 0},
           {value: 'price', label: 'цене', id: 1},
           {value: 'alphabet', label: 'алфавиту', id: 2},
-        ]}/>
+        ]} isLoading={isLoading}/>
       </Stack>
       <Typography variant="h2" component="div" mb='35px'>Все пиццы</Typography> 
       <Stack direction='row' flexWrap='wrap' justifyContent='space-between' rowGap={8.125}>
         {
-          loading 
-          ? Array(12).fill(<Sceleton/>)
-          : data && 
-              data.map((card: CardDataType) => {
-              return <MainCard card={card} key={card.id} />;
-        })}
+          pizzas && 
+            pizzas.map((card: CardDataType) => {
+            return <MainCard card={card} key={card.id} />;
+          })
+        }
       </Stack>
     </>
   );
@@ -64,11 +64,14 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store: AppStore) => async ( ) => {
 
   const queryClient = new QueryClient()
-  await queryClient.prefetchQuery(['pizzasInit'], getPizzas)
+  // prefetch data on the server & dispatch in redux
+  store.dispatch(items(await queryClient.fetchQuery(['pizzasInit'], getPizzas)))
   
-  return {props: {
-    dehydratedState: dehydrate(queryClient)
-  }}
+  return {
+    props: {
+        // dehydrate query cache
+        dehydratedState: dehydrate(queryClient),
+    }}
 })
 
 
