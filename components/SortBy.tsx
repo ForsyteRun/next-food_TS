@@ -18,7 +18,6 @@ type PropsType = {
 
 const SortBy: React.FC<PropsType> = ({itemsSort, isLoading}) => {
   const dispatch = useAppDispatch()
-  console.log(isLoading)
   const {filters, isLoadingItems} = useActions()
 
   

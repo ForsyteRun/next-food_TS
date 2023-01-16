@@ -20,8 +20,12 @@ const Home = () => {
   const {sortBy} = useAppSelector(state => state.filters)
   const {items} = useActions()
 
-  // const { data } = useQuery({ queryKey: ['pizzasInit', {sortByItem: sortBy}], queryFn: getPizzas })
-  useQuery(['pizzasInit'], getPizzas)
+  const { data } = useQuery({ queryKey: ['pizzasInit', {sortByItem: sortBy}], queryFn: getPizzas })
+  // useQuery(['pizzasInit'], getPizzas)
+
+  React.useEffect(() => {
+    dispatch(items(data))
+  }, [data])
 
   const onSelectTab =React.useCallback((index: number | null) => {
     // dispatch(tab(index))
