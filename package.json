@@ -27,6 +27,7 @@
     "concurrently": "^7.6.0",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.7",
+    "hoist-non-react-statics": "^3.3.2",
     "next": "13.0.7",
     "next-redux-wrapper": "^8.1.0",
     "react": "18.2.0",
@@ -34,6 +35,7 @@
     "react-dom": "18.2.0",
     "react-query": "^3.39.2",
     "react-redux": "^8.0.5",
+    "react-select": "^5.7.0",
     "sass": "^1.57.0",
     "typescript": "4.9.4"
   },

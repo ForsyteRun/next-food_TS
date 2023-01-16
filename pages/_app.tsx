@@ -42,6 +42,8 @@ export default wrapper.withRedux(App);
 //todo: SortCard костыль исправить
 //todo: можно ли сразу с fetch next.js диспатчить в стор?
 //todo: в index не приходит Loading: true (init), а зразу false
+//todo: react-select синий цвет при нажати и удерживании
+//todo: react-select типизацыя и анимация
 
 
 

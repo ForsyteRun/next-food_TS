@@ -6,7 +6,8 @@ import SelectUnstyled, {
 import { SelectChangeEvent, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import * as React from 'react';
-import { useAppSelector } from '../store/hooks';
+import { useActions } from "../hooks/useActions";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 const StyledButton = styled('button')(
   ({theme}) => `
@@ -103,9 +104,14 @@ type PropsType = {
 }
 
 const SortCard: React.FC<PropsType> = ({itemsSort}) => {
+  const dispatch = useAppDispatch()
+  const {filters} = useActions()
   
- const onSelect = (event: any,value: any) => {
-  console.log(value);
+ const onSelect = (event: any, value: any) => {
+   console.log(
+     typeof(value) 
+  )
+    dispatch(filters(value))
  }
 
   return (

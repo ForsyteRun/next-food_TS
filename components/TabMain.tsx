@@ -37,7 +37,8 @@ const CustomListItemText = styled(ListItemText)<ListItemTextProps>(() => ({
   lineHeight: "19px",
 }));
 
-const TabMain: FC<PropsType> = ({ items, onClick }) => {
+// eslint-disable-next-line react/display-name
+const TabMain: FC<PropsType> = React.memo(({ items, onClick }) => {
   const [activeItem, setActiveItem] = useState<number | null>(null);
 
   const onItem = (index: number | null) => {
@@ -65,6 +66,6 @@ const TabMain: FC<PropsType> = ({ items, onClick }) => {
         ))}
     </CustomList>
   );
-};
+});
 
 export default TabMain;
