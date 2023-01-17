@@ -1,35 +1,36 @@
-import React from "react";
+import { Stack, Typography } from "@mui/material";
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
-import { Stack, Typography } from "@mui/material";
+import React from "react";
 import { getPizzas } from "../api/getPizzas";
-import { MainCard, Sceleton, SortCard, TabMain, SortBy } from "../components";
+import { MainCard, SortBy, TabMain, Sceleton } from "../components";
 import { useActions } from "../hooks/useActions";
 import { AppStore, wrapper } from "../store";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { tab } from "../store/redusers/tab";
-import { CardDataType } from "../types/types";
 import { items } from "../store/redusers/pizzas";
+import { CardDataType } from "../types/types";
 
 const tabMenuItems = ['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']
+const itemsSort = [
+  {value: 'rating', label: 'популярности', id: 0},
+  {value: 'price', label: 'цене', id: 1},
+  {value: 'name', label: 'алфавиту', id: 2},
+]
 
 const Home = () => {
   const dispatch = useAppDispatch()
   const {isLoading, pizzas} = useAppSelector(state => state.pizzas)
   const {sortBy} = useAppSelector(state => state.filters)
-  const {items} = useActions()
+  const {setTab} = useAppSelector(state => state.tab)
+  const {items, isLoadingItems} = useActions()
 
-  const { data } = useQuery({ queryKey: ['pizzasInit', {sortByItem: sortBy}], queryFn: getPizzas })
-  // useQuery(['pizzasInit'], getPizzas)
-
+  const { data } = useQuery({ queryKey: ['pizzasInit', {sortByItem: sortBy, tabItems: setTab}], queryFn: getPizzas})
+  //dispatch sorted pizzas
   React.useEffect(() => {
     dispatch(items(data))
+    dispatch(isLoadingItems(false))
   }, [data])
-
-  const onSelectTab =React.useCallback((index: number | null) => {
-    // dispatch(tab(index))
-  }, [])
 
   return (
     <>
@@ -41,21 +42,16 @@ const Home = () => {
       </Head>
       <Stack direction='row' justifyContent='space-between' mb='32px'>
         <TabMain 
-          onClick={onSelectTab}
           items={tabMenuItems} 
           />
-        <SortBy itemsSort={[
-          {value: 'popular', label: 'популярности', id: 0},
-          {value: 'price', label: 'цене', id: 1},
-          {value: 'alphabet', label: 'алфавиту', id: 2},
-        ]} isLoading={isLoading}/>
+        <SortBy itemsSort={itemsSort} isLoading={isLoading}/>
       </Stack>
       <Typography variant="h2" component="div" mb='35px'>Все пиццы</Typography> 
       <Stack direction='row' flexWrap='wrap' justifyContent='space-between' rowGap={8.125}>
         {
           pizzas && 
             pizzas.map((card: CardDataType) => {
-            return <MainCard card={card} key={card.id} />;
+            return <MainCard card={card} key={card.id} />
           })
         }
       </Stack>

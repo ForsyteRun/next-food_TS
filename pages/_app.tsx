@@ -45,6 +45,7 @@ export default wrapper.withRedux(App);
 //todo: react-select синий цвет при нажати и удерживании
 //todo: react-select типизацыя и анимация
 //todo: ошибки в консоле и в терминале
+//todo: Sceleton ошибка в консоле... no match props server-client
 
 
 

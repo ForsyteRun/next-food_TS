@@ -6,8 +6,8 @@ import { useActions } from "../hooks/useActions";
 import { useAppDispatch } from "../store/hooks";
 
 type ItemSortBy = {
-  value: String
-  label: String
+  value: string
+  label: string
   id: number
 }
 
@@ -22,7 +22,7 @@ const SortBy: React.FC<PropsType> = ({itemsSort, isLoading}) => {
 
   
  const onChange = (newValue: SingleValue<ItemSortBy | null>) => {
-    newValue && dispatch(filters(newValue.id))
+    newValue && dispatch(filters(newValue.value))
  }
 
  const itemStyles: StylesConfig  = {

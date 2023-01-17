@@ -10,10 +10,11 @@ import { styled } from "@mui/material/styles";
 import React, { FC, useState } from "react";
 import { theme } from "../theme/theme";
 import s from "./../styles/tabMain.module.scss";
+import { useActions } from "../hooks/useActions";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 type PropsType = {
   items: Array<string>;
-  onClick: (index: number | null) => void
 };
 
 const CustomList = styled(List)<ListProps>(() => ({
@@ -38,30 +39,31 @@ const CustomListItemText = styled(ListItemText)<ListItemTextProps>(() => ({
 }));
 
 // eslint-disable-next-line react/display-name
-const TabMain: FC<PropsType> = React.memo(({ items, onClick }) => {
-  const [activeItem, setActiveItem] = useState<number | null>(null);
+const TabMain: FC<PropsType> = React.memo(({ items }) => {
+  const dispatch = useAppDispatch()
+  const {setTab} =useAppSelector(state => state.tab)
+  const {tab} = useActions()
 
-  const onItem = (index: number | null) => {
-    setActiveItem(index)
-    onClick(index)
+  const onTabItem = (index: number | null) => {
+    dispatch(tab(index))
   }
 
   return (
     <CustomList dense>
       <CustomListItem
-        onClick={() => onItem(null)}
-        className={activeItem === null ? s.active : ""}
+        onClick={() => onTabItem(null)}
+        className={setTab === null ? s.active : ''}
       >
         <CustomListItemText primary="Все" disableTypography />
       </CustomListItem>
       {items &&
-        items.map((item: string, index) => (
+        items.map((el: string, index) => (
           <CustomListItem
             key={index}
-            onClick={() => onItem(index)}
-            className={activeItem === index ? s.active : ""}
+            onClick={() => onTabItem(index)}
+            className={setTab === index ? s.active : ''}
           >
-            <CustomListItemText primary={item} disableTypography />
+            <CustomListItemText primary={el} disableTypography />
           </CustomListItem>
         ))}
     </CustomList>

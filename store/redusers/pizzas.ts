@@ -9,7 +9,7 @@ interface pizzaState {
 
 const initialState: pizzaState = {
   pizzas: [],
-  isLoading: false
+  isLoading: true
 }
 
 export const pizzasSlice = createSlice({
@@ -18,7 +18,6 @@ export const pizzasSlice = createSlice({
   reducers: {
     items: (state: pizzaState, action: PayloadAction<Array<CardDataType>>) => {
       state.pizzas = action.payload
-      state.isLoading = true
     },
     isLoadingItems: (state: pizzaState, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload
@@ -28,7 +27,6 @@ export const pizzasSlice = createSlice({
   extraReducers: {
     [HYDRATE]: (state: pizzaState, action) => {
       state.pizzas = action.payload.pizzas.pizzas
-      state.isLoading = false
     }
   }
 })
