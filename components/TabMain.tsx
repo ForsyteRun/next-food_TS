@@ -41,7 +41,7 @@ const CustomListItemText = styled(ListItemText)<ListItemTextProps>(() => ({
 // eslint-disable-next-line react/display-name
 const TabMain: FC<PropsType> = React.memo(({ items }) => {
   const dispatch = useAppDispatch()
-  const {setTab} =useAppSelector(state => state.tab)
+  // const {setTab} =useAppSelector(state => state.tab)
   const {tab} = useActions()
 
   const onTabItem = (index: number | null) => {
@@ -52,7 +52,7 @@ const TabMain: FC<PropsType> = React.memo(({ items }) => {
     <CustomList dense>
       <CustomListItem
         onClick={() => onTabItem(null)}
-        className={setTab === null ? s.active : ''}
+        // className={setTab === null ? s.active : ''}
       >
         <CustomListItemText primary="Все" disableTypography />
       </CustomListItem>
@@ -61,7 +61,7 @@ const TabMain: FC<PropsType> = React.memo(({ items }) => {
           <CustomListItem
             key={index}
             onClick={() => onTabItem(index)}
-            className={setTab === index ? s.active : ''}
+            // className={setTab === index ? s.active : ''}
           >
             <CustomListItemText primary={el} disableTypography />
           </CustomListItem>

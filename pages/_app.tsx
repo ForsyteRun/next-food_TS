@@ -11,16 +11,16 @@ interface Props {
 }
 
 const App = ({ Component, pageProps, items}: AppProps & Props)  => {
-  const [queryClient] = React.useState(() => new QueryClient())
+  // const [queryClient] = React.useState(() => new QueryClient())
 
   return (
-    <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
+    // <QueryClientProvider client={queryClient}>
+        // <Hydrate state={pageProps.dehydratedState}>
             <Layout items={items}>
               <Component {...pageProps}/>
             </Layout>
-        </Hydrate>
-    </QueryClientProvider>
+        // </Hydrate>
+    // </QueryClientProvider>
   ) 
 }
 

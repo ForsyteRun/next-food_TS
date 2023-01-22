@@ -1,9 +1,11 @@
 import { Stack, Typography } from "@mui/material";
 import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
+import { log } from "console";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import React from "react";
 import { getPizzas } from "../api/getPizzas";
+import { useGetAllPizzasQuery, pizzaApi} from "../api/pizzas.api";
 import { MainCard, SortBy, TabMain, Sceleton } from "../components";
 import { useActions } from "../hooks/useActions";
 import { AppStore, wrapper } from "../store";
@@ -20,17 +22,23 @@ const itemsSort = [
 
 const Home = () => {
   const dispatch = useAppDispatch()
-  const {isLoading, pizzas} = useAppSelector(state => state.pizzas)
-  const {sortBy} = useAppSelector(state => state.filters)
-  const {setTab} = useAppSelector(state => state.tab)
+  // const {isLoading, pizzas} = useAppSelector(state => state.pizzas)
+  // const {sortBy} = useAppSelector(state => state.filters)
+  // const {setTab} = useAppSelector(state => state.tab)
   const {items, isLoadingItems} = useActions()
 
-  const { data } = useQuery({ queryKey: ['pizzasInit', {sortByItem: sortBy, tabItems: setTab}], queryFn: getPizzas})
+  // const {isLoading, isError, data} = useGetAllPizzasQuery()
+  // console.log(data);
+  // React.useEffect(() => {
+  //   dispatch(items(data))
+  // },[data])
+  
+
   //dispatch sorted pizzas
-  React.useEffect(() => {
-    dispatch(items(data))
-    dispatch(isLoadingItems(false))
-  }, [data])
+  // React.useEffect(() => {
+  //   dispatch(items(data))
+  //   dispatch(isLoadingItems(false))
+  // }, [data])
 
   return (
     <>
@@ -44,13 +52,12 @@ const Home = () => {
         <TabMain 
           items={tabMenuItems} 
           />
-        <SortBy itemsSort={itemsSort} isLoading={isLoading}/>
+        <SortBy itemsSort={itemsSort} />
       </Stack>
       <Typography variant="h2" component="div" mb='35px'>Все пиццы</Typography> 
       <Stack direction='row' flexWrap='wrap' justifyContent='space-between' rowGap={8.125}>
         {
-          pizzas && 
-            pizzas.map((card: CardDataType) => {
+            [].map((card: CardDataType) => {
             return <MainCard card={card} key={card.id} />
           })
         }
@@ -63,14 +70,15 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store: AppStore) => async ( ) => {
 
-  const queryClient = new QueryClient()
+  // const queryClient = new QueryClient()
   // prefetch data on the server & dispatch in redux
-  store.dispatch(items(await queryClient.fetchQuery(['pizzasInit'], getPizzas)))
+  // store.dispatch(items(await queryClient.fetchQuery(['pizzasInit'], getPizzas)))
+  // store.dispatch(pizzaApi.endpoints.getAllPizzas.initiate())
   
   return {
     props: {
         // dehydrate query cache
-        dehydratedState: dehydrate(queryClient),
+        // dehydratedState: dehydrate(queryClient),
     }}
 })
 

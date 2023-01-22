@@ -1,17 +1,21 @@
+import { pizzaApi } from './../api/pizzas.api';
 import filterReduser from './redusers/filter';
 import { configureStore, ThunkAction} from '@reduxjs/toolkit'
 import pizzasReduser from './redusers/pizzas'
 import tabReduser from './redusers/tab'
 import {Action} from 'redux';
-import {createWrapper} from 'next-redux-wrapper';
+import {createWrapper, HYDRATE} from 'next-redux-wrapper';
 
 const makeStore  = () => 
   configureStore({
     reducer: {
-      filters: filterReduser,
-      pizzas: pizzasReduser,
-      tab: tabReduser,
+      [pizzaApi.reducerPath]: pizzaApi.reducer,
+      // [pizzaApi.reducerPath]: (state, action) => action.type !== HYDRATE 
+      // ? pizzaApi.reducer(state, action) 
+      // : {...state, ...(action.payload as any)[pizzaApi.reducerPath]},
     },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(pizzaApi.middleware),
     devTools: true
   })
 

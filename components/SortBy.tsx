@@ -13,10 +13,10 @@ type ItemSortBy = {
 
 type PropsType = {
   itemsSort: Array<ItemSortBy>
-  isLoading: boolean
+  // isLoading: boolean
 }
 
-const SortBy: React.FC<PropsType> = ({itemsSort, isLoading}) => {
+const SortBy: React.FC<PropsType> = ({itemsSort}) => {
   const dispatch = useAppDispatch()
   const {filters, isLoadingItems} = useActions()
 
