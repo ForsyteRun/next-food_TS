@@ -1,28 +1,15 @@
-import type { AppProps } from 'next/app'
-import React from 'react'
-import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useDehydratedState } from 'use-dehydrated-state'
-import Layout from '../components/Layout'
-import { wrapper } from '../store'
-import '../styles/globals.scss'
-import { CardDataType } from '../types/types'
-interface Props {
-  items: Array<CardDataType>
-}
+import type { AppProps } from "next/app";
+import Layout from "../components/Layout";
+import { wrapper } from "../store";
+import "../styles/globals.scss";
 
-const App = ({ Component, pageProps, items}: AppProps & Props)  => {
-  // const [queryClient] = React.useState(() => new QueryClient())
-
+const App = ({ Component, pageProps }: AppProps) => {
   return (
-    // <QueryClientProvider client={queryClient}>
-        // <Hydrate state={pageProps.dehydratedState}>
-            <Layout items={items}>
-              <Component {...pageProps}/>
-            </Layout>
-        // </Hydrate>
-    // </QueryClientProvider>
-  ) 
-}
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  );
+};
 
 export default wrapper.withRedux(App);
 
@@ -33,7 +20,7 @@ export default wrapper.withRedux(App);
 //todo: min 600px how create burger?
 //todo: Tab not in MUI
 //todo: default styles MUI in body
-//todo: del styles which do not need everywhere 
+//todo: del styles which do not need everywhere
 //todo: add palatte => text => default text color
 //todo: типизация компонента App с участием типизации с помощью NextPge
 //todo: NextImage подгружает разніе размеры под оптимизацию  и адаптив... как их привести в исполнение?!
@@ -46,6 +33,3 @@ export default wrapper.withRedux(App);
 //todo: react-select типизацыя и анимация
 //todo: ошибки в консоле и в терминале
 //todo: Sceleton ошибка в консоле... no match props server-client
-
-
-

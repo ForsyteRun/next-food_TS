@@ -1,16 +1,9 @@
 import { Stack, Typography } from "@mui/material";
-import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
-import { log } from "console";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import React from "react";
-import { getPizzas } from "../api/getPizzas";
-import { useGetAllPizzasQuery, pizzaApi} from "../api/pizzas.api";
-import { MainCard, SortBy, TabMain, Sceleton } from "../components";
-import { useActions } from "../hooks/useActions";
+import { pizzaApi, useGetAllPizzasQuery } from "../api/pizzas.api";
+import { MainCard, SortBy, TabMain } from "../components";
 import { AppStore, wrapper } from "../store";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { items } from "../store/redusers/pizzas";
 import { CardDataType } from "../types/types";
 
 const tabMenuItems = ['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']
@@ -21,24 +14,7 @@ const itemsSort = [
 ]
 
 const Home = () => {
-  const dispatch = useAppDispatch()
-  // const {isLoading, pizzas} = useAppSelector(state => state.pizzas)
-  // const {sortBy} = useAppSelector(state => state.filters)
-  // const {setTab} = useAppSelector(state => state.tab)
-  const {items, isLoadingItems} = useActions()
-
-  // const {isLoading, isError, data} = useGetAllPizzasQuery()
-  // console.log(data);
-  // React.useEffect(() => {
-  //   dispatch(items(data))
-  // },[data])
-  
-
-  //dispatch sorted pizzas
-  // React.useEffect(() => {
-  //   dispatch(items(data))
-  //   dispatch(isLoadingItems(false))
-  // }, [data])
+  const {data} = useGetAllPizzasQuery()
 
   return (
     <>
@@ -57,7 +33,7 @@ const Home = () => {
       <Typography variant="h2" component="div" mb='35px'>Все пиццы</Typography> 
       <Stack direction='row' flexWrap='wrap' justifyContent='space-between' rowGap={8.125}>
         {
-            [].map((card: CardDataType) => {
+          data?.map((card: CardDataType) => {
             return <MainCard card={card} key={card.id} />
           })
         }
@@ -70,15 +46,10 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store: AppStore) => async ( ) => {
 
-  // const queryClient = new QueryClient()
-  // prefetch data on the server & dispatch in redux
-  // store.dispatch(items(await queryClient.fetchQuery(['pizzasInit'], getPizzas)))
-  // store.dispatch(pizzaApi.endpoints.getAllPizzas.initiate())
-  
+    await store.dispatch(pizzaApi.endpoints.getAllPizzas.initiate())
   return {
     props: {
-        // dehydrate query cache
-        // dehydratedState: dehydrate(queryClient),
+
     }}
 })
 

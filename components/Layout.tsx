@@ -5,15 +5,9 @@ import Header from './Header'
 
 type PropsType = {
    children: ReactNode
-   items: any
 }
 
-const Layout: FC<PropsType> = ({children, items}) => {
-   // const dispatch = useAppDispatch()
-
-   // useEffect(() => {
-   //   dispatch(pizzas(items))
-   // }, [])
+const Layout: FC<PropsType> = ({children}) => {
 
   return (
     <>

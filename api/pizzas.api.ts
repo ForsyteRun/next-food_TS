@@ -13,13 +13,9 @@ export const pizzaApi = createApi({
       }
     },
    endpoints: (build) => ({
+      //get init allPizzasState
       getAllPizzas: build.query<Array<CardDataType>, void>({
          query: () => `pizzas`,
-            // onSuccess: async (dispatch: any, data: Array<CardDataType>) => {
-            //    dispatch(items(data))
-            // }
-         //   url: `${tabItemsBy !==null ? `category=${tabItemsBy}` : ''}`
-         
       }) 
    })
 })
