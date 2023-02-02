@@ -18,11 +18,11 @@ type PropsType = {
 
 const SortBy: React.FC<PropsType> = ({itemsSort}) => {
   const dispatch = useAppDispatch()
-  const {filters, isLoadingItems} = useActions()
+  const {sortPizzas, isLoadingItems} = useActions()
 
   
  const onChange = (newValue: SingleValue<ItemSortBy | null>) => {
-    newValue && dispatch(filters(newValue.value))
+    newValue && dispatch(sortPizzas(newValue.value))
  }
 
  const itemStyles: StylesConfig  = {

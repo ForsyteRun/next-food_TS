@@ -3,8 +3,9 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { pizzaApi, useGetAllPizzasQuery } from "../api/pizzas.api";
 import { MainCard, SortBy, TabMain } from "../components";
-import { AppStore, wrapper } from "../store";
+import { AppState, AppStore, wrapper } from "../store";
 import { CardDataType } from "../types/types";
+import { useAppSelector} from "../store/hooks";
 
 const tabMenuItems = ['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']
 const itemsSort = [
@@ -14,8 +15,12 @@ const itemsSort = [
 ]
 
 const Home = () => {
-  const {data} = useGetAllPizzasQuery()
+  const {tabPizzas} = useAppSelector((state: AppState) => state.getFilterTab)
+  const {sortBy} = useAppSelector((state: AppState) => state.sortBy)
 
+  const {data} = useGetAllPizzasQuery(tabPizzas, sortBy)
+  console.log(sortBy)
+  
   return (
     <>
       <Head>
@@ -32,8 +37,9 @@ const Home = () => {
       </Stack>
       <Typography variant="h2" component="div" mb='35px'>Все пиццы</Typography> 
       <Stack direction='row' flexWrap='wrap' justifyContent='space-between' rowGap={8.125}>
-        {
-          data?.map((card: CardDataType) => {
+        {data 
+        &&
+          data.map((card: CardDataType) => {
             return <MainCard card={card} key={card.id} />
           })
         }
