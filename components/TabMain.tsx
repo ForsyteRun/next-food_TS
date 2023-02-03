@@ -44,8 +44,7 @@ const TabMain: FC<PropsType> = React.memo(({ items }) => {
   const dispatch = useAppDispatch()
   const {tabPizzas} = useActions()
   console.log(getFilterTab.tabPizzas)
-  // const {data} = useFilterByTabQuery(filter)
-  // console.log(data);
+  
   
   const onTabItem = (index: number | null) => {
     dispatch(tabPizzas(index))

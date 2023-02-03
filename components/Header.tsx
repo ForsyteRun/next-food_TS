@@ -4,11 +4,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react'
+import { useAppSelector } from '../store/hooks';
 import logo from './../public/logo.png';
 import CartBtn from './CartBtn';
 
 const Header = () => {
   const router = useRouter()
+  const {totalPrice, totalCount} = useAppSelector(({selectedPizzas}) => ({
+      totalPrice: selectedPizzas.totalPrice,
+      totalCount: selectedPizzas.totalCount
+   }))
 
   return (
     <header >
@@ -29,7 +34,7 @@ const Header = () => {
         </Stack>
       </Stack>
       <Link href={'/draw'}>
-        <CartBtn price={55} items={7}/>
+        <CartBtn price={totalPrice} items={totalCount}/>
       </Link>
     </header>
   )

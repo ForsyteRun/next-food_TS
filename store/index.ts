@@ -1,3 +1,4 @@
+import { selectedPizzas } from './redusers/selectedPizzas';
 import { configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 import { Action } from 'redux';
@@ -10,7 +11,8 @@ const makeStore  = () =>
     reducer: {
       [pizzaApi.reducerPath]: pizzaApi.reducer,
       sortBy: sortSlice.reducer,
-      getFilterTab: getTabSlice.reducer
+      getFilterTab: getTabSlice.reducer, 
+      selectedPizzas: selectedPizzas.reducer
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(pizzaApi.middleware),

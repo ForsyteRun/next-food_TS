@@ -1,14 +1,15 @@
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
+import { selectedPizzasAction } from '../store/redusers/selectedPizzas';
 
-import { filterActions } from '../store/redusers/sortPizzas';
-import { pizzasActions } from '../store/redusers/pizzas';
+import { sortActions } from '../store/redusers/sortPizzas';
+// import { pizzasActions } from '../store/redusers/pizzas';
 import { tabActions } from '../store/redusers/tabPizzzas';
 
 const allActions = {
-   ...pizzasActions,
-   ...filterActions,
+   ...sortActions,
    ...tabActions,
+   ...selectedPizzasAction
 }
 
 export const useActions = () => {

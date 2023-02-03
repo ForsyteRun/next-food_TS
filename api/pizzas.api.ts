@@ -18,14 +18,9 @@ export const pizzaApi = createApi({
       }
     },
    endpoints: (build) => ({
-   
       getAllPizzas: build.query<Array<CardDataType>, any>({
          query: (tab: any, sortBy?: any) => `pizzas?${tab !== null ? `category=${tab}` : ''}&_sort=${sortBy}`
       })
-      // _sort=${sortBy}&
-      // filterByTab: build.query<Array<CardDataType>, number | null>({
-      //    query: (tab: number | null) => `pizzas?${tab !== null ? `category=${tab}` : ''}`
-      // })
    })
 })
 

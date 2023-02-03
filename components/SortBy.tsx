@@ -1,5 +1,5 @@
 import { Stack, Typography } from '@mui/material';
-import * as React from 'react';
+import React, { FC } from "react";
 import Select, { SingleValue } from 'react-select';
 import { StylesConfig } from 'react-select/dist/declarations/src/styles';
 import { useActions } from "../hooks/useActions";
@@ -16,9 +16,10 @@ type PropsType = {
   // isLoading: boolean
 }
 
-const SortBy: React.FC<PropsType> = ({itemsSort}) => {
+// eslint-disable-next-line react/display-name
+const SortBy: FC<PropsType> = React.memo(({itemsSort}) => {
   const dispatch = useAppDispatch()
-  const {sortPizzas, isLoadingItems} = useActions()
+  const {sortPizzas} = useActions()
 
   
  const onChange = (newValue: SingleValue<ItemSortBy | null>) => {
@@ -98,6 +99,6 @@ const SortBy: React.FC<PropsType> = ({itemsSort}) => {
   />
    </Stack>
   );
-}
+});
 
 export default SortBy;

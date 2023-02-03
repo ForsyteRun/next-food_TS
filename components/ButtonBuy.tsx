@@ -6,12 +6,13 @@ import s from './../styles/btn.module.scss'
 type PropsType = {
   countItem?: number
   disabled?: boolean
+  onClickPizza: () => void
 };
 
-const ButtonBuy: FC<PropsType> = ({ countItem, disabled }) => {
+const ButtonBuy: FC<PropsType> = ({ countItem, disabled, onClickPizza }) => {
   return (
     <>
-      <Button variant="outlined" className={countItem ? s.btnFill : s.btn} disabled={disabled}>
+      <Button onClick={onClickPizza} variant="outlined" className={countItem ? s.btnFill : s.btn} disabled={disabled}>
         <AddIcon sx={{ width: "16px", mr: "5px" }} />
         <Typography className={s.text}>Добавить</Typography>
         {countItem && <Box className={s.countEl}>{countItem}</Box>}

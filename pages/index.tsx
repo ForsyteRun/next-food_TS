@@ -5,7 +5,8 @@ import { pizzaApi, useGetAllPizzasQuery } from "../api/pizzas.api";
 import { MainCard, SortBy, TabMain } from "../components";
 import { AppState, AppStore, wrapper } from "../store";
 import { CardDataType } from "../types/types";
-import { useAppSelector} from "../store/hooks";
+import { useAppSelector, useAppDispatch} from "../store/hooks";
+import { useActions } from "../hooks/useActions";
 
 const tabMenuItems = ['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']
 const itemsSort = [
@@ -17,9 +18,10 @@ const itemsSort = [
 const Home = () => {
   const {tabPizzas} = useAppSelector((state: AppState) => state.getFilterTab)
   const {sortBy} = useAppSelector((state: AppState) => state.sortBy)
+  const dispatch = useAppDispatch()
+  const {selectedPizzas} = useActions()
 
   const {data} = useGetAllPizzasQuery(tabPizzas, sortBy)
-  console.log(sortBy)
   
   return (
     <>
@@ -40,7 +42,7 @@ const Home = () => {
         {data 
         &&
           data.map((card: CardDataType) => {
-            return <MainCard card={card} key={card.id} />
+            return <MainCard card={card} key={card.id} selectedPizzas={selectedPizzas} dispatch={dispatch}/>
           })
         }
       </Stack>

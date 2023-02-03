@@ -3,26 +3,31 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { theme } from "../theme/theme";
 import { CardDataType } from "../types/types";
 import s from './../styles/MainCard.module.scss';
 import ButtonBuy from "./ButtonBuy";
 import cn from 'classnames';
 import Image from "next/image";
+import { useActions } from "../hooks/useActions";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { AnyNsRecord } from "dns";
 
 type PropsType = {
   card: CardDataType;
-};
+  selectedPizzas: (card: CardDataType) => void
+  dispatch: ((el: any) => void)
+}
 
-const MainCard: FC<PropsType> = (props) => {
-  const { imageUrl, price, name, types, sizes } = props.card;
+const MainCard: FC<PropsType> = ({card, selectedPizzas, dispatch}) => {
+  const { imageUrl, price, name, types, sizes, id } = card;
   const [set, setSet] = useState<number>(types[0])
   const [sizesItem, setSizesItem] = useState<number>(sizes[0])
-
+    
   const availableSets = ['тонкое', 'традиционное']
   const availableSizes = [26, 30, 40]
-
+  
   const onSelectSets = (index: number) => {
     setSet(index)
   }
@@ -30,6 +35,10 @@ const MainCard: FC<PropsType> = (props) => {
   const onSelectSizes = (index: number) => {
     setSizesItem(index)
   }
+
+  const countPizzas = (card: CardDataType) => {
+    dispatch(selectedPizzas(card))
+}
 
   return (
     <Card sx={{ width: 280, boxShadow:'none' }}>
@@ -77,7 +86,7 @@ const MainCard: FC<PropsType> = (props) => {
         <Typography gutterBottom variant="h3" component="div">
         от {price}<span>&#36;</span>
         </Typography>
-        <ButtonBuy />
+        <ButtonBuy onClickPizza ={() => countPizzas(card)} />
       </CardActions>
 
     </Card>

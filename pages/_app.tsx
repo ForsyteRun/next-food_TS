@@ -34,3 +34,4 @@ export default wrapper.withRedux(App);
 //todo: ошибки в консоле и в терминале
 //todo: Sceleton ошибка в консоле... no match props server-client
 //todo: как сделать на одно rtkApi и ssr, и filter, и sort?
+//todo: sort=undefined при нетворк в консоле при сортировке 
