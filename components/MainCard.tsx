@@ -3,16 +3,14 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { FC, useMemo, useState } from "react";
+import cn from 'classnames';
+import Image from "next/image";
+import { FC, useState } from "react";
+import { useAppSelector } from "../store/hooks";
 import { theme } from "../theme/theme";
 import { CardDataType, shortCardDataType } from "../types/types";
 import s from './../styles/MainCard.module.scss';
 import ButtonBuy from "./ButtonBuy";
-import cn from 'classnames';
-import Image from "next/image";
-import { useActions } from "../hooks/useActions";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { AnyNsRecord } from "dns";
 
 type PropsType = {
   card: CardDataType;
@@ -27,7 +25,9 @@ const MainCard: FC<PropsType> = ({card, availableSets, availableSizes,  selected
   const { imageUrl, price, name, types, sizes, id } = card;
 
   const [set, setSet] = useState<number>(0)
+  // const [btnState, setBtnState] = useState<number | null>(null)
   const [sizesItem, setSizesItem] = useState<number>(0)
+  const {items} = useAppSelector((state) => state.selectedPizzas)
   
   const onSelectSets = (index: number) => {
     setSet(index)
@@ -36,6 +36,10 @@ const MainCard: FC<PropsType> = ({card, availableSets, availableSizes,  selected
   const onSelectSizes = (index: number) => {
     setSizesItem(index)
   }
+
+  // const btnCount = (id: number, items: any ) => {
+  //   items[id] &&  setBtnState(items[id].length)
+  // }
 
   const addPizzaToCart = ({id, name, imageUrl, price}: CardDataType) => {
     let obj = {
@@ -47,7 +51,8 @@ const MainCard: FC<PropsType> = ({card, availableSets, availableSizes,  selected
       type: availableSets[set]
     }
     dispatch(selectedPizzas(obj))
-}
+    // btnCount(id, items)
+  }
 
   return (
     <Card sx={{ width: 280, boxShadow:'none' }}>
@@ -95,7 +100,7 @@ const MainCard: FC<PropsType> = ({card, availableSets, availableSizes,  selected
         <Typography gutterBottom variant="h3" component="div">
         от {price}<span>&#36;</span>
         </Typography>
-        <ButtonBuy onClickPizza ={() => addPizzaToCart(card)} />
+        <ButtonBuy onClickPizza ={() => addPizzaToCart(card)}  />
       </CardActions>
 
     </Card>

@@ -3,7 +3,7 @@ import { shortCardDataType } from "../../types/types";
 
 type SelectedPizzasState = {
    items: {}
-   totalPrice: number
+   totalPrice: number | null
    totalCount: number
 }
 
@@ -18,17 +18,23 @@ export const selectedPizzas = createSlice({
    initialState,
    reducers: {
       selectedPizzas: (state: SelectedPizzasState, action: PayloadAction<shortCardDataType> ) => {
-         return {
-            ...state,
-            items: {
+         const currentCard = {
                ...state.items,
                //@ts-ignore
                [action.payload.id]: !state.items[action.payload.id] 
                ? [action.payload] 
                //@ts-ignore
                : [...state.items[action.payload.id], action.payload] 
-            },
-            totalCount: Object.keys(state.items).length
+         }
+            
+         const arrPrice =  Object.values(state.items).flat()
+         const price: number = arrPrice.reduce((sum: number, item: any ): number => item.price + sum, 0)
+            
+         return {
+            ...state, 
+            items: currentCard,
+            totalCount: Object.values(state.items).flat().length,
+            totalPrice: price
          }
       },
       setTotalPrice: (state: SelectedPizzasState, action: PayloadAction<number> ) => {
