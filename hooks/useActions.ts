@@ -4,7 +4,7 @@ import { selectedPizzasAction } from '../store/redusers/selectedPizzas';
 
 import { sortActions } from '../store/redusers/sortPizzas';
 // import { pizzasActions } from '../store/redusers/pizzas';
-import { tabActions } from '../store/redusers/tabPizzzas';
+import { tabActions } from '../store/redusers/tabPizzas';
 
 const allActions = {
    ...sortActions,

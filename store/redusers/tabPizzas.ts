@@ -15,7 +15,7 @@ export const getTabSlice = createSlice({
   name: 'getTab',
   initialState,
   reducers: {
-    tabPizzas: (state: tabState, action: PayloadAction<number | null>) => {
+    setTabPizzas: (state: tabState, action: PayloadAction<number | null>) => {
       state.tabPizzas = action.payload
     },
     // filterPizzas: (state: tabState, action: PayloadAction<Array<CardDataType>>) => {

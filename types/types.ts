@@ -8,3 +8,12 @@ export type CardDataType = {
    category: number
    rating: number
 }
+
+export type shortCardDataType = {
+   id: number
+   img: string
+   name: string
+   type: string
+   size:  number
+   price: number
+}

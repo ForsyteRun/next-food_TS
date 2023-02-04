@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CardDataType } from "../../types/types";
+import { shortCardDataType } from "../../types/types";
 
 type SelectedPizzasState = {
    items: {}
@@ -17,14 +17,18 @@ export const selectedPizzas = createSlice({
    name: 'selectedPizzas',
    initialState,
    reducers: {
-      selectedPizzas: (state: SelectedPizzasState, action: PayloadAction<CardDataType> ) => {
-         console.log(action.payload)
+      selectedPizzas: (state: SelectedPizzasState, action: PayloadAction<shortCardDataType> ) => {
          return {
             ...state,
             items: {
+               ...state.items,
                //@ts-ignore
-               [action.payload.id]: [...state.items[action.payload.id], action.payload]
-            }
+               [action.payload.id]: !state.items[action.payload.id] 
+               ? [action.payload] 
+               //@ts-ignore
+               : [...state.items[action.payload.id], action.payload] 
+            },
+            totalCount: Object.keys(state.items).length
          }
       },
       setTotalPrice: (state: SelectedPizzasState, action: PayloadAction<number> ) => {

@@ -13,7 +13,7 @@ import s from '../styles/tabMain.module.scss'
 import { AppState } from "../store";
 
 type PropsType = {
-  items: Array<string>;
+  tabMenuItems: Array<string>;
 };
 
 const CustomList = styled(List)<ListProps>(() => ({
@@ -38,32 +38,29 @@ const CustomListItemText = styled(ListItemText)<ListItemTextProps>(() => ({
 }));
 
 // eslint-disable-next-line react/display-name
-const TabMain: FC<PropsType> = React.memo(({ items }) => {
-  // const [filter, setFilter] = React.useState<number | null>(null)
-  const {getFilterTab} = useAppSelector((state: AppState) => state)
+const TabMain: FC<PropsType> = React.memo(({ tabMenuItems }) => {
+  const {tabPizzas} = useAppSelector((state: AppState) => state.getFilterTab)
   const dispatch = useAppDispatch()
-  const {tabPizzas} = useActions()
-  console.log(getFilterTab.tabPizzas)
-  
+  const {setTabPizzas} = useActions()
   
   const onTabItem = (index: number | null) => {
-    dispatch(tabPizzas(index))
+    dispatch(setTabPizzas(index))
   }
 
   return (
     <CustomList dense>
       <CustomListItem
         onClick={() => onTabItem(null)}
-        className={getFilterTab.tabPizzas === null ? s.active : ''}
+        className={tabPizzas === null ? s.active : ''}
       >
         <CustomListItemText primary="Все" disableTypography />
       </CustomListItem>
-      {items &&
-        items.map((el: string, index) => (
+      {tabMenuItems &&
+        tabMenuItems.map((el: string, index) => (
           <CustomListItem
             key={index}
             onClick={() => onTabItem(index)}
-            className={getFilterTab.tabPizzas === index ? s.active : ''}
+            className={tabPizzas === index ? s.active : ''}
           >
             <CustomListItemText primary={el} disableTypography />
           </CustomListItem>

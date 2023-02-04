@@ -4,7 +4,7 @@ import { createWrapper } from 'next-redux-wrapper';
 import { Action } from 'redux';
 import { pizzaApi } from './../api/pizzas.api';
 import { sortSlice } from './redusers/sortPizzas';
-import { getTabSlice } from './redusers/tabPizzzas';
+import { getTabSlice } from './redusers/tabPizzas';
 
 const makeStore  = () => 
   configureStore({

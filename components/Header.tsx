@@ -10,10 +10,6 @@ import CartBtn from './CartBtn';
 
 const Header = () => {
   const router = useRouter()
-  const {totalPrice, totalCount} = useAppSelector(({selectedPizzas}) => ({
-      totalPrice: selectedPizzas.totalPrice,
-      totalCount: selectedPizzas.totalCount
-   }))
 
   return (
     <header >
@@ -34,7 +30,7 @@ const Header = () => {
         </Stack>
       </Stack>
       <Link href={'/draw'}>
-        <CartBtn price={totalPrice} items={totalCount}/>
+        <CartBtn />
       </Link>
     </header>
   )

@@ -15,6 +15,9 @@ const itemsSort = [
   {value: 'name', label: 'алфавиту', id: 2},
 ]
 
+const availableSets = ['тонкое', 'традиционное']
+const availableSizes = [26, 30, 40]
+
 const Home = () => {
   const {tabPizzas} = useAppSelector((state: AppState) => state.getFilterTab)
   const {sortBy} = useAppSelector((state: AppState) => state.sortBy)
@@ -33,7 +36,7 @@ const Home = () => {
       </Head>
       <Stack direction='row' justifyContent='space-between' mb='32px'>
         <TabMain 
-          items={tabMenuItems} 
+          tabMenuItems={tabMenuItems} 
           />
         <SortBy itemsSort={itemsSort} />
       </Stack>
@@ -42,7 +45,11 @@ const Home = () => {
         {data 
         &&
           data.map((card: CardDataType) => {
-            return <MainCard card={card} key={card.id} selectedPizzas={selectedPizzas} dispatch={dispatch}/>
+            return <MainCard card={card} key={card.id} 
+            availableSets={availableSets}
+            availableSizes={availableSizes}
+            selectedPizzas={selectedPizzas} 
+            dispatch={dispatch}/>
           })
         }
       </Stack>

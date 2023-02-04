@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { FC, useMemo, useState } from "react";
 import { theme } from "../theme/theme";
-import { CardDataType } from "../types/types";
+import { CardDataType, shortCardDataType } from "../types/types";
 import s from './../styles/MainCard.module.scss';
 import ButtonBuy from "./ButtonBuy";
 import cn from 'classnames';
@@ -16,17 +16,18 @@ import { AnyNsRecord } from "dns";
 
 type PropsType = {
   card: CardDataType;
-  selectedPizzas: (card: CardDataType) => void
+  availableSets: Array<string>
+  availableSizes: Array<number>
+
+  selectedPizzas: (card: shortCardDataType) => void
   dispatch: ((el: any) => void)
 }
 
-const MainCard: FC<PropsType> = ({card, selectedPizzas, dispatch}) => {
+const MainCard: FC<PropsType> = ({card, availableSets, availableSizes,  selectedPizzas, dispatch}) => {
   const { imageUrl, price, name, types, sizes, id } = card;
-  const [set, setSet] = useState<number>(types[0])
-  const [sizesItem, setSizesItem] = useState<number>(sizes[0])
-    
-  const availableSets = ['тонкое', 'традиционное']
-  const availableSizes = [26, 30, 40]
+
+  const [set, setSet] = useState<number>(0)
+  const [sizesItem, setSizesItem] = useState<number>(0)
   
   const onSelectSets = (index: number) => {
     setSet(index)
@@ -36,8 +37,16 @@ const MainCard: FC<PropsType> = ({card, selectedPizzas, dispatch}) => {
     setSizesItem(index)
   }
 
-  const countPizzas = (card: CardDataType) => {
-    dispatch(selectedPizzas(card))
+  const addPizzaToCart = ({id, name, imageUrl, price}: CardDataType) => {
+    let obj = {
+      id,
+      name,
+      price,
+      img: imageUrl,
+      size: availableSizes[sizesItem],
+      type: availableSets[set]
+    }
+    dispatch(selectedPizzas(obj))
 }
 
   return (
@@ -86,7 +95,7 @@ const MainCard: FC<PropsType> = ({card, selectedPizzas, dispatch}) => {
         <Typography gutterBottom variant="h3" component="div">
         от {price}<span>&#36;</span>
         </Typography>
-        <ButtonBuy onClickPizza ={() => countPizzas(card)} />
+        <ButtonBuy onClickPizza ={() => addPizzaToCart(card)} />
       </CardActions>
 
     </Card>
