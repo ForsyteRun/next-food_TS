@@ -25,8 +25,8 @@ const MainCard: FC<PropsType> = ({card, availableSets, availableSizes,  selected
   const { imageUrl, price, name, types, sizes, id } = card;
 
   const [set, setSet] = useState<number>(0)
-  // const [btnState, setBtnState] = useState<number | null>(null)
   const [sizesItem, setSizesItem] = useState<number>(0)
+  
   const {items} = useAppSelector((state) => state.selectedPizzas)
   
   const onSelectSets = (index: number) => {
@@ -36,10 +36,6 @@ const MainCard: FC<PropsType> = ({card, availableSets, availableSizes,  selected
   const onSelectSizes = (index: number) => {
     setSizesItem(index)
   }
-
-  // const btnCount = (id: number, items: any ) => {
-  //   items[id] &&  setBtnState(items[id].length)
-  // }
 
   const addPizzaToCart = ({id, name, imageUrl, price}: CardDataType) => {
     let obj = {
@@ -51,7 +47,6 @@ const MainCard: FC<PropsType> = ({card, availableSets, availableSizes,  selected
       type: availableSets[set]
     }
     dispatch(selectedPizzas(obj))
-    // btnCount(id, items)
   }
 
   return (
@@ -100,7 +95,9 @@ const MainCard: FC<PropsType> = ({card, availableSets, availableSizes,  selected
         <Typography gutterBottom variant="h3" component="div">
         от {price}<span>&#36;</span>
         </Typography>
-        <ButtonBuy onClickPizza ={() => addPizzaToCart(card)}  />
+        <ButtonBuy onClickPizza ={() => addPizzaToCart(card)} 
+        //@ts-ignore
+        countItem={items[id] && items[id].length} />
       </CardActions>
 
     </Card>

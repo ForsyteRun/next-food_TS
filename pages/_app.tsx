@@ -36,3 +36,5 @@ export default wrapper.withRedux(App);
 //todo: как сделать на одно rtkApi и ssr, и filter, и sort?
 //todo: sort=undefined при нетворк в консоле при сортировке 
 //todo: двойной вызов редюсеров!!!
+//todo: не индексирует ключи объекта в MainCard...затычка ts-ignore
+
