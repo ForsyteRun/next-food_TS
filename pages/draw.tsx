@@ -1,12 +1,17 @@
-import { Typography, Stack } from '@mui/material'
+import { Typography, Stack, ListItemSecondaryAction } from '@mui/material'
 import Head from 'next/head';
 import Image from 'next/image'
 import React from 'react'
 import DrawerBtn from '../components/DrawerBtn'
+import DrawOrder from '../components/DrawOrder';
+import { AppState } from '../store';
+import { useAppSelector } from '../store/hooks';
 import s from "./../styles/Draw.module.scss";
 
-
 const Draw = () => {
+  const items = useAppSelector((state: AppState): any => state.selectedPizzas)
+  const hasDrawItem = Object.keys(items.items).length > 0
+  
   return (
     <>
       <Head>
@@ -15,7 +20,9 @@ const Draw = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Stack direction='column' alignItems='center' justifyContent='center' className={s.flexContainer}>
+      {hasDrawItem 
+      ? <DrawOrder items={items}/>
+      : <Stack direction='column' alignItems='center' justifyContent='center' className={s.flexContainer}>
         <Stack direction='row' alignItems='center' justifyContent='center' columnGap={'10px'}>
           <Typography variant='h2' >Корзина пустая</Typography>
           <Image src={'/img/😕.svg'} alt='smile' width={32} height={32}/>
@@ -27,6 +34,7 @@ const Draw = () => {
         <Image src={'/img/drawer.png'} alt='manWithDraw' width={300} height={255} style={{marginBottom: '64px'}}/>
         <DrawerBtn width={210} height={46} title='Вернуться назад' bgColor='#282828' />
       </Stack>
+      }
     </>
   )
 }
