@@ -13,7 +13,7 @@ const initialState: SelectedPizzasState = {
    totalCount: 0
 }
 
-export const selectedPizzas = createSlice({
+export const selectedPizzas: any = createSlice({
    name: 'selectedPizzas',
    initialState,
    reducers: {

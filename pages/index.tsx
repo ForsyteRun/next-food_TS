@@ -2,7 +2,7 @@ import { Stack, Typography } from "@mui/material";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { pizzaApi, useGetAllPizzasQuery } from "../api/pizzas.api";
-import { MainCard, SortBy, TabMain } from "../components";
+import { MainCard, Sceleton, SortBy, TabMain } from "../components";
 import { AppState, AppStore, wrapper } from "../store";
 import { CardDataType } from "../types/types";
 import { useAppSelector, useAppDispatch} from "../store/hooks";
@@ -24,8 +24,8 @@ const Home = () => {
   const dispatch = useAppDispatch()
   const {selectedPizzas} = useActions()
 
-  const {data} = useGetAllPizzasQuery(tabPizzas, sortBy)
-  
+  const {data, isFetching} = useGetAllPizzasQuery(tabPizzas)
+
   return (
     <>
       <Head>
@@ -42,9 +42,9 @@ const Home = () => {
       </Stack>
       <Typography variant="h2" component="div" mb='35px'>Все пиццы</Typography> 
       <Stack direction='row' flexWrap='wrap' justifyContent='space-between' rowGap={8.125}>
-        {data 
-        &&
-          data.map((card: CardDataType) => {
+        {isFetching 
+        ? Array(8).fill(8).map((el: any, index: number) => <Sceleton key={index}/>)
+        : data?.map((card: CardDataType) => {
             return <MainCard card={card} key={card.id} 
             availableSets={availableSets}
             availableSizes={availableSizes}
