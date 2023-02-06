@@ -6,7 +6,9 @@ import Typography from "@mui/material/Typography";
 import cn from 'classnames';
 import Image from "next/image";
 import { FC, useState } from "react";
+import { AppState } from "../store";
 import { useAppSelector } from "../store/hooks";
+import { addPizzas } from "../store/redusers/selectedPizzas";
 import { theme } from "../theme/theme";
 import { CardDataType, shortCardDataType } from "../types/types";
 import s from './../styles/MainCard.module.scss';
@@ -27,8 +29,8 @@ const MainCard: FC<PropsType> = ({card, availableSets, availableSizes,  selected
   const [set, setSet] = useState<number>(0)
   const [sizesItem, setSizesItem] = useState<number>(0)
   
-  const {items} = useAppSelector((state) => state.selectedPizzas)
-  
+  const {items} = useAppSelector((state: AppState) => state.selectedPizzas)
+
   const onSelectSets = (index: number) => {
     setSet(index)
   }
@@ -46,7 +48,7 @@ const MainCard: FC<PropsType> = ({card, availableSets, availableSizes,  selected
       size: availableSizes[sizesItem],
       type: availableSets[set]
     }
-    dispatch(selectedPizzas(obj))
+    dispatch(addPizzas(obj))
   }
 
   return (

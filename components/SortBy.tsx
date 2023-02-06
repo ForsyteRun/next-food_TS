@@ -4,6 +4,7 @@ import Select, { SingleValue } from 'react-select';
 import { StylesConfig } from 'react-select/dist/declarations/src/styles';
 import { useActions } from "../hooks/useActions";
 import { useAppDispatch } from "../store/hooks";
+import { sortPizzas } from '../store/redusers/sortPizzas';
 
 type ItemSortBy = {
   value: string
@@ -19,10 +20,9 @@ type PropsType = {
 // eslint-disable-next-line react/display-name
 const SortBy: FC<PropsType> = React.memo(({itemsSort}) => {
   const dispatch = useAppDispatch()
-  const {sortPizzas} = useActions()
-
   
  const onChange = (newValue: SingleValue<ItemSortBy | null>) => {
+    console.log('soooorrre');
     newValue && dispatch(sortPizzas(newValue.value))
  }
 

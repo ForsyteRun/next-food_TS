@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { theme } from "../theme/theme";
 import s from '../styles/tabMain.module.scss'
 import { AppState } from "../store";
+import { setTabPizzas } from "../store/redusers/tabPizzas";
 
 type PropsType = {
   tabMenuItems: Array<string>;
@@ -41,7 +42,6 @@ const CustomListItemText = styled(ListItemText)<ListItemTextProps>(() => ({
 const TabMain: FC<PropsType> = React.memo(({ tabMenuItems }) => {
   const {tabPizzas} = useAppSelector((state: AppState) => state.getFilterTab)
   const dispatch = useAppDispatch()
-  const {setTabPizzas} = useActions()
   
   const onTabItem = (index: number | null) => {
     dispatch(setTabPizzas(index))

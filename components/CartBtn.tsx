@@ -6,12 +6,12 @@ import Divider from "@mui/material/Divider";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import EuroIcon from '@mui/icons-material/Euro';
 import { useAppSelector } from '../store/hooks';
-
+import { AppState } from "../store";
 
 // eslint-disable-next-line react/display-name
 const CartBtn: FC = React.memo(() => {
 
-  const {totalPrice, totalCount} = useAppSelector((state) => state.selectedPizzas)
+  const {totalPrice, totalCount, items} = useAppSelector((state: AppState) => state.selectedPizzas)
 
   return (
     <Stack

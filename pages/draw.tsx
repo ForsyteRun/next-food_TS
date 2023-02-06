@@ -9,8 +9,9 @@ import { useAppSelector } from '../store/hooks';
 import s from "./../styles/Draw.module.scss";
 
 const Draw = () => {
-  const items = useAppSelector((state: AppState): any => state.selectedPizzas)
-  const hasDrawItem = Object.keys(items.items).length > 0
+  const {items, totalCount, totalPrice} = useAppSelector((state: AppState) => state.selectedPizzas)
+
+  let hasDrawItem = Object.keys(items).length > 0
   
   return (
     <>
@@ -21,7 +22,7 @@ const Draw = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {hasDrawItem 
-      ? <DrawOrder items={items}/>
+      ? <DrawOrder items={items} totalPrice={totalPrice} totalCount={totalCount}/>
       : <Stack direction='column' alignItems='center' justifyContent='center' className={s.flexContainer}>
         <Stack direction='row' alignItems='center' justifyContent='center' columnGap={'10px'}>
           <Typography variant='h2' >Корзина пустая</Typography>
@@ -32,7 +33,7 @@ const Draw = () => {
           Для того, чтобы заказать пиццу, перейди на главную страницу.
         </p>
         <Image src={'/img/drawer.png'} alt='manWithDraw' width={300} height={255} style={{marginBottom: '64px'}}/>
-        <DrawerBtn width={210} height={46} title='Вернуться назад' bgColor='#282828' />
+        <DrawerBtn width={210} height={46} title='Вернуться назад' bgColor='#282828' borderColor='transparent' textColor='#fff'/>
       </Stack>
       }
     </>

@@ -17,19 +17,12 @@ export const getTabSlice = createSlice({
   reducers: {
     setTabPizzas: (state: tabState, action: PayloadAction<number | null>) => {
       state.tabPizzas = action.payload
-    },
-    // filterPizzas: (state: tabState, action: PayloadAction<Array<CardDataType>>) => {
-    //   state.tabItems = action.payload
-    // },
-  },
-  // extraReducers: {
-  //   [HYDRATE]: (state: tabState, action) => {
-  //     state.tabItems = action.payload.tab.tabItems      // state.setTab = action.payload
-  //   }
-  // }
+      console.log(action.payload);
+    }
+  }
+
 })
 
-// export const {tab, filterTab} = tabSlice.actions
-export const tabActions = getTabSlice.actions
+export const {setTabPizzas} = getTabSlice.actions
 
 export default getTabSlice.reducer

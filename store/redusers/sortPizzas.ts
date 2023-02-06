@@ -14,12 +14,12 @@ export const sortSlice = createSlice({
   initialState,
   reducers: {
     sortPizzas: (state: sortState, action: PayloadAction<string>) => {
-      state.sortBy = action.payload
       console.log('sort')
+      state.sortBy = action.payload
     }
   },
 })
 
-export const sortActions = sortSlice.actions
+export const {sortPizzas} = sortSlice.actions
 
 export default sortSlice.reducer
