@@ -30,7 +30,7 @@ const MainCard: FC<PropsType> = ({card, availableSets, availableSizes,  selected
   const [sizesItem, setSizesItem] = useState<number>(0)
   
   const {items} = useAppSelector((state: AppState) => state.selectedPizzas)
-
+  
   const onSelectSets = (index: number) => {
     setSet(index)
   }
@@ -99,7 +99,7 @@ const MainCard: FC<PropsType> = ({card, availableSets, availableSizes,  selected
         </Typography>
         <ButtonBuy onClickPizza ={() => addPizzaToCart(card)} 
         //@ts-ignore
-        countItem={items[id] && items[id].length} />
+        countItem={items[id] && items[id].items.length} />
       </CardActions>
 
     </Card>

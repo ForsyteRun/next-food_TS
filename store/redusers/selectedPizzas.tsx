@@ -18,23 +18,34 @@ export const selectedPizzas = createSlice({
    initialState,
    reducers: {
       addPizzas: (state: SelectedPizzasState, action: PayloadAction<shortCardDataType> ) => {
+         //@ts-ignore
+         const currentPizza = !state.items[action.payload.id] 
+         ? [action.payload] 
+         //@ts-ignore
+         : [...state.items[action.payload.id].items, action.payload]
+
+
+          const getArraySelectedPizzas = () => {
+           return Object.values(currentCard).map((obj: any) => obj.items).flat()
+         }
+
+         const getSumValueSelectedPizzas = (element: any) => {
+            return element.reduce((el: any, init: any) => init.price + el, 0)
+         }
+
          const currentCard = {
                ...state.items,
-               //@ts-ignore
-               [action.payload.id]: !state.items[action.payload.id] 
-               ? [action.payload] 
-               //@ts-ignore
-               : [...state.items[action.payload.id], action.payload] 
+               [action.payload.id]: {
+                  items: currentPizza,
+                  totalPriceItem: getSumValueSelectedPizzas(currentPizza)
+               }
          }
-         
-         const arr =  Object.values(currentCard).flat()
-         const price = arr.reduce((sum: number, item: any ): number => item.price + sum, 0)
-         
+
          return {
             ...state, 
             items: currentCard,
-            totalCount: Object.values(currentCard).flat().length,
-            totalPrice: price
+            totalCount: getArraySelectedPizzas().length,
+            totalPrice: getSumValueSelectedPizzas(getArraySelectedPizzas())
          }
       },
    }

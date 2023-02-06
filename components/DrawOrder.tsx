@@ -13,7 +13,10 @@ type RootObject =  {
 }
 
 export interface PizzasObj {
-  [key: number]: Pizzas[]
+  [key: number]: Items
+}
+export interface Items {
+  items: Pizzas[]
 }
 
 export interface Pizzas {
@@ -26,7 +29,9 @@ export interface Pizzas {
 }
 
 const DrawOrder: FC<RootObject> = ({items, totalCount, totalPrice}) => {
-  let addedPizzas = Object.keys(items).map((key: string) => items[+key][0])
+  let addedPizzas = Object.keys(items).map((key: string) => items[+key].items[0])
+   let arr = Object.keys(items).map((key: string) => items[+key].items)
+  console.log(arr.map(el => el.length));
   
   return (
     <Stack maxWidth={821} sx={{m: '0 auto'}}>
@@ -63,7 +68,7 @@ const DrawOrder: FC<RootObject> = ({items, totalCount, totalPrice}) => {
                       '&:hover': {background: '#FE5F1E', color: '#fff'}}}>
                         +
                       </Button>
-                        {777}
+                        {arr.map(el => el.length)}
                       <Button 
                       sx={{borderRadius: '50%', border: '1px solid #FE5F1E', minWidth: '32px', height: '32px', 
                       '&:hover': {background: '#FE5F1E', color: '#fff'}}}>
