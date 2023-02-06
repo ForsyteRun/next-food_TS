@@ -2,15 +2,10 @@ import { CardDataType } from './../types/types';
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import { HYDRATE } from 'next-redux-wrapper';
 
-type Query = {
-   sortBy: string
-   tab: number | null
-}
-
 export const pizzaApi = createApi({
    reducerPath: 'pizzaApi',
    baseQuery: fetchBaseQuery({
-      baseUrl: 'http://localhost:3001/'
+      baseUrl: 'http://localhost:3000/'
    }),
    extractRehydrationInfo(action, { reducerPath }) {
       if (action.type === HYDRATE) {
