@@ -37,7 +37,8 @@ export const selectedPizzas = createSlice({
                ...state.items,
                [action.payload.id]: {
                   items: currentPizza,
-                  totalPriceItem: getSumValueSelectedPizzas(currentPizza)
+                  totalPriceItem: getSumValueSelectedPizzas(currentPizza),
+                  totalCountItem: currentPizza.length
                }
          }
 
@@ -48,9 +49,12 @@ export const selectedPizzas = createSlice({
             totalPrice: getSumValueSelectedPizzas(getArraySelectedPizzas())
          }
       },
+      removeAllInDraw: (state: SelectedPizzasState) => {
+         state.items = {}
+      }
    }
 })
 
-export const {addPizzas} = selectedPizzas.actions
+export const {addPizzas, removeAllInDraw} = selectedPizzas.actions
 
 export default selectedPizzas.reducer

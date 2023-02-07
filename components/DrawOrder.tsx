@@ -1,10 +1,13 @@
-import { Button, Stack, Typography } from '@mui/material'
+import { Box, Button, Stack, Typography } from '@mui/material'
 import React, { FC } from 'react'
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import IconButton from '@mui/material/IconButton';
 import Image from "next/image";
-import { Box } from '@mui/system';
+import EuroIcon from '@mui/icons-material/Euro';
 import DrawerBtn from './DrawerBtn';
+import { useAppDispatch } from '../store/hooks';
+import { removeAllInDraw } from '../store/redusers/selectedPizzas';
 
 type RootObject =  {
   items: PizzasObj
@@ -17,6 +20,8 @@ export interface PizzasObj {
 }
 export interface Items {
   items: Pizzas[]
+  totalPriceItem: number
+  totalCountItem: number
 }
 
 export interface Pizzas {
@@ -29,10 +34,11 @@ export interface Pizzas {
 }
 
 const DrawOrder: FC<RootObject> = ({items, totalCount, totalPrice}) => {
-  let addedPizzas = Object.keys(items).map((key: string) => items[+key].items[0])
-   let arr = Object.keys(items).map((key: string) => items[+key].items)
-  console.log(arr.map(el => el.length));
+  const dispatch = useAppDispatch()
   
+  let addedPizzas = Object.keys(items).map((key: string) => items[+key].items[0])
+ 
+    
   return (
     <Stack maxWidth={821} sx={{m: '0 auto'}}>
       <Stack direction='row' alignItems='center' justifyContent='space-between' sx={{mb: '30px'}}>
@@ -41,7 +47,9 @@ const DrawOrder: FC<RootObject> = ({items, totalCount, totalPrice}) => {
           <Typography variant='h2' component='div'>Корзина</Typography>
         </Stack>
         <Stack direction='row' alignItems='center' gap='15px'>
-          <DeleteForeverOutlinedIcon sx={{color:'#B6B6B6'}}/>
+          <IconButton  aria-label="delete" onClick={() => dispatch(removeAllInDraw())}>
+            <DeleteForeverOutlinedIcon  sx={{color:'#B6B6B6'}}/>
+          </IconButton>
           <Typography component='div' color='#B6B6B6'>Очистить корзину</Typography>
         </Stack>
       </Stack>
@@ -49,33 +57,48 @@ const DrawOrder: FC<RootObject> = ({items, totalCount, totalPrice}) => {
         {
           addedPizzas.map((el, index) => (
               <Stack key={index} direction='row' alignItems='center' gap='15px' sx={{mb: '30px'}}>
-              <Image 
-                src={el.img} 
-                width={80} 
-                height={80}
-                priority 
-                quality={50}
-                alt='pizzaOrder'
-                ></Image>
-                <Stack direction='row' alignItems='center' justifyContent='space-between' width='100%'>
-                  <Stack direction='column' alignItems='left'>
-                    <Typography variant='h3' component='div'>{el.name}</Typography>
-                    <Typography component='div' sx={{fontSize: '18px', color: '#8D8D8D'}}>{el.type} тесто, {el.size} см</Typography>
+                <Image 
+                  src={el.img} 
+                  width={80} 
+                  height={80}
+                  priority 
+                  quality={50}
+                  alt='pizzaOrder'
+                  ></Image>
+                  <Stack direction='row' alignItems='center' justifyContent='space-between' width='100%'>
+                    <Stack direction='column' alignItems='left'>
+                      <Typography variant='h3' component='div'>{el.name}</Typography>
+                      <Typography component='div' sx={{fontSize: '18px', color: '#8D8D8D'}}>{el.type} тесто, {el.size} см</Typography>
+                    </Stack>
+                    <Stack direction='row' alignItems='center' justifyContent='flex-end' gap='25px' flexGrow={1}>
+                        <Button 
+                        sx={{borderRadius: '50%', border: '1px solid #FE5F1E', minWidth: '32px', height: '32px', fontSize: '22px',
+                        '&:hover': {background: '#FE5F1E', color: '#fff'}}}>
+                          +
+                        </Button>
+                          <Typography component='div' sx={{fontSize: '22px', fontWeight: 700}}>
+                            {items[el.id].totalCountItem}
+                          </Typography>
+                        <Button 
+                        sx={{borderRadius: '50%', border: '1px solid #FE5F1E', minWidth: '32px', height: '32px', fontSize: '22px',
+                        '&:hover': {background: '#FE5F1E', color: '#fff'}}}>
+                          -
+                        </Button>
+                        <Typography component='div' sx={{fontSize: '22px', fontWeight: 700}}>
+                            {items[el.id].totalPriceItem}
+                            <EuroIcon sx={{verticalAlign: 'text-top'}}/>
+                        </Typography>
+                        <Button 
+                        sx={{borderRadius: '50%', border: '1px solid #D7D7D7', minWidth: '32px', height: '32px', 
+                        '&:hover': {background: 'rgba(215, 215, 215, 1)'}}}>
+                            <Box 
+                            sx={{transform: 'rotate(45deg)', color: 'rgba(215, 215, 215, 1)', 
+                            fontSize: '22px', '&:hover':{color: '#fff'}}}>
+                              +
+                            </Box>
+                        </Button>
+                    </Stack>
                   </Stack>
-                  <Stack direction='row' alignItems='center' gap='12px'>
-                      <Button 
-                      sx={{borderRadius: '50%', border: '1px solid #FE5F1E', minWidth: '32px', height: '32px', 
-                      '&:hover': {background: '#FE5F1E', color: '#fff'}}}>
-                        +
-                      </Button>
-                        {arr.map(el => el.length)}
-                      <Button 
-                      sx={{borderRadius: '50%', border: '1px solid #FE5F1E', minWidth: '32px', height: '32px', 
-                      '&:hover': {background: '#FE5F1E', color: '#fff'}}}>
-                        -
-                      </Button>
-                  </Stack>
-                </Stack>
             </Stack>  
           )
         )}
