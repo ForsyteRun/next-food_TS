@@ -1,8 +1,7 @@
-import { Typography, Stack, ListItemSecondaryAction } from '@mui/material'
+import { Stack, Typography } from '@mui/material';
 import Head from 'next/head';
-import Image from 'next/image'
-import React from 'react'
-import DrawerBtn from '../components/DrawerBtn'
+import Image from 'next/image';
+import DrawerBtn from '../components/DrawerBtn';
 import DrawOrder from '../components/DrawOrder';
 import { AppState } from '../store';
 import { useAppSelector } from '../store/hooks';
@@ -11,8 +10,6 @@ import s from "./../styles/Draw.module.scss";
 const Draw = () => {
   const {items, totalCount, totalPrice} = useAppSelector((state: AppState) => state.selectedPizzas)
 
-  let hasDrawItem = Object.keys(items).length > 0
-  
   return (
     <>
       <Head>
@@ -21,7 +18,7 @@ const Draw = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {hasDrawItem 
+      {totalCount 
       ? <DrawOrder items={items} totalPrice={totalPrice} totalCount={totalCount}/>
       : <Stack direction='column' alignItems='center' justifyContent='center' className={s.flexContainer}>
         <Stack direction='row' alignItems='center' justifyContent='center' columnGap={'10px'}>

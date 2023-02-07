@@ -84,7 +84,17 @@ export const selectedPizzas = createSlice({
       removeOnePizza: (state: SelectedPizzasState, action: PayloadAction<number>) => {
          const currentPizza = state.items[action.payload]    
 
-         currentPizza.items.length && currentPizza.items.pop()
+         currentPizza.items.length > 1 ? currentPizza.items.pop() : delete state.items[action.payload]
+         currentPizza.totalCountItem = currentPizza.items.length
+         currentPizza.totalPriceItem = currentPizza.items.reduce((el: any, init: any) => init.price + el, 0)
+
+         state.totalCount = getArraySelectedPizzas(state.items).length
+         state.totalPrice = getSumValueSelectedPizzas(getArraySelectedPizzas(state.items))
+      },
+      removePizzaBlock: (state: SelectedPizzasState, action: PayloadAction<number>) => {
+         const currentPizza = state.items[action.payload]
+
+         delete state.items[action.payload]
          currentPizza.totalCountItem = currentPizza.items.length
          currentPizza.totalPriceItem = currentPizza.items.reduce((el: any, init: any) => init.price + el, 0)
 
@@ -94,6 +104,6 @@ export const selectedPizzas = createSlice({
    }
 })
 
-export const {addPizzas, removeAllInDraw, addOnePizza, removeOnePizza} = selectedPizzas.actions
+export const {addPizzas, removeAllInDraw, addOnePizza, removeOnePizza, removePizzaBlock} = selectedPizzas.actions
 
 export default selectedPizzas.reducer
