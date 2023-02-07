@@ -1,13 +1,13 @@
-import { Box, Button, Stack, Typography } from '@mui/material'
-import React, { FC } from 'react'
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import EuroIcon from '@mui/icons-material/Euro';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Image from "next/image";
-import EuroIcon from '@mui/icons-material/Euro';
-import DrawerBtn from './DrawerBtn';
+import { FC } from 'react';
 import { useAppDispatch } from '../store/hooks';
-import { removeAllInDraw } from '../store/redusers/selectedPizzas';
+import { addOnePizza, removeAllInDraw, removeOnePizza } from '../store/redusers/selectedPizzas';
+import DrawerBtn from './DrawerBtn';
 
 type RootObject =  {
   items: PizzasObj
@@ -37,7 +37,13 @@ const DrawOrder: FC<RootObject> = ({items, totalCount, totalPrice}) => {
   const dispatch = useAppDispatch()
   
   let addedPizzas = Object.keys(items).map((key: string) => items[+key].items[0])
- 
+  console.log(addedPizzas.length);
+
+  const removeDraw = () => {
+    if(window.confirm('Are you sure?')){
+      dispatch(removeAllInDraw())
+    }
+  }
     
   return (
     <Stack maxWidth={821} sx={{m: '0 auto'}}>
@@ -47,15 +53,14 @@ const DrawOrder: FC<RootObject> = ({items, totalCount, totalPrice}) => {
           <Typography variant='h2' component='div'>Корзина</Typography>
         </Stack>
         <Stack direction='row' alignItems='center' gap='15px'>
-          <IconButton  aria-label="delete" onClick={() => dispatch(removeAllInDraw())}>
+          <IconButton  aria-label="delete" onClick={removeDraw}>
             <DeleteForeverOutlinedIcon  sx={{color:'#B6B6B6'}}/>
           </IconButton>
           <Typography component='div' color='#B6B6B6'>Очистить корзину</Typography>
         </Stack>
       </Stack>
       <Stack>
-        {
-          addedPizzas.map((el, index) => (
+        { totalCount && addedPizzas.map((el, index) => (
               <Stack key={index} direction='row' alignItems='center' gap='15px' sx={{mb: '30px'}}>
                 <Image 
                   src={el.img} 
@@ -71,7 +76,7 @@ const DrawOrder: FC<RootObject> = ({items, totalCount, totalPrice}) => {
                       <Typography component='div' sx={{fontSize: '18px', color: '#8D8D8D'}}>{el.type} тесто, {el.size} см</Typography>
                     </Stack>
                     <Stack direction='row' alignItems='center' justifyContent='flex-end' gap='25px' flexGrow={1}>
-                        <Button 
+                        <Button onClick={() => dispatch(addOnePizza(el.id))}
                         sx={{borderRadius: '50%', border: '1px solid #FE5F1E', minWidth: '32px', height: '32px', fontSize: '22px',
                         '&:hover': {background: '#FE5F1E', color: '#fff'}}}>
                           +
@@ -79,7 +84,7 @@ const DrawOrder: FC<RootObject> = ({items, totalCount, totalPrice}) => {
                           <Typography component='div' sx={{fontSize: '22px', fontWeight: 700}}>
                             {items[el.id].totalCountItem}
                           </Typography>
-                        <Button 
+                        <Button onClick={() => dispatch(removeOnePizza(el.id))}
                         sx={{borderRadius: '50%', border: '1px solid #FE5F1E', minWidth: '32px', height: '32px', fontSize: '22px',
                         '&:hover': {background: '#FE5F1E', color: '#fff'}}}>
                           -
