@@ -1,17 +1,21 @@
-import { Stack } from "@mui/material";
-import React, { FC } from "react";
-import { theme } from "../theme/theme";
-import s from "./../styles/CartBtn.module.scss";
-import Divider from "@mui/material/Divider";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import EuroIcon from '@mui/icons-material/Euro';
-import { useAppSelector } from '../store/hooks';
+import React from "react";
+
+import { useAppSelector } from "../store/hooks";
 import { AppState } from "../store";
 
-// eslint-disable-next-line react/display-name
-const CartBtn: FC = React.memo(() => {
+import { theme } from "../theme/theme";
+import { Stack } from "@mui/material";
+import Divider from "@mui/material/Divider";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import EuroIcon from "@mui/icons-material/Euro";
 
-  const {totalPrice, totalCount, items} = useAppSelector((state: AppState) => state.selectedPizzas)
+import s from "./../styles/CartBtn.module.scss";
+
+const CartBtn = React.memo(() => {
+  
+  const { totalPrice, totalCount, items } = useAppSelector(
+    (state: AppState) => state.selectedPizzas
+  );
 
   return (
     <Stack
@@ -22,7 +26,7 @@ const CartBtn: FC = React.memo(() => {
       sx={{ backgroundColor: theme.palette.primary.main }}
       className={s.container}
     >
-      <Stack direction='row' alignItems='center' color="#fff">
+      <Stack direction="row" alignItems="center" color="#fff">
         <span className={s.left}>{totalPrice}</span>
         <EuroIcon fontSize="small" />
       </Stack>
@@ -31,9 +35,9 @@ const CartBtn: FC = React.memo(() => {
         flexItem
         sx={{ borderColor: "rgba(255, 255, 255, 0.8)" }}
       />
-      <Stack direction='row' alignItems='center' color="#fff">
+      <Stack direction="row" alignItems="center" color="#fff">
         <ShoppingCartOutlinedIcon fontSize="small" />
-        <span className={s.right} >{totalCount}</span>
+        <span className={s.right}>{totalCount}</span>
       </Stack>
     </Stack>
   );

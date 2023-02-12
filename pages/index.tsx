@@ -1,30 +1,32 @@
-import { Stack, Typography } from "@mui/material";
-import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { pizzaApi, useGetAllPizzasQuery } from "../api/pizzas.api";
-import { MainCard, Sceleton, SortBy, TabMain } from "../components";
+
 import { AppState, AppStore, wrapper } from "../store";
-import { CardDataType } from "../types/types";
-import { useAppSelector, useAppDispatch} from "../store/hooks";
+import { GetServerSideProps } from "next";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { useActions } from "../hooks/useActions";
 
-const tabMenuItems = ['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']
-const itemsSort = [
-  {value: 'rating', label: 'популярности', id: 0},
-  {value: 'price', label: 'цене', id: 1},
-  {value: 'name', label: 'алфавиту', id: 2},
-]
+import { Stack, Typography } from "@mui/material";
+import { pizzaApi, useGetAllPizzasQuery } from "../api/pizzas.api";
+import { MainCard, Sceleton, SortBy, TabMain } from "../components";
 
-const availableSets = ['тонкое', 'традиционное']
-const availableSizes = [26, 30, 40]
+import { CardDataType } from "../types/types";
+
+const tabMenuItems = ["Мясные", "Вегетарианские", "Открытые", "Закрытые"];
+const itemsSort = [
+  { value: "rating", label: "популярности", id: 0 },
+  { value: "price", label: "цене", id: 1 },
+  { value: "name", label: "алфавиту", id: 2 },
+];
+
+export const allSets = ["тонкое", "традиционное"];
+export const allSizes = [26, 30, 40];
 
 const Home = () => {
-  const {tabPizzas} = useAppSelector((state: AppState) => state.getFilterTab)
-  const {sortBy} = useAppSelector((state: AppState) => state.sortBy)
-  const dispatch = useAppDispatch()
-  const {selectedPizzas} = useActions()
+  const { tabPizzas } = useAppSelector((state: AppState) => state.getFilterTab);
+  const dispatch = useAppDispatch();
+  const { selectedPizzas } = useActions();
 
-  const {data, isFetching} = useGetAllPizzasQuery(tabPizzas)
+  const { data, isFetching } = useGetAllPizzasQuery(tabPizzas);
 
   return (
     <>
@@ -34,24 +36,35 @@ const Home = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Stack direction='row' justifyContent='space-between' mb='32px'>
-        <TabMain 
-          tabMenuItems={tabMenuItems} 
-          />
+      <Stack direction="row" justifyContent="space-between" mb="32px">
+        <TabMain tabMenuItems={tabMenuItems} />
         <SortBy itemsSort={itemsSort} />
       </Stack>
-      <Typography variant="h2" component="div" mb='35px'>Все пиццы</Typography> 
-      <Stack direction='row' flexWrap='wrap' justifyContent='space-between' rowGap={8.125}>
-        {isFetching 
-        ? Array(8).fill(8).map((el: any, index: number) => <Sceleton key={index}/>)
-        : data?.map((card: CardDataType) => {
-            return <MainCard card={card} key={card.id} 
-            availableSets={availableSets}
-            availableSizes={availableSizes}
-            selectedPizzas={selectedPizzas} 
-            dispatch={dispatch}/>
-          })
-        }
+      <Typography variant="h2" component="div" mb="35px">
+        Все пиццы
+      </Typography>
+      <Stack
+        direction="row"
+        flexWrap="wrap"
+        justifyContent="space-between"
+        rowGap={8.125}
+      >
+        {isFetching
+          ? Array(8)
+              .fill(8)
+              .map((el: any, index: number) => <Sceleton key={index} />)
+          : data?.map((card: CardDataType) => {
+              return (
+                <MainCard
+                  card={card}
+                  key={card.id}
+                  allSets={allSets}
+                  allSizes={allSizes}
+                  selectedPizzas={selectedPizzas}
+                  dispatch={dispatch}
+                />
+              );
+            })}
       </Stack>
     </>
   );
@@ -59,14 +72,10 @@ const Home = () => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps((store: AppStore) => async ( ) => {
-
-    await store.dispatch(pizzaApi.endpoints.getAllPizzas.initiate())
-  return {
-    props: {
-
-    }}
-})
-
-
-
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store: AppStore) => async () => {
+    await store.dispatch(pizzaApi.endpoints.getAllPizzas.initiate());
+    return {
+      props: {},
+    };
+  });

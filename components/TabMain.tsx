@@ -1,17 +1,21 @@
-import {
-  List,
-  ListItem, ListItemProps, ListItemText,
-  ListItemTextProps,
-  ListProps
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
 import React, { FC } from "react";
+
+import { AppState } from "../store";
 import { useActions } from "../hooks/useActions";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { theme } from "../theme/theme";
-import s from '../styles/tabMain.module.scss'
-import { AppState } from "../store";
 import { setTabPizzas } from "../store/redusers/tabPizzas";
+
+import { theme } from "../theme/theme";
+import { styled } from "@mui/material/styles";
+import {
+  List,
+  ListItem,
+  ListItemProps,
+  ListItemText,
+  ListItemTextProps,
+  ListProps,
+} from "@mui/material";
+import s from "../styles/tabMain.module.scss";
 
 type PropsType = {
   tabMenuItems: Array<string>;
@@ -38,20 +42,19 @@ const CustomListItemText = styled(ListItemText)<ListItemTextProps>(() => ({
   lineHeight: "19px",
 }));
 
-// eslint-disable-next-line react/display-name
 const TabMain: FC<PropsType> = React.memo(({ tabMenuItems }) => {
-  const {tabPizzas} = useAppSelector((state: AppState) => state.getFilterTab)
-  const dispatch = useAppDispatch()
-  
+  const { tabPizzas } = useAppSelector((state: AppState) => state.getFilterTab);
+  const dispatch = useAppDispatch();
+
   const onTabItem = (index: number | null) => {
-    dispatch(setTabPizzas(index))
-  }
+    dispatch(setTabPizzas(index));
+  };
 
   return (
     <CustomList dense>
       <CustomListItem
         onClick={() => onTabItem(null)}
-        className={tabPizzas === null ? s.active : ''}
+        className={tabPizzas === null ? s.active : ""}
       >
         <CustomListItemText primary="Все" disableTypography />
       </CustomListItem>
@@ -60,7 +63,7 @@ const TabMain: FC<PropsType> = React.memo(({ tabMenuItems }) => {
           <CustomListItem
             key={index}
             onClick={() => onTabItem(index)}
-            className={tabPizzas === index ? s.active : ''}
+            className={tabPizzas === index ? s.active : ""}
           >
             <CustomListItemText primary={el} disableTypography />
           </CustomListItem>

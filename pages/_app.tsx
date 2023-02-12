@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
-import Layout from "../components/Layout";
 import { wrapper } from "../store";
+import Layout from "../components/Layout";
 import "../styles/globals.scss";
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -39,4 +39,6 @@ export default wrapper.withRedux(App);
 //todo: не индексирует ключи объекта в MainCard...затычка ts-ignore
 //todo: ошибка в консоле по несостыковке пропсов на сервере и вронте из-за скелетона
 //todo: ваш заказ принят в модальном окне и очистка корзины
+//todo: рендер только одной карточки товара при нажатии баттон 
+//todo: рендер только типов и размеров при выборе на карте, а не вся карта 
 
