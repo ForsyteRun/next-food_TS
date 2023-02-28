@@ -1,83 +1,83 @@
-import React, { FC } from "react";
-import Image from "next/image";
+import React, { FC } from 'react'
+import Image from 'next/image'
 
-import { useAppDispatch } from "../store/hooks";
+import { useAppDispatch } from '../store/hooks'
 import {
   addOnePizza,
   removeAllInDraw,
   removeOnePizza,
   removePizzaBlock,
-} from "../store/redusers/selectedPizzas";
+} from '../store/redusers/selectedPizzas'
 
-import EuroIcon from "@mui/icons-material/Euro";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { Box, Button, Stack, Typography, IconButton } from "@mui/material";
+import EuroIcon from '@mui/icons-material/Euro'
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined'
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
+import { Box, Button, Stack, Typography, IconButton } from '@mui/material'
 
-import DrawerBtn from "./DrawerBtn";
+import DrawerBtn from './DrawerBtn'
 
 type RootObject = {
-  items: PizzasObj;
-  totalPrice: number;
-  totalCount: number;
-};
+  items: PizzasObj
+  totalPrice: number
+  totalCount: number
+}
 
 export interface PizzasObj {
-  [key: number]: Items;
+  [key: number]: Items
 }
 export interface Items {
-  items: Pizzas[];
-  totalPriceItem: number;
-  totalCountItem: number;
+  items: Pizzas[]
+  totalPriceItem: number
+  totalCountItem: number
 }
 
 export interface Pizzas {
-  id: number;
-  name: string;
-  price: number;
-  img: string;
-  size: number;
-  type: string;
+  id: number
+  name: string
+  price: number
+  img: string
+  size: number
+  type: string
 }
 
 const DrawOrder: FC<RootObject> = ({ items, totalCount, totalPrice }) => {
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   const addedPizzas = Object.keys(items).map(
-    (key: string) => items[+key].items[0]
-  );
+    (key: string) => items[+key].items[0],
+  )
 
   //add one pizza in cart count
   const onPlusItem = (id: number) => {
-    dispatch(addOnePizza(id));
-  };
+    dispatch(addOnePizza(id))
+  }
 
   //remove one pizza in cart count
   const onMinusItem = (id: number) => {
-    dispatch(removeOnePizza(id));
-  };
+    dispatch(removeOnePizza(id))
+  }
 
   //remove all pizzas in cart
   const removeDraw = () => {
-    if (window.confirm("Are you sure?")) {
-      dispatch(removeAllInDraw());
+    if (window.confirm('Are you sure?')) {
+      dispatch(removeAllInDraw())
     }
-  };
+  }
 
   //remove one pizza's block in cart
   const removeBlock = (id: number) => {
-    if (window.confirm("Are you sure?")) {
-      dispatch(removePizzaBlock(id));
+    if (window.confirm('Are you sure?')) {
+      dispatch(removePizzaBlock(id))
     }
-  };
+  }
 
   return (
-    <Stack maxWidth={821} sx={{ m: "0 auto" }}>
+    <Stack maxWidth={821} sx={{ m: '0 auto' }}>
       <Stack
         direction="row"
         alignItems="center"
         justifyContent="space-between"
-        sx={{ mb: "30px" }}
+        sx={{ mb: '30px' }}
       >
         <Stack direction="row" alignItems="center" gap="17px">
           <ShoppingCartOutlinedIcon fontSize="medium" />
@@ -87,7 +87,7 @@ const DrawOrder: FC<RootObject> = ({ items, totalCount, totalPrice }) => {
         </Stack>
         <Stack direction="row" alignItems="center" gap="15px">
           <IconButton aria-label="delete" onClick={removeDraw}>
-            <DeleteForeverOutlinedIcon sx={{ color: "#B6B6B6" }} />
+            <DeleteForeverOutlinedIcon sx={{ color: '#B6B6B6' }} />
           </IconButton>
           <Typography component="div" color="#B6B6B6">
             Очистить корзину
@@ -101,7 +101,7 @@ const DrawOrder: FC<RootObject> = ({ items, totalCount, totalPrice }) => {
             direction="row"
             alignItems="center"
             gap="15px"
-            sx={{ mb: "30px" }}
+            sx={{ mb: '30px' }}
           >
             <Image
               src={el.img}
@@ -123,7 +123,7 @@ const DrawOrder: FC<RootObject> = ({ items, totalCount, totalPrice }) => {
                 </Typography>
                 <Typography
                   component="div"
-                  sx={{ fontSize: "18px", color: "#8D8D8D" }}
+                  sx={{ fontSize: '18px', color: '#8D8D8D' }}
                 >
                   {el.type} тесто, {el.size} см
                 </Typography>
@@ -138,58 +138,58 @@ const DrawOrder: FC<RootObject> = ({ items, totalCount, totalPrice }) => {
                 <Button
                   onClick={() => onPlusItem(el.id)}
                   sx={{
-                    borderRadius: "50%",
-                    border: "1px solid #FE5F1E",
-                    minWidth: "32px",
-                    height: "32px",
-                    fontSize: "22px",
-                    "&:hover": { background: "#FE5F1E", color: "#fff" },
+                    borderRadius: '50%',
+                    border: '1px solid #FE5F1E',
+                    minWidth: '32px',
+                    height: '32px',
+                    fontSize: '22px',
+                    '&:hover': { background: '#FE5F1E', color: '#fff' },
                   }}
                 >
                   +
                 </Button>
                 <Typography
                   component="div"
-                  sx={{ fontSize: "22px", fontWeight: 700 }}
+                  sx={{ fontSize: '22px', fontWeight: 700 }}
                 >
                   {items[el.id].totalCountItem}
                 </Typography>
                 <Button
                   onClick={() => onMinusItem(el.id)}
                   sx={{
-                    borderRadius: "50%",
-                    border: "1px solid #FE5F1E",
-                    minWidth: "32px",
-                    height: "32px",
-                    fontSize: "22px",
-                    "&:hover": { background: "#FE5F1E", color: "#fff" },
+                    borderRadius: '50%',
+                    border: '1px solid #FE5F1E',
+                    minWidth: '32px',
+                    height: '32px',
+                    fontSize: '22px',
+                    '&:hover': { background: '#FE5F1E', color: '#fff' },
                   }}
                 >
                   -
                 </Button>
                 <Typography
                   component="div"
-                  sx={{ fontSize: "22px", fontWeight: 700, flexBasis: "80px" }}
+                  sx={{ fontSize: '22px', fontWeight: 700, flexBasis: '80px' }}
                 >
                   {items[el.id].totalPriceItem}
-                  <EuroIcon sx={{ verticalAlign: "text-top" }} />
+                  <EuroIcon sx={{ verticalAlign: 'text-top' }} />
                 </Typography>
                 <Button
                   onClick={() => removeBlock(el.id)}
                   sx={{
-                    borderRadius: "50%",
-                    border: "1px solid #D7D7D7",
-                    minWidth: "32px",
-                    height: "32px",
-                    "&:hover": { background: "rgba(215, 215, 215, 1)" },
+                    borderRadius: '50%',
+                    border: '1px solid #D7D7D7',
+                    minWidth: '32px',
+                    height: '32px',
+                    '&:hover': { background: 'rgba(215, 215, 215, 1)' },
                   }}
                 >
                   <Box
                     sx={{
-                      transform: "rotate(45deg)",
-                      color: "rgba(215, 215, 215, 1)",
-                      fontSize: "22px",
-                      "&:hover": { color: "#fff" },
+                      transform: 'rotate(45deg)',
+                      color: 'rgba(215, 215, 215, 1)',
+                      fontSize: '22px',
+                      '&:hover': { color: '#fff' },
                     }}
                   >
                     +
@@ -204,23 +204,23 @@ const DrawOrder: FC<RootObject> = ({ items, totalCount, totalPrice }) => {
         direction="row"
         alignItems="center"
         justifyContent="space-between"
-        sx={{ mb: "40px" }}
+        sx={{ mb: '40px' }}
       >
-        <Typography component="div" sx={{ fontSize: "22px" }}>
+        <Typography component="div" sx={{ fontSize: '22px' }}>
           Всего пицц: <b>{totalCount} шт</b>
         </Typography>
         <Typography
           component="div"
-          sx={{ fontSize: "22px", fontWeight: "700" }}
+          sx={{ fontSize: '22px', fontWeight: '700' }}
         >
           Сумма заказа:
           <Typography
             component="span"
             sx={{
-              fontSize: "22px",
-              color: "#FE5F1E",
-              fontWeight: "700",
-              m: "10px",
+              fontSize: '22px',
+              color: '#FE5F1E',
+              fontWeight: '700',
+              m: '10px',
             }}
           >
             {totalPrice}
@@ -247,7 +247,7 @@ const DrawOrder: FC<RootObject> = ({ items, totalCount, totalPrice }) => {
         ></DrawerBtn>
       </Stack>
     </Stack>
-  );
-};
+  )
+}
 
 export default React.memo(DrawOrder)

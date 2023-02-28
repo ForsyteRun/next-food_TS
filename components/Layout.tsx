@@ -1,11 +1,11 @@
-import { FC, ReactNode } from "react";
-import { theme } from "../theme/theme";
-import { Container, CssBaseline, ThemeProvider } from "@mui/material";
-import Header from "./Header";
+import { FC, ReactNode } from 'react'
+import { theme } from '../theme/theme'
+import { Container, CssBaseline, ThemeProvider } from '@mui/material'
+import Header from './Header'
 
 type PropsType = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 const Layout: FC<PropsType> = ({ children }) => {
   return (
@@ -13,25 +13,23 @@ const Layout: FC<PropsType> = ({ children }) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container
-          maxWidth={"xl"}
+          maxWidth={'xl'}
           sx={{ backgroundColor: theme.palette.background.paper }}
-          className="headerWrapper"
-        >
+          className='headerWrapper'>
           <Header />
         </Container>
         <Container
-          maxWidth={"xl"}
+          maxWidth={'xl'}
           sx={{
             backgroundColor: theme.palette.background.paper,
-            minHeight: "100%",
+            minHeight: '100%'
           }}
-          className="wrapper"
-        >
-          <main style={{ flexGrow: 1, paddingTop: "40px" }}>{children}</main>
+          className='wrapper'>
+          <main style={{ flexGrow: 1, paddingTop: '40px' }}>{children}</main>
         </Container>
       </ThemeProvider>
     </>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

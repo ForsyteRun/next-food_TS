@@ -1,19 +1,19 @@
-import Head from "next/head";
-import Image from "next/image";
+import Head from 'next/head'
+import Image from 'next/image'
 
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography } from '@mui/material'
 
-import { AppState } from "../store";
-import { useAppSelector } from "../store/hooks";
+import { AppState } from '../store'
+import { useAppSelector } from '../store/hooks'
 
-import { DrawerBtn, DrawOrder } from "../components";
+import { DrawerBtn, DrawOrder } from '../components'
 
-import s from "./../styles/Draw.module.scss";
+import s from './../styles/Draw.module.scss'
 
 const Draw = () => {
   const { items, totalCount, totalPrice } = useAppSelector(
-    (state: AppState) => state.selectedPizzas
-  );
+    (state: AppState) => state.selectedPizzas,
+  )
 
   return (
     <>
@@ -40,21 +40,21 @@ const Draw = () => {
             direction="row"
             alignItems="center"
             justifyContent="center"
-            columnGap={"10px"}
+            columnGap={'10px'}
           >
             <Typography variant="h2">Корзина пустая</Typography>
-            <Image src={"/img/😕.svg"} alt="smile" width={32} height={32} />
+            <Image src={'/img/😕.svg'} alt="smile" width={32} height={32} />
           </Stack>
           <p className={s.paragraf}>
             Вероятней всего, вы не заказывали ещё пиццу. Для того, чтобы
             заказать пиццу, перейди на главную страницу.
           </p>
           <Image
-            src={"/img/drawer.png"}
+            src={'/img/drawer.png'}
             alt="manWithDraw"
             width={300}
             height={255}
-            style={{ marginBottom: "64px" }}
+            style={{ marginBottom: '64px' }}
           />
           <DrawerBtn
             width={210}
@@ -67,7 +67,7 @@ const Draw = () => {
         </Stack>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Draw;
+export default Draw

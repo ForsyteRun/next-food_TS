@@ -1,49 +1,49 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { shortCardDataType } from "../../types/types";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { shortCardDataType } from '../../types/types'
 
 type ObjItemsType = {
-  items: shortCardDataType[];
-  totalPriceItem: number;
-  totalCountItem: number;
-};
+  items: shortCardDataType[]
+  totalPriceItem: number
+  totalCountItem: number
+}
 
 type SelectedPizzasState = {
   items: {
-    [ket: number]: ObjItemsType;
-  };
-  totalPrice: number;
-  totalCount: number;
-};
+    [ket: number]: ObjItemsType
+  }
+  totalPrice: number
+  totalCount: number
+}
 
 const initialState: SelectedPizzasState = {
   items: {},
   totalPrice: 0,
   totalCount: 0,
-};
+}
 
 const getArraySelectedPizzas = (currentCard: any) => {
   return Object.values(currentCard)
     .map((obj: any) => obj.items)
-    .flat();
-};
+    .flat()
+}
 
 const getSumValueSelectedPizzas = (element: any) => {
-  return element.reduce((el: any, init: any) => init.price + el, 0);
-};
+  return element.reduce((el: any, init: any) => init.price + el, 0)
+}
 
 export const selectedPizzas = createSlice({
-  name: "selectedPizzas",
+  name: 'selectedPizzas',
   initialState,
   reducers: {
     addPizzas: (
       state: SelectedPizzasState,
-      action: PayloadAction<shortCardDataType>
+      action: PayloadAction<shortCardDataType>,
     ) => {
       //@ts-ignore
       const currentPizza = !state.items[action.payload.id]
         ? [action.payload]
         : //@ts-ignore
-          [...state.items[action.payload.id].items, action.payload];
+          [...state.items[action.payload.id].items, action.payload]
 
       const currentCard = {
         ...state.items,
@@ -52,83 +52,81 @@ export const selectedPizzas = createSlice({
           totalPriceItem: getSumValueSelectedPizzas(currentPizza),
           totalCountItem: currentPizza.length,
         },
-      };
+      }
 
       return {
         ...state,
         items: currentCard,
         totalCount: getArraySelectedPizzas(currentCard).length,
         totalPrice: getSumValueSelectedPizzas(
-          getArraySelectedPizzas(currentCard)
+          getArraySelectedPizzas(currentCard),
         ),
-      };
+      }
     },
     removeAllInDraw: (state: SelectedPizzasState) => {
-      state.items = {};
-      state.totalCount = 0;
-      state.totalPrice = 0;
+      state.items = {}
+      state.totalCount = 0
+      state.totalPrice = 0
     },
     addOnePizza: (
       state: SelectedPizzasState,
-      action: PayloadAction<number>
+      action: PayloadAction<number>,
     ) => {
       //todo: refactor addOnePizza & removeOnePizza
-      const currentPizza = state.items[action.payload];
+      const currentPizza = state.items[action.payload]
 
-      currentPizza.items.push(
-        currentPizza.items[currentPizza.items.length - 1]
-      );
-      currentPizza.totalCountItem = currentPizza.items.length;
+      currentPizza.items.push(currentPizza.items[currentPizza.items.length - 1])
+      currentPizza.totalCountItem = currentPizza.items.length
       currentPizza.totalPriceItem = currentPizza.items.reduce(
         (el: any, init: any) => init.price + el,
-        0
-      );
+        0,
+      )
 
-      state.totalCount = getArraySelectedPizzas(state.items).length;
+      state.totalCount = getArraySelectedPizzas(state.items).length
       state.totalPrice = getSumValueSelectedPizzas(
-        getArraySelectedPizzas(state.items)
-      );
+        getArraySelectedPizzas(state.items),
+      )
     },
     removeOnePizza: (
       state: SelectedPizzasState,
-      action: PayloadAction<number>
+      action: PayloadAction<number>,
     ) => {
-      const currentPizza = state.items[action.payload];
+      const currentPizza = state.items[action.payload]
 
       currentPizza.items.length > 1
         ? currentPizza.items.pop()
-        : delete state.items[action.payload];
-      currentPizza.totalCountItem = currentPizza.items.length;
+        : delete state.items[action.payload]
+      currentPizza.totalCountItem = currentPizza.items.length
       currentPizza.totalPriceItem = currentPizza.items.reduce(
         (el: any, init: any) => init.price + el,
-        0
-      );
+        0,
+      )
 
-      state.totalCount = getArraySelectedPizzas(state.items).length;
+      state.totalCount = getArraySelectedPizzas(state.items).length
       state.totalPrice = getSumValueSelectedPizzas(
-        getArraySelectedPizzas(state.items)
-      );
+        getArraySelectedPizzas(state.items),
+      )
     },
     removePizzaBlock: (
       state: SelectedPizzasState,
-      action: PayloadAction<number>
+      action: PayloadAction<number>,
     ) => {
-      const currentPizza = state.items[action.payload];
+      const currentPizza = state.items[action.payload]
 
-      delete state.items[action.payload];
-      currentPizza.totalCountItem = currentPizza.items.length;
+      delete state.items[action.payload]
+      currentPizza.totalCountItem = currentPizza.items.length
       currentPizza.totalPriceItem = currentPizza.items.reduce(
         (el: any, init: any) => init.price + el,
-        0
-      );
+        0,
+      )
 
-      state.totalCount = getArraySelectedPizzas(state.items).length;
+      state.totalCount = getArraySelectedPizzas(state.items).length
       state.totalPrice = getSumValueSelectedPizzas(
-        getArraySelectedPizzas(state.items)
-      );
+        getArraySelectedPizzas(state.items),
+      )
     },
   },
-});
+})
 
 export const {
   addPizzas,
@@ -136,6 +134,6 @@ export const {
   removeAllInDraw,
   removeOnePizza,
   removePizzaBlock,
-} = selectedPizzas.actions;
+} = selectedPizzas.actions
 
-export default selectedPizzas.reducer;
+export default selectedPizzas.reducer

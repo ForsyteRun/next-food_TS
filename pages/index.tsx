@@ -1,32 +1,32 @@
-import Head from "next/head";
+import Head from 'next/head'
 
-import { AppState, AppStore, wrapper } from "../store";
-import { GetServerSideProps } from "next";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { useActions } from "../hooks/useActions";
+import { AppState, AppStore, wrapper } from '../store'
+import { GetServerSideProps } from 'next'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
+import { useActions } from '../hooks/useActions'
 
-import { Stack, Typography } from "@mui/material";
-import { pizzaApi, useGetAllPizzasQuery } from "../api/pizzas.api";
-import { MainCard, Sceleton, SortBy, TabMain } from "../components";
+import { Stack, Typography } from '@mui/material'
+import { pizzaApi, useGetAllPizzasQuery } from '../api/pizzas.api'
+import { MainCard, Sceleton, SortBy, TabMain } from '../components'
 
-import { CardDataType } from "../types/types";
+import { CardDataType } from '../types/types'
 
-const tabMenuItems = ["Мясные", "Вегетарианские", "Открытые", "Закрытые"];
+const tabMenuItems = ['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']
 const itemsSort = [
-  { value: "rating", label: "популярности", id: 0 },
-  { value: "price", label: "цене", id: 1 },
-  { value: "name", label: "алфавиту", id: 2 },
-];
+  { value: 'rating', label: 'популярности', id: 0 },
+  { value: 'price', label: 'цене', id: 1 },
+  { value: 'name', label: 'алфавиту', id: 2 },
+]
 
-export const allSets = ["тонкое", "традиционное"];
-export const allSizes = [26, 30, 40];
+export const allSets = ['тонкое', 'традиционное']
+export const allSizes = [26, 30, 40]
 
 const Home = () => {
-  const { tabPizzas } = useAppSelector((state: AppState) => state.getFilterTab);
-  const dispatch = useAppDispatch();
-  const { selectedPizzas } = useActions();
+  const { tabPizzas } = useAppSelector((state: AppState) => state.getFilterTab)
+  const dispatch = useAppDispatch()
+  const { selectedPizzas } = useActions()
 
-  const { data, isFetching } = useGetAllPizzasQuery(tabPizzas);
+  const { data, isFetching } = useGetAllPizzasQuery(tabPizzas)
 
   return (
     <>
@@ -63,19 +63,19 @@ const Home = () => {
                   selectedPizzas={selectedPizzas}
                   dispatch={dispatch}
                 />
-              );
+              )
             })}
       </Stack>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
 
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store: AppStore) => async () => {
-    await store.dispatch(pizzaApi.endpoints.getAllPizzas.initiate());
+    await store.dispatch(pizzaApi.endpoints.getAllPizzas.initiate())
     return {
       props: {},
-    };
-  });
+    }
+  })

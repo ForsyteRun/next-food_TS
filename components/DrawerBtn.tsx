@@ -1,16 +1,16 @@
-import { FC } from "react";
-import { useRouter } from "next/router";
-import { Typography } from "@mui/material";
-import s from "./../styles/DrawBtn.module.scss";
+import { FC } from 'react'
+import { useRouter } from 'next/router'
+import { Typography } from '@mui/material'
+import s from './../styles/DrawBtn.module.scss'
 
 type PropsType = {
-  width: number;
-  height: number;
-  bgColor: string;
-  title: string;
-  borderColor: string;
-  textColor?: string;
-};
+  width: number
+  height: number
+  bgColor: string
+  title: string
+  borderColor: string
+  textColor?: string
+}
 
 const DrawerBtn: FC<PropsType> = ({
   width,
@@ -20,7 +20,7 @@ const DrawerBtn: FC<PropsType> = ({
   borderColor,
   textColor,
 }) => {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <button
@@ -37,14 +37,14 @@ const DrawerBtn: FC<PropsType> = ({
         sx={{
           color: textColor,
           fontWeight: 700,
-          fontSize: "14px",
+          fontSize: '14px',
           lineHeight: 1.21,
         }}
       >
         {title}
       </Typography>
     </button>
-  );
-};
+  )
+}
 
-export default DrawerBtn;
+export default DrawerBtn

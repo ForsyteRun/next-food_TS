@@ -1,17 +1,17 @@
-import type { AppProps } from "next/app";
-import { wrapper } from "../store";
-import Layout from "../components/Layout";
-import "../styles/globals.scss";
+import type { AppProps } from 'next/app'
+import { wrapper } from '../store'
+import Layout from '../components/Layout'
+import '../styles/globals.scss'
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Layout>
       <Component {...pageProps} />
     </Layout>
-  );
-};
+  )
+}
 
-export default wrapper.withRedux(App);
+export default wrapper.withRedux(App)
 
 //todo: fetch запрос каждый раз при переходе на любую старинц...это плохо
 //todo: margin in container
@@ -34,11 +34,10 @@ export default wrapper.withRedux(App);
 //todo: ошибки в консоле и в терминале
 //todo: Sceleton ошибка в консоле... no match props server-client
 //todo: как сделать на одно rtkApi и ssr, и filter, и sort?
-//todo: sort=undefined при нетворк в консоле при сортировке 
+//todo: sort=undefined при нетворк в консоле при сортировке
 //todo: двойной вызов редюсеров!!!
 //todo: не индексирует ключи объекта в MainCard...затычка ts-ignore
 //todo: ошибка в консоле по несостыковке пропсов на сервере и вронте из-за скелетона
 //todo: ваш заказ принят в модальном окне и очистка корзины
-//todo: рендер только одной карточки товара при нажатии баттон 
-//todo: рендер только типов и размеров при выборе на карте, а не вся карта 
-
+//todo: рендер только одной карточки товара при нажатии баттон
+//todo: рендер только типов и размеров при выборе на карте, а не вся карта

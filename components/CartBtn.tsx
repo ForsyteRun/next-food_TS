@@ -1,21 +1,20 @@
-import React from "react";
+import React from 'react'
 
-import { useAppSelector } from "../store/hooks";
-import { AppState } from "../store";
+import { useAppSelector } from '../store/hooks'
+import { AppState } from '../store'
 
-import { theme } from "../theme/theme";
-import { Stack } from "@mui/material";
-import Divider from "@mui/material/Divider";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import EuroIcon from "@mui/icons-material/Euro";
+import { theme } from '../theme/theme'
+import { Stack } from '@mui/material'
+import Divider from '@mui/material/Divider'
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
+import EuroIcon from '@mui/icons-material/Euro'
 
-import s from "./../styles/CartBtn.module.scss";
+import s from './../styles/CartBtn.module.scss'
 
-const CartBtn = React.memo(() => {
-  
+const CartBtn = () => {
   const { totalPrice, totalCount, items } = useAppSelector(
-    (state: AppState) => state.selectedPizzas
-  );
+    (state: AppState) => state.selectedPizzas,
+  )
 
   return (
     <Stack
@@ -33,14 +32,14 @@ const CartBtn = React.memo(() => {
       <Divider
         orientation="vertical"
         flexItem
-        sx={{ borderColor: "rgba(255, 255, 255, 0.8)" }}
+        sx={{ borderColor: 'rgba(255, 255, 255, 0.8)' }}
       />
       <Stack direction="row" alignItems="center" color="#fff">
         <ShoppingCartOutlinedIcon fontSize="small" />
         <span className={s.right}>{totalCount}</span>
       </Stack>
     </Stack>
-  );
-});
+  )
+}
 
-export default CartBtn;
+export default React.memo(CartBtn)

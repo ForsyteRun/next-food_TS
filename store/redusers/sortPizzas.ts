@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface sortState {
@@ -16,10 +16,10 @@ export const sortSlice = createSlice({
     sortPizzas: (state: sortState, action: PayloadAction<string>) => {
       console.log('sort')
       state.sortBy = action.payload
-    }
+    },
   },
 })
 
-export const {sortPizzas} = sortSlice.actions
+export const { sortPizzas } = sortSlice.actions
 
 export default sortSlice.reducer

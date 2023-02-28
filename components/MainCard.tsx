@@ -1,51 +1,51 @@
-import Image from "next/image";
-import React from "react";
-import { FC, useState } from "react";
+import Image from 'next/image'
+import React from 'react'
+import { FC, useState } from 'react'
 
-import { AppState } from "../store";
-import { useAppSelector } from "../store/hooks";
-import { addPizzas } from "../store/redusers/selectedPizzas";
+import { AppState } from '../store'
+import { useAppSelector } from '../store/hooks'
+import { addPizzas } from '../store/redusers/selectedPizzas'
 
-import cn from "classnames";
+import cn from 'classnames'
 
-import { CardDataType, shortCardDataType } from "../types/types";
+import { CardDataType, shortCardDataType } from '../types/types'
 
-import { theme } from "../theme/theme";
-import { Stack } from "@mui/material";
-import { Card, Typography } from "@mui/material";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
+import { theme } from '../theme/theme'
+import { Stack } from '@mui/material'
+import { Card, Typography } from '@mui/material'
+import CardActions from '@mui/material/CardActions'
+import CardContent from '@mui/material/CardContent'
 
-import s from "./../styles/MainCard.module.scss";
+import s from './../styles/MainCard.module.scss'
 
-import ButtonBuy from "./ButtonBuy";
+import ButtonBuy from './ButtonBuy'
 
 type PropsType = {
-  card: CardDataType;
-  allSets: Array<string>;
-  allSizes: Array<number>;
+  card: CardDataType
+  allSets: Array<string>
+  allSizes: Array<number>
 
-  selectedPizzas: (card: shortCardDataType) => void;
-  dispatch: (el: any) => void;
-};
+  selectedPizzas: (card: shortCardDataType) => void
+  dispatch: (el: any) => void
+}
 
 const MainCard: FC<PropsType> = ({ card, allSets, allSizes, dispatch }) => {
-  const { imageUrl, price, name, types, sizes, id } = card;
-  const items = useAppSelector((state: AppState) => state.selectedPizzas.items);
+  const { imageUrl, price, name, types, sizes, id } = card
+  const items = useAppSelector((state: AppState) => state.selectedPizzas.items)
 
   //pizza's type state
-  const [typeItem, setTypeItem] = useState<number>(types[0]);
+  const [typeItem, setTypeItem] = useState<number>(types[0])
 
   //pizza's sizes state
-  const [sizeItem, setSizeItem] = useState<number>(0);
+  const [sizeItem, setSizeItem] = useState<number>(0)
 
   const onSelectSets = (index: number) => {
-    setTypeItem(index);
-  };
+    setTypeItem(index)
+  }
 
   const onSelectSizes = (index: number) => {
-    setSizeItem(index);
-  };
+    setSizeItem(index)
+  }
 
   const addPizzaToCart = ({ id, name, imageUrl, price }: CardDataType) => {
     let obj = {
@@ -55,30 +55,30 @@ const MainCard: FC<PropsType> = ({ card, allSets, allSizes, dispatch }) => {
       img: imageUrl,
       size: allSizes[sizeItem],
       type: allSets[typeItem],
-    };
-    dispatch(addPizzas(obj));
-  };
+    }
+    dispatch(addPizzas(obj))
+  }
 
   return (
-    <Card sx={{ width: 280, boxShadow: "none" }}>
+    <Card sx={{ width: 280, boxShadow: 'none' }}>
       <Image
         src={imageUrl}
-        alt="pizza"
+        alt='pizza'
         width={260}
         height={260}
         priority
         quality={100}
-        sizes="(max-width: 768px) 100vw,
+        sizes='(max-width: 768px) 100vw,
       (max-width: 1200px) 50vw,
-      33vw"
+      33vw'
         className={s.img}
       />
       <CardContent sx={{ pb: 0 }}>
         <Typography
           gutterBottom
-          variant="h3"
-          component="div"
-          sx={{ textAlign: "center", height: "55px", mb: 0 }}
+          variant='h3'
+          component='div'
+          sx={{ textAlign: 'center', height: '55px', mb: 0 }}
         >
           {name}
         </Typography>
@@ -88,12 +88,12 @@ const MainCard: FC<PropsType> = ({ card, allSets, allSizes, dispatch }) => {
           {allSets?.map((el: string, index) => (
             <Typography
               key={el}
-              variant="h6"
-              component="div"
+              variant='h6'
+              component='div'
               className={cn(
                 s.topSet,
                 typeItem === index && s.active,
-                !types.includes(index) && s.disabled
+                !types.includes(index) && s.disabled,
               )}
               onClick={() => onSelectSets(index)}
             >
@@ -105,12 +105,12 @@ const MainCard: FC<PropsType> = ({ card, allSets, allSizes, dispatch }) => {
           {allSizes?.map((el: number, index: number) => (
             <Typography
               key={el}
-              variant="h6"
-              component="div"
+              variant='h6'
+              component='div'
               className={cn(
                 s.topSet,
                 sizeItem === index && s.active,
-                !sizes.includes(el) && s.disabled
+                !sizes.includes(el) && s.disabled,
               )}
               onClick={() => onSelectSizes(index)}
             >
@@ -119,8 +119,8 @@ const MainCard: FC<PropsType> = ({ card, allSets, allSizes, dispatch }) => {
           ))}
         </Stack>
       </Stack>
-      <CardActions sx={{ justifyContent: "space-between" }}>
-        <Typography gutterBottom variant="h3" component="div">
+      <CardActions sx={{ justifyContent: 'space-between' }}>
+        <Typography gutterBottom variant='h3' component='div'>
           от {price}
           <span>&#36;</span>
         </Typography>
@@ -131,7 +131,7 @@ const MainCard: FC<PropsType> = ({ card, allSets, allSizes, dispatch }) => {
         />
       </CardActions>
     </Card>
-  );
-};
+  )
+}
 
-export default React.memo(MainCard);
+export default React.memo(MainCard)
