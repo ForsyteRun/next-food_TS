@@ -1,10 +1,8 @@
 import React from 'react'
+
 import Image from 'next/image'
 import Link from 'next/link'
-
 import { useRouter } from 'next/router'
-
-import logo from './../public/logo.png'
 
 import { Typography } from '@mui/material'
 import { Stack } from '@mui/system'
@@ -18,7 +16,7 @@ const Header = () => {
     <header>
       <Stack direction='row'>
         <Link href='/'>
-          <Image src={logo} alt='logo' width={38} height={38} />
+          <Image src='/logo.png' alt='logo' width={38} height={38} />
         </Link>
         <Stack sx={{ ml: '17px' }}>
           <Typography variant='h1' component='div'>

@@ -18,7 +18,7 @@ const DrawerBtn: FC<PropsType> = ({
   bgColor,
   title,
   borderColor,
-  textColor,
+  textColor
 }) => {
   const router = useRouter()
 
@@ -29,18 +29,16 @@ const DrawerBtn: FC<PropsType> = ({
         backgroundColor: bgColor,
         border: borderColor,
         width: width,
-        height: height,
+        height: height
       }}
-      className={s.container}
-    >
+      className={s.container}>
       <Typography
         sx={{
           color: textColor,
           fontWeight: 700,
           fontSize: '14px',
-          lineHeight: 1.21,
-        }}
-      >
+          lineHeight: 1.21
+        }}>
         {title}
       </Typography>
     </button>

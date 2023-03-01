@@ -54,7 +54,7 @@ const MainCard: FC<PropsType> = ({ card, allSets, allSizes, dispatch }) => {
       price,
       img: imageUrl,
       size: allSizes[sizeItem],
-      type: allSets[typeItem],
+      type: allSets[typeItem]
     }
     dispatch(addPizzas(obj))
   }
@@ -78,8 +78,7 @@ const MainCard: FC<PropsType> = ({ card, allSets, allSizes, dispatch }) => {
           gutterBottom
           variant='h3'
           component='div'
-          sx={{ textAlign: 'center', height: '55px', mb: 0 }}
-        >
+          sx={{ textAlign: 'center', height: '55px', mb: 0 }}>
           {name}
         </Typography>
       </CardContent>
@@ -93,10 +92,9 @@ const MainCard: FC<PropsType> = ({ card, allSets, allSizes, dispatch }) => {
               className={cn(
                 s.topSet,
                 typeItem === index && s.active,
-                !types.includes(index) && s.disabled,
+                !types.includes(index) && s.disabled
               )}
-              onClick={() => onSelectSets(index)}
-            >
+              onClick={() => onSelectSets(index)}>
               {el}
             </Typography>
           ))}
@@ -110,10 +108,9 @@ const MainCard: FC<PropsType> = ({ card, allSets, allSizes, dispatch }) => {
               className={cn(
                 s.topSet,
                 sizeItem === index && s.active,
-                !sizes.includes(el) && s.disabled,
+                !sizes.includes(el) && s.disabled
               )}
-              onClick={() => onSelectSizes(index)}
-            >
+              onClick={() => onSelectSizes(index)}>
               {el} см
             </Typography>
           ))}

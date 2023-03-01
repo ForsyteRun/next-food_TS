@@ -5,7 +5,7 @@ import { HYDRATE } from 'next-redux-wrapper'
 export const pizzaApi = createApi({
   reducerPath: 'pizzaApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3000/'
+    baseUrl: 'https://63fec9bfc5c800a72385b5d4.mockapi.io/items'
   }),
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
@@ -14,10 +14,15 @@ export const pizzaApi = createApi({
   },
   endpoints: (build) => ({
     getAllPizzas: build.query<Array<CardDataType>, any>({
-      query: (tab: any, sortBy?: any) =>
-        `pizzas?${tab !== null ? `category=${tab}` : ''}&_sort=${sortBy}`
+      query: () => ``
     })
   })
 })
+
+//todo: old variant
+// getAllPizzas: build.query<Array<CardDataType>, any>({
+//   query: (tab: any, sortBy?: any) =>
+//   `pizzas?${tab !== null ? `category=${tab}` : ''}&_sort=${sortBy}`
+// })
 
 export const { useGetAllPizzasQuery } = pizzaApi

@@ -13,7 +13,7 @@ import {
   ListItemProps,
   ListItemText,
   ListItemTextProps,
-  ListProps,
+  ListProps
 } from '@mui/material'
 import s from '../styles/tabMain.module.scss'
 
@@ -25,7 +25,7 @@ const CustomList = styled(List)<ListProps>(() => ({
   width: '828px',
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-between',
+  justifyContent: 'space-between'
 }))
 
 const CustomListItem = styled(ListItem)<ListItemProps>(() => ({
@@ -33,13 +33,13 @@ const CustomListItem = styled(ListItem)<ListItemProps>(() => ({
   borderRadius: '30px',
   background: theme.palette.grey[500],
   padding: '14px 28px',
-  cursor: 'pointer',
+  cursor: 'pointer'
 }))
 
 const CustomListItemText = styled(ListItemText)<ListItemTextProps>(() => ({
   fontWeight: theme.typography.fontWeightMedium,
   fontSize: '16px',
-  lineHeight: '19px',
+  lineHeight: '19px'
 }))
 
 const TabMain: FC<PropsType> = ({ tabMenuItems }) => {

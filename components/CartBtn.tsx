@@ -12,30 +12,29 @@ import EuroIcon from '@mui/icons-material/Euro'
 import s from './../styles/CartBtn.module.scss'
 
 const CartBtn = () => {
-  const { totalPrice, totalCount, items } = useAppSelector(
-    (state: AppState) => state.selectedPizzas,
+  const { totalPrice, totalCount } = useAppSelector(
+    (state: AppState) => state.selectedPizzas
   )
 
   return (
     <Stack
-      direction="row"
-      justifyContent="space-evenly"
-      width="150px"
-      height="50px"
+      direction='row'
+      justifyContent='space-evenly'
+      width='150px'
+      height='50px'
       sx={{ backgroundColor: theme.palette.primary.main }}
-      className={s.container}
-    >
-      <Stack direction="row" alignItems="center" color="#fff">
+      className={s.container}>
+      <Stack direction='row' alignItems='center' color='#fff'>
         <span className={s.left}>{totalPrice}</span>
-        <EuroIcon fontSize="small" />
+        <EuroIcon fontSize='small' />
       </Stack>
       <Divider
-        orientation="vertical"
+        orientation='vertical'
         flexItem
         sx={{ borderColor: 'rgba(255, 255, 255, 0.8)' }}
       />
-      <Stack direction="row" alignItems="center" color="#fff">
-        <ShoppingCartOutlinedIcon fontSize="small" />
+      <Stack direction='row' alignItems='center' color='#fff'>
+        <ShoppingCartOutlinedIcon fontSize='small' />
         <span className={s.right}>{totalCount}</span>
       </Stack>
     </Stack>

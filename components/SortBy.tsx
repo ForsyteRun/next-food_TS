@@ -28,14 +28,14 @@ const SortBy: FC<PropsType> = ({ itemsSort }) => {
     valueContainer: (styles: any) => {
       return {
         ...styles,
-        paddingBottom: '9px',
+        paddingBottom: '9px'
       }
     },
     control: () => {
       return {
         backgroundColor: 'transparent',
         border: 'none',
-        cursor: 'pointer',
+        cursor: 'pointer'
       }
     },
     option: (styles, { isFocused }) => {
@@ -47,19 +47,19 @@ const SortBy: FC<PropsType> = ({ itemsSort }) => {
         fontSize: '14px',
         lineHeight: '17px',
         color: isFocused ? '#FE5F1E' : '#000',
-        backgroundColor: isFocused ? 'rgba(254, 95, 30, 0.05)' : '',
+        backgroundColor: isFocused ? 'rgba(254, 95, 30, 0.3)' : '',
         borderRadius: '10px',
-        cursor: 'pointer',
+        cursor: 'pointer'
       }
     },
     indicatorsContainer: () => {
       return {
-        display: 'none',
+        display: 'none'
       }
     },
     indicatorSeparator: () => {
       return {
-        display: 'none',
+        display: 'none'
       }
     },
     menu: () => {
@@ -69,6 +69,8 @@ const SortBy: FC<PropsType> = ({ itemsSort }) => {
         width: '150px',
         borderRadius: '10px',
         boxShadow: '0 5px 15px 0 #999',
+        backgroundColor: '#fff',
+        zIndex: 5
       }
     },
     singleValue: (styles) => {
@@ -78,9 +80,9 @@ const SortBy: FC<PropsType> = ({ itemsSort }) => {
         fontStyle: 'normal',
         fontWeight: '400',
         lineHeight: '17px',
-        color: '#FE5F1E',
+        color: '#FE5F1E'
       }
-    },
+    }
   }
 
   return (

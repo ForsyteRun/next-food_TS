@@ -87,23 +87,23 @@ const simpleTheme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
-      sm: 600,
-      md: 900,
-      lg: 1024,
-      xl: 1340,
-    },
+      sm: 640,
+      md: 800,
+      lg: 1200,
+      xl: 1500
+    }
   },
   palette: {
     primary: {
       main: '#FE5F1E',
       dark: '#EB5A1E',
-      light: '#fff7f4',
+      light: '#fff7f4'
     },
     secondary: {
-      main: '#FE5F1E',
+      main: '#FE5F1E'
     },
     background: {
-      paper: '#fff',
+      paper: '#fff'
     },
     grey: {
       900: '#282828',
@@ -112,8 +112,8 @@ const simpleTheme = createTheme({
       600: '#7B7B7B',
       500: '#F9F9F9',
       400: '#F6F6F6',
-      300: '#F3F3F3',
-    },
+      300: '#F3F3F3'
+    }
   },
   typography: {
     fontFamily: "'Montserrat', sans-serif",
@@ -125,7 +125,7 @@ const simpleTheme = createTheme({
       fontWeight: 800,
       fontSize: '24px',
       lineHeight: 1.21,
-      letterSpacing: '1%',
+      letterSpacing: '1%'
     },
     h2: {
       fontFamily: "'Montserrat', sans-serif",
@@ -133,28 +133,28 @@ const simpleTheme = createTheme({
       fontWeight: 700,
       fontSize: '32px',
       lineHeight: 1.21,
-      letterSpacing: '1%',
+      letterSpacing: '1%'
     },
     h3: {
       fontFamily: "'Montserrat', sans-serif",
       fontWeight: 800,
       fontSize: '20px',
       lineHeight: 1.21,
-      letterSpacing: '1%',
+      letterSpacing: '1%'
     },
     h4: {
       fontFamily: "'Montserrat', sans-serif",
       fontWeight: 700,
       fontSize: '16px',
       lineHeight: 1.21,
-      letterSpacing: '1.5%',
+      letterSpacing: '1.5%'
     },
     h5: {
       fontSize: '16px',
       color: '#7B7B7B',
       lineHeight: '19px',
       fontStyle: 'normal',
-      letterSpacing: 0,
+      letterSpacing: 0
     },
     h6: {
       fontFamily: "'Montserrat', sans-serif",
@@ -162,9 +162,9 @@ const simpleTheme = createTheme({
       fontSize: '14px',
       color: '#2C2C2C',
       lineHeight: 1.21,
-      letterSpacing: '1.5%',
-    },
-  },
+      letterSpacing: '1.5%'
+    }
+  }
 })
 
 export const theme = responsiveFontSizes(simpleTheme)
