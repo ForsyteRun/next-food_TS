@@ -89,7 +89,7 @@ const simpleTheme = createTheme({
       xs: 0,
       sm: 640,
       md: 800,
-      lg: 1200,
+      lg: 1240,
       xl: 1500
     }
   },

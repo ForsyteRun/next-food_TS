@@ -45,17 +45,26 @@ const Home = () => {
       <Grid
         container
         // spacing={{ xs: 1, md: 2, lg: 2, xl: 3 }}
-        // gap='1px'
+        gap='10px'
         // columns={{ xs: 2, sm: 4, md: 8, xl: 8 }}
         sx={{ justifyContent: 'space-between' }}>
         {isFetching
-          ? [...Array(8)].map((_, index: number) => <Sceleton key={index} />)
+          ? [...Array(8)].map((_, index: number) => (
+              <Grid
+                item
+                key={index}
+                // xl={3}
+                sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Sceleton key={index} />
+              </Grid>
+            ))
           : data?.map((card: CardDataType) => {
               return (
                 <Grid
                   item
+                  // gap={'20px'}
                   key={card.id}
-                  xl={3}
+                  // xl={3}
                   sx={{ display: 'flex', justifyContent: 'center' }}>
                   <MainCard
                     card={card}
