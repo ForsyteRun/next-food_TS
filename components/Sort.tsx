@@ -1,27 +1,23 @@
-import React, { FC } from 'react'
+import React from 'react'
 import Select, { SingleValue } from 'react-select'
 
-import { useAppDispatch } from '../store/hooks'
-import { sortPizzas } from '../store/redusers/sortPizzas'
-
 import { Stack, Typography } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import { StylesConfig } from 'react-select/dist/declarations/src/styles'
+import { sortItems } from '../types/types'
+import { sortReducer } from '../redux/slices/filter'
 
-type ItemSortBy = {
-  value: string
-  label: string
-  id: number
-}
+const sortItems = [
+  { value: 'rating', label: 'популярности', id: 0 },
+  { value: 'price', label: 'цене', id: 1 },
+  { value: 'name', label: 'алфавиту', id: 2 }
+]
 
-type PropsType = {
-  itemsSort: Array<ItemSortBy>
-}
+const Sort = () => {
+  const dispatch = useDispatch()
 
-const SortBy: FC<PropsType> = ({ itemsSort }) => {
-  const dispatch = useAppDispatch()
-
-  const onChange = (newValue: SingleValue<ItemSortBy | null>) => {
-    newValue && dispatch(sortPizzas(newValue.value))
+  const onChange = (newValue: SingleValue<sortItems | null>) => {
+    newValue && dispatch(sortReducer(newValue.value))
   }
 
   const itemStyles: StylesConfig = {
@@ -93,17 +89,17 @@ const SortBy: FC<PropsType> = ({ itemsSort }) => {
       <Typography gutterBottom variant='h6' component='span'>
         сортировка по:{' '}
       </Typography>
-      <Select<ItemSortBy, false>
+      <Select<sortItems, false>
         id='select'
         instanceId='select'
         //@ts-ignore
         styles={itemStyles}
-        defaultValue={itemsSort[0]}
-        options={itemsSort}
+        defaultValue={sortItems[0]}
+        options={sortItems}
         onChange={onChange}
       />
     </Stack>
   )
 }
 
-export default React.memo(SortBy)
+export default React.memo(Sort)

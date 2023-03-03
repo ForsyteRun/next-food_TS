@@ -3,15 +3,15 @@ import Image from 'next/image'
 
 import { Stack, Typography } from '@mui/material'
 
-import { AppState } from '../store'
-import { useAppSelector } from '../store/hooks'
+import { AppState } from '../redux/store'
 
 import { DrawerBtn, DrawOrder } from '../components'
 
 import s from './../styles/Draw.module.scss'
+import { useSelector } from 'react-redux'
 
 const Draw = () => {
-  const { items, totalCount, totalPrice } = useAppSelector(
+  const { items, totalCount, totalPrice } = useSelector(
     (state: AppState) => state.selectedPizzas
   )
 

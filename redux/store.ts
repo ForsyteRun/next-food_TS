@@ -1,24 +1,24 @@
-import { selectedPizzas } from './redusers/selectedPizzas'
+import { selectedPizzas } from './slices/selectedPizzas'
 import { configureStore, ThunkAction } from '@reduxjs/toolkit'
 import { createWrapper } from 'next-redux-wrapper'
 import { Action } from 'redux'
-import { pizzaApi } from './../api/pizzas.api'
-import { sortSlice } from './redusers/sortPizzas'
-import { getTabSlice } from './redusers/tabPizzas'
+import { pizzaApi } from '../api/pizzas.api'
+import filter from './slices/filter'
 
 const makeStore = () =>
+  //todo: why makeStore??
   configureStore({
     reducer: {
       [pizzaApi.reducerPath]: pizzaApi.reducer,
-      sortBy: sortSlice.reducer,
-      getFilterTab: getTabSlice.reducer,
-      selectedPizzas: selectedPizzas.reducer,
+      filter,
+      selectedPizzas: selectedPizzas.reducer
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(pizzaApi.middleware),
-    devTools: true,
+    devTools: true
   })
 
+//todo: why makeStore??
 export const store = makeStore()
 
 export type AppStore = ReturnType<typeof makeStore>

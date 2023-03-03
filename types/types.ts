@@ -17,3 +17,9 @@ export type shortCardDataType = {
   size: number
   price: number
 }
+
+export type sortItems = {
+  value: string
+  label: string
+  id: number
+}

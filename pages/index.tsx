@@ -1,31 +1,37 @@
 import Head from 'next/head'
 
-import { AppState, AppStore, wrapper } from '../store'
-import { GetServerSideProps } from 'next'
-import { useAppDispatch, useAppSelector } from '../store/hooks'
+import { AppState } from '../redux/store'
 
-import { Grid, Stack, Typography } from '@mui/material'
-import { pizzaApi, useGetAllPizzasQuery } from '../api/pizzas.api'
-import { MainCard, Sceleton, SortBy, TabMain } from '../components'
+import { Grid, Typography } from '@mui/material'
+import { useGetPizzasQuery } from '../api/pizzas.api'
+import { MainCard, Sceleton, Sort, Filter } from '../components'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { addPizzas } from '../redux/slices/selectedPizzas'
 import { CardDataType } from '../types/types'
-import { addPizzas } from '../store/redusers/selectedPizzas'
+// import simpleTheme from './../theme/theme'
 
-const tabMenuItems = ['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']
-const itemsSort = [
-  { value: 'rating', label: 'популярности', id: 0 },
-  { value: 'price', label: 'цене', id: 1 },
-  { value: 'name', label: 'алфавиту', id: 2 }
-]
+// const Root = styled('div')(({ simpleTheme }) => ({
+//   padding: simpleTheme.spacing(1),
+//   [theme.breakpoints.down('md')]: {
+//     backgroundColor: red[500]
+//   },
+//   [theme.breakpoints.up('md')]: {
+//     backgroundColor: blue[500]
+//   },
+//   [theme.breakpoints.up('lg')]: {
+//     backgroundColor: green[500]
+//   }
+// }))
 
 export const allSets = ['тонкое', 'традиционное']
 export const allSizes = [26, 30, 40]
 
 const Home = () => {
-  const { tabPizzas } = useAppSelector((state: AppState) => state.getFilterTab)
-  const dispatch = useAppDispatch()
+  const { categoryId, sort } = useSelector((state: AppState) => state.filter)
+  const dispatch = useDispatch()
 
-  const { data, isFetching } = useGetAllPizzasQuery(tabPizzas)
+  const { data, isFetching } = useGetPizzasQuery({ categoryId, sort })
 
   return (
     <>
@@ -35,25 +41,21 @@ const Home = () => {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+
       <Grid container sx={{ justifyContent: 'space-between' }} gap={'10px'}>
-        <TabMain tabMenuItems={tabMenuItems} />
-        <SortBy itemsSort={itemsSort} />
+        <Filter />
+        <Sort />
       </Grid>
+
       <Typography variant='h2' component='div' mb='35px'>
         Все пиццы
       </Typography>
-      <Grid
-        container
-        // spacing={{ xs: 1, md: 2, lg: 2, xl: 3 }}
-        gap='10px'
-        // columns={{ xs: 2, sm: 4, md: 8, xl: 8 }}
-        sx={{ justifyContent: 'space-between' }}>
+      <Grid container gap='10px' sx={{ justifyContent: 'space-between' }}>
         {isFetching
           ? [...Array(8)].map((_, index: number) => (
               <Grid
                 item
                 key={index}
-                // xl={3}
                 sx={{ display: 'flex', justifyContent: 'center' }}>
                 <Sceleton key={index} />
               </Grid>
@@ -62,9 +64,7 @@ const Home = () => {
               return (
                 <Grid
                   item
-                  // gap={'20px'}
                   key={card.id}
-                  // xl={3}
                   sx={{ display: 'flex', justifyContent: 'center' }}>
                   <MainCard
                     card={card}
@@ -83,10 +83,10 @@ const Home = () => {
 
 export default Home
 
-export const getServerSideProps: GetServerSideProps =
-  wrapper.getServerSideProps((store: AppStore) => async () => {
-    await store.dispatch(pizzaApi.endpoints.getAllPizzas.initiate())
-    return {
-      props: {}
-    }
-  })
+// export const getServerSideProps: GetServerSideProps =
+//   wrapper.getServerSideProps((store: AppStore) => async () => {
+//     await store.dispatch(pizzaApi.endpoints.getAllPizzas.initiate())
+//     return {
+//       props: {}
+//     }
+//   })

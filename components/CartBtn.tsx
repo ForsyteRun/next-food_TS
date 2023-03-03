@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { useAppSelector } from '../store/hooks'
-import { AppState } from '../store'
+import { AppState } from '../redux/store'
 
 import { theme } from '../theme/theme'
 import { Stack } from '@mui/material'
@@ -10,9 +9,10 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 import EuroIcon from '@mui/icons-material/Euro'
 
 import s from './../styles/CartBtn.module.scss'
+import { useSelector } from 'react-redux'
 
 const CartBtn = () => {
-  const { totalPrice, totalCount } = useAppSelector(
+  const { totalPrice, totalCount } = useSelector(
     (state: AppState) => state.selectedPizzas
   )
 

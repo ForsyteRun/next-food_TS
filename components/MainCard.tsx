@@ -2,9 +2,8 @@ import Image from 'next/image'
 import React from 'react'
 import { FC, useState } from 'react'
 
-import { AppState } from '../store'
-import { useAppSelector } from '../store/hooks'
-import { addPizzas } from '../store/redusers/selectedPizzas'
+import { AppState } from '../redux/store'
+import { addPizzas } from '../redux/slices/selectedPizzas'
 
 import cn from 'classnames'
 
@@ -19,6 +18,7 @@ import CardContent from '@mui/material/CardContent'
 import s from './../styles/MainCard.module.scss'
 
 import ButtonBuy from './ButtonBuy'
+import { useSelector } from 'react-redux'
 
 type PropsType = {
   card: CardDataType
@@ -31,7 +31,7 @@ type PropsType = {
 
 const MainCard: FC<PropsType> = ({ card, allSets, allSizes, dispatch }) => {
   const { imageUrl, price, name, types, sizes, id } = card
-  const items = useAppSelector((state: AppState) => state.selectedPizzas.items)
+  const items = useSelector((state: AppState) => state.selectedPizzas.items)
 
   //pizza's type state
   const [typeItem, setTypeItem] = useState<number>(types[0])

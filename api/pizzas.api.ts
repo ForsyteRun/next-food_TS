@@ -13,16 +13,11 @@ export const pizzaApi = createApi({
     }
   },
   endpoints: (build) => ({
-    getAllPizzas: build.query<Array<CardDataType>, any>({
-      query: () => ``
+    getPizzas: build.query({
+      query: ({ categoryId, sort }) =>
+        `?sortBy=${sort}&${categoryId !== null ? `category=${categoryId}` : ''}`
     })
   })
 })
 
-//todo: old variant
-// getAllPizzas: build.query<Array<CardDataType>, any>({
-//   query: (tab: any, sortBy?: any) =>
-//   `pizzas?${tab !== null ? `category=${tab}` : ''}&_sort=${sortBy}`
-// })
-
-export const { useGetAllPizzasQuery } = pizzaApi
+export const { useGetPizzasQuery } = pizzaApi

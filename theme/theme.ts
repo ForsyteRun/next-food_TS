@@ -83,7 +83,7 @@ declare module '@mui/material/styles' {
   }
 }
 
-const simpleTheme = createTheme({
+export const simpleTheme = createTheme({
   breakpoints: {
     values: {
       xs: 0,

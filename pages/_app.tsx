@@ -1,18 +1,20 @@
 import type { AppProps } from 'next/app'
-import { wrapper } from '../store'
+import { Provider } from 'react-redux'
 import Layout from '../components/Layout'
+import { store } from '../redux/store'
 import '../styles/globals.scss'
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <Provider store={store}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </Provider>
   )
 }
 
-export default wrapper.withRedux(App)
-
+export default App
 //todo: fetch запрос каждый раз при переходе на любую старинц...это плохо
 //todo: margin in container
 //todo: поправить вёрстку после data из бека
@@ -42,3 +44,7 @@ export default wrapper.withRedux(App)
 //todo: рендер только одной карточки товара при нажатии баттон
 //todo: рендер только типов и размеров при выборе на карте, а не вся карта
 //todo: перевод базы данных на бек - mockApi etc...
+//todo: responsive на малых разрешениях
+//todo: responsive по брейкпоинтах!!!
+//todo: удалить базу данных на клиенте и, соответственно, запуск скриптов
+//todo: перенести входные данные сорт и таб и соответствующий компонент

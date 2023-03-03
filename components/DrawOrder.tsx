@@ -1,13 +1,12 @@
 import React, { FC } from 'react'
 import Image from 'next/image'
 
-import { useAppDispatch } from '../store/hooks'
 import {
   addOnePizza,
   removeAllInDraw,
   removeOnePizza,
-  removePizzaBlock,
-} from '../store/redusers/selectedPizzas'
+  removePizzaBlock
+} from '../redux/slices/selectedPizzas'
 
 import EuroIcon from '@mui/icons-material/Euro'
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined'
@@ -15,6 +14,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
 import { Box, Button, Stack, Typography, IconButton } from '@mui/material'
 
 import DrawerBtn from './DrawerBtn'
+import { useDispatch } from 'react-redux'
 
 type RootObject = {
   items: PizzasObj
@@ -41,10 +41,10 @@ export interface Pizzas {
 }
 
 const DrawOrder: FC<RootObject> = ({ items, totalCount, totalPrice }) => {
-  const dispatch = useAppDispatch()
+  const dispatch = useDispatch()
 
   const addedPizzas = Object.keys(items).map(
-    (key: string) => items[+key].items[0],
+    (key: string) => items[+key].items[0]
   )
 
   //add one pizza in cart count
@@ -74,22 +74,21 @@ const DrawOrder: FC<RootObject> = ({ items, totalCount, totalPrice }) => {
   return (
     <Stack maxWidth={821} sx={{ m: '0 auto' }}>
       <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{ mb: '30px' }}
-      >
-        <Stack direction="row" alignItems="center" gap="17px">
-          <ShoppingCartOutlinedIcon fontSize="medium" />
-          <Typography variant="h2" component="div">
+        direction='row'
+        alignItems='center'
+        justifyContent='space-between'
+        sx={{ mb: '30px' }}>
+        <Stack direction='row' alignItems='center' gap='17px'>
+          <ShoppingCartOutlinedIcon fontSize='medium' />
+          <Typography variant='h2' component='div'>
             Корзина
           </Typography>
         </Stack>
-        <Stack direction="row" alignItems="center" gap="15px">
-          <IconButton aria-label="delete" onClick={removeDraw}>
+        <Stack direction='row' alignItems='center' gap='15px'>
+          <IconButton aria-label='delete' onClick={removeDraw}>
             <DeleteForeverOutlinedIcon sx={{ color: '#B6B6B6' }} />
           </IconButton>
-          <Typography component="div" color="#B6B6B6">
+          <Typography component='div' color='#B6B6B6'>
             Очистить корзину
           </Typography>
         </Stack>
@@ -98,43 +97,38 @@ const DrawOrder: FC<RootObject> = ({ items, totalCount, totalPrice }) => {
         {addedPizzas.map((el, index) => (
           <Stack
             key={index}
-            direction="row"
-            alignItems="center"
-            gap="15px"
-            sx={{ mb: '30px' }}
-          >
+            direction='row'
+            alignItems='center'
+            gap='15px'
+            sx={{ mb: '30px' }}>
             <Image
               src={el.img}
               width={80}
               height={80}
               priority
               quality={50}
-              alt="pizzaOrder"
-            ></Image>
+              alt='pizzaOrder'></Image>
             <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-              width="100%"
-            >
-              <Stack direction="column" alignItems="left">
-                <Typography variant="h3" component="div">
+              direction='row'
+              alignItems='center'
+              justifyContent='space-between'
+              width='100%'>
+              <Stack direction='column' alignItems='left'>
+                <Typography variant='h3' component='div'>
                   {el.name}
                 </Typography>
                 <Typography
-                  component="div"
-                  sx={{ fontSize: '18px', color: '#8D8D8D' }}
-                >
+                  component='div'
+                  sx={{ fontSize: '18px', color: '#8D8D8D' }}>
                   {el.type} тесто, {el.size} см
                 </Typography>
               </Stack>
               <Stack
-                direction="row"
-                alignItems="center"
-                justifyContent="flex-end"
-                gap="25px"
-                flexGrow={1}
-              >
+                direction='row'
+                alignItems='center'
+                justifyContent='flex-end'
+                gap='25px'
+                flexGrow={1}>
                 <Button
                   onClick={() => onPlusItem(el.id)}
                   sx={{
@@ -143,15 +137,13 @@ const DrawOrder: FC<RootObject> = ({ items, totalCount, totalPrice }) => {
                     minWidth: '32px',
                     height: '32px',
                     fontSize: '22px',
-                    '&:hover': { background: '#FE5F1E', color: '#fff' },
-                  }}
-                >
+                    '&:hover': { background: '#FE5F1E', color: '#fff' }
+                  }}>
                   +
                 </Button>
                 <Typography
-                  component="div"
-                  sx={{ fontSize: '22px', fontWeight: 700 }}
-                >
+                  component='div'
+                  sx={{ fontSize: '22px', fontWeight: 700 }}>
                   {items[el.id].totalCountItem}
                 </Typography>
                 <Button
@@ -162,15 +154,13 @@ const DrawOrder: FC<RootObject> = ({ items, totalCount, totalPrice }) => {
                     minWidth: '32px',
                     height: '32px',
                     fontSize: '22px',
-                    '&:hover': { background: '#FE5F1E', color: '#fff' },
-                  }}
-                >
+                    '&:hover': { background: '#FE5F1E', color: '#fff' }
+                  }}>
                   -
                 </Button>
                 <Typography
-                  component="div"
-                  sx={{ fontSize: '22px', fontWeight: 700, flexBasis: '80px' }}
-                >
+                  component='div'
+                  sx={{ fontSize: '22px', fontWeight: 700, flexBasis: '80px' }}>
                   {items[el.id].totalPriceItem}
                   <EuroIcon sx={{ verticalAlign: 'text-top' }} />
                 </Typography>
@@ -181,17 +171,15 @@ const DrawOrder: FC<RootObject> = ({ items, totalCount, totalPrice }) => {
                     border: '1px solid #D7D7D7',
                     minWidth: '32px',
                     height: '32px',
-                    '&:hover': { background: 'rgba(215, 215, 215, 1)' },
-                  }}
-                >
+                    '&:hover': { background: 'rgba(215, 215, 215, 1)' }
+                  }}>
                   <Box
                     sx={{
                       transform: 'rotate(45deg)',
                       color: 'rgba(215, 215, 215, 1)',
                       fontSize: '22px',
-                      '&:hover': { color: '#fff' },
-                    }}
-                  >
+                      '&:hover': { color: '#fff' }
+                    }}>
                     +
                   </Box>
                 </Button>
@@ -201,50 +189,45 @@ const DrawOrder: FC<RootObject> = ({ items, totalCount, totalPrice }) => {
         ))}
       </Stack>
       <Stack
-        direction="row"
-        alignItems="center"
-        justifyContent="space-between"
-        sx={{ mb: '40px' }}
-      >
-        <Typography component="div" sx={{ fontSize: '22px' }}>
+        direction='row'
+        alignItems='center'
+        justifyContent='space-between'
+        sx={{ mb: '40px' }}>
+        <Typography component='div' sx={{ fontSize: '22px' }}>
           Всего пицц: <b>{totalCount} шт</b>
         </Typography>
         <Typography
-          component="div"
-          sx={{ fontSize: '22px', fontWeight: '700' }}
-        >
+          component='div'
+          sx={{ fontSize: '22px', fontWeight: '700' }}>
           Сумма заказа:
           <Typography
-            component="span"
+            component='span'
             sx={{
               fontSize: '22px',
               color: '#FE5F1E',
               fontWeight: '700',
-              m: '10px',
-            }}
-          >
+              m: '10px'
+            }}>
             {totalPrice}
           </Typography>
           ₽
         </Typography>
       </Stack>
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
+      <Stack direction='row' alignItems='center' justifyContent='space-between'>
         <DrawerBtn
           width={211}
-          title="Вернуться назад"
-          bgColor="#FFFFFF"
+          title='Вернуться назад'
+          bgColor='#FFFFFF'
           height={55}
-          borderColor="1px solid #CACACA"
-          textColor="#CACACA"
-        ></DrawerBtn>
+          borderColor='1px solid #CACACA'
+          textColor='#CACACA'></DrawerBtn>
         <DrawerBtn
           width={211}
-          title="Оплатить сейчас"
-          bgColor="#FE5F1E"
+          title='Оплатить сейчас'
+          bgColor='#FE5F1E'
           height={55}
-          borderColor="transparent"
-          textColor="#fff"
-        ></DrawerBtn>
+          borderColor='transparent'
+          textColor='#fff'></DrawerBtn>
       </Stack>
     </Stack>
   )
