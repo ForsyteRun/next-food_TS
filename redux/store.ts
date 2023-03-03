@@ -4,6 +4,7 @@ import { createWrapper } from 'next-redux-wrapper'
 import { Action } from 'redux'
 import { pizzaApi } from '../api/pizzas.api'
 import filter from './slices/filter'
+import search from './slices/search'
 
 const makeStore = () =>
   //todo: why makeStore??
@@ -11,6 +12,7 @@ const makeStore = () =>
     reducer: {
       [pizzaApi.reducerPath]: pizzaApi.reducer,
       filter,
+      search,
       selectedPizzas: selectedPizzas.reducer
     },
     middleware: (getDefaultMiddleware) =>

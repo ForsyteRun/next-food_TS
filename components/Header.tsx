@@ -8,6 +8,7 @@ import { Typography } from '@mui/material'
 import { Stack } from '@mui/system'
 
 import { CartBtn } from './index'
+import Search from './Search'
 
 const Header = () => {
   const router = useRouter()
@@ -29,6 +30,7 @@ const Header = () => {
           </Typography>
         </Stack>
       </Stack>
+      <Search />
       <Link href={'/draw'}>
         <CartBtn />
       </Link>

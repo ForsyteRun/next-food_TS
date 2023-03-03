@@ -29,9 +29,14 @@ export const allSizes = [26, 30, 40]
 
 const Home = () => {
   const { categoryId, sort } = useSelector((state: AppState) => state.filter)
+  const searchValue = useSelector((state: AppState) => state.search.searchValue)
   const dispatch = useDispatch()
 
-  const { data, isFetching } = useGetPizzasQuery({ categoryId, sort })
+  const { data, isFetching } = useGetPizzasQuery({
+    categoryId,
+    sort,
+    searchValue
+  })
 
   return (
     <>
