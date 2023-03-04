@@ -14,7 +14,7 @@ const Search = () => {
   }
 
   const onRemoveInputValue = () => {
-    dispatch(searchReducer(' '))
+    dispatch(searchReducer(''))
   }
 
   return (
@@ -24,13 +24,14 @@ const Search = () => {
       color='info'
       onChange={onChangeSearch}
       value={searchValue}
+      sx={{ width: '250px' }}
       InputProps={{
         startAdornment: (
           <InputAdornment position='start'>
             <SearchIcon />
           </InputAdornment>
         ),
-        endAdornment: (
+        endAdornment: searchValue && (
           <InputAdornment position='end'>
             <CloseIcon
               sx={{ cursor: 'pointer' }}
