@@ -1,3 +1,4 @@
+import React from 'react'
 import Head from 'next/head'
 
 import { AppState } from '../redux/store'
@@ -9,6 +10,7 @@ import { MainCard, Sceleton, Sort, Filter } from '../components'
 import { useDispatch, useSelector } from 'react-redux'
 import { addPizzas } from '../redux/slices/selectedPizzas'
 import { CardDataType } from '../types/types'
+import Pagi from '../components/Pagination'
 // import simpleTheme from './../theme/theme'
 
 // const Root = styled('div')(({ simpleTheme }) => ({
@@ -30,13 +32,21 @@ export const allSizes = [26, 30, 40]
 const Home = () => {
   const { categoryId, sort } = useSelector((state: AppState) => state.filter)
   const searchValue = useSelector((state: AppState) => state.search.searchValue)
+  const pageNumber = useSelector(
+    (state: AppState) => state.pagination.pageNumber
+  )
   const dispatch = useDispatch()
 
   const { data, isFetching } = useGetPizzasQuery({
     categoryId,
     sort,
-    searchValue
+    searchValue,
+    pageNumber
   })
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <>
@@ -55,9 +65,12 @@ const Home = () => {
       <Typography variant='h2' component='div' mb='35px'>
         Все пиццы
       </Typography>
-      <Grid container gap='10px' sx={{ justifyContent: 'space-between' }}>
+      <Grid
+        container
+        gap='10px'
+        sx={{ justifyContent: 'space-between', marginBottom: '25px' }}>
         {isFetching
-          ? [...Array(8)].map((_, index: number) => (
+          ? [...Array(4)].map((_, index: number) => (
               <Grid
                 item
                 key={index}
@@ -82,6 +95,7 @@ const Home = () => {
               )
             })}
       </Grid>
+      <Pagi />
     </>
   )
 }

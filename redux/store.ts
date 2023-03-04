@@ -5,15 +5,17 @@ import { Action } from 'redux'
 import { pizzaApi } from '../api/pizzas.api'
 import filter from './slices/filter'
 import search from './slices/search'
+import pagination from './slices/pagination'
 
+//todo: why makeStore??
 const makeStore = () =>
-  //todo: why makeStore??
   configureStore({
     reducer: {
       [pizzaApi.reducerPath]: pizzaApi.reducer,
       filter,
       search,
-      selectedPizzas: selectedPizzas.reducer
+      selectedPizzas: selectedPizzas.reducer,
+      pagination
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(pizzaApi.middleware),

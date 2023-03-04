@@ -7,10 +7,12 @@ export const pizzaApi = createApi({
   }),
   endpoints: (build) => ({
     getPizzas: build.query({
-      query: ({ categoryId, sort, searchValue }) =>
-        `?sortBy=${sort}&${
-          categoryId !== null ? `category=${categoryId}` : ''
-        }&${searchValue ? `search=${searchValue}` : ''}`
+      query: ({ categoryId, sort, searchValue, pageNumber }) =>
+        `?sortBy=${sort}
+        &${categoryId !== null ? `category=${categoryId}` : ''}
+        &${searchValue ? `search=${searchValue}` : ''}
+        &p=${pageNumber}
+        &l=4`
     })
   })
 })
