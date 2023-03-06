@@ -15,6 +15,7 @@ import { styled } from '@mui/material/styles'
 import s from '../styles/Filter.module.scss'
 import { theme } from '../theme/theme'
 import { useSelector, useDispatch } from 'react-redux'
+import { setPageNumber } from '../redux/slices/pagination'
 
 const filterItems = ['Мясные', 'Вегетарианские', 'Открытые', 'Закрытые']
 
@@ -45,6 +46,7 @@ const Filter = () => {
 
   const onChangeCategoryId = (index: number | null) => {
     dispatch(filterReducer(index))
+    dispatch(setPageNumber(1))
   }
 
   return (

@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { UrlObject } from '../../types/types'
+import { ParsedQs } from 'qs'
 
 interface filterState {
   categoryId: number | null
@@ -23,10 +25,15 @@ export const filterSlice = createSlice({
     },
     sortReducer: (state: filterState, action: PayloadAction<string>) => {
       state.sort = action.payload
+    },
+    setFilterByUrl: (state: filterState, action: PayloadAction<ParsedQs>) => {
+      state.categoryId = Number(action.payload.category)
+      state.sort = action.payload.sort + ''
     }
   }
 })
 
-export const { filterReducer, sortReducer } = filterSlice.actions
+export const { filterReducer, sortReducer, setFilterByUrl } =
+  filterSlice.actions
 
 export default filterSlice.reducer

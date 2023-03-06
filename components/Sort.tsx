@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { StylesConfig } from 'react-select/dist/declarations/src/styles'
 import { sortItems } from '../types/types'
 import { sortReducer } from '../redux/slices/filter'
+import { useGetPizzasQuery } from '../api/pizzas.api'
 
 const sortItems = [
   { value: 'rating', label: 'популярности', id: 0 },

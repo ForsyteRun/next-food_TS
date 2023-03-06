@@ -23,3 +23,10 @@ export type sortItems = {
   label: string
   id: number
 }
+
+export interface UrlObject {
+  category: string
+  sort: string
+  p: string
+  search: string
+}

@@ -1,16 +1,21 @@
 import React from 'react'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import qs from 'qs'
 
 import { AppState } from '../redux/store'
 
 import { Grid, Typography } from '@mui/material'
 import { useGetPizzasQuery } from '../api/pizzas.api'
-import { MainCard, Sceleton, Sort, Filter } from '../components'
+import { Filter, MainCard, Sceleton, Sort } from '../components'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { addPizzas } from '../redux/slices/selectedPizzas'
-import { CardDataType } from '../types/types'
 import Pagi from '../components/Pagination'
+import { addPizzas } from '../redux/slices/selectedPizzas'
+
+import { CardDataType } from '../types/types'
+import { setFilterByUrl } from '../redux/slices/filter'
+
 // import simpleTheme from './../theme/theme'
 
 // const Root = styled('div')(({ simpleTheme }) => ({
@@ -35,18 +40,45 @@ const Home = () => {
   const pageNumber = useSelector(
     (state: AppState) => state.pagination.pageNumber
   )
+  const router = useRouter()
   const dispatch = useDispatch()
 
-  const { data, isFetching } = useGetPizzasQuery({
-    categoryId,
-    sort,
-    searchValue,
-    pageNumber
-  })
+  const { data, isFetching } = useGetPizzasQuery('')
+  console.log(data)
 
+  // const { data, isFetching } = useGetPizzasQuery(
+  //   {
+  //     categoryId,
+  //     sort,
+  //     searchValue,
+  //     pageNumber
+  //   },
+  //   {
+  //     refetchOnFocus: true
+  //   }
+  // )
+
+  // //parse url params from url
+  // React.useEffect(() => {
+  //   const urlObj = qs.parse(router.asPath.split('?')[1])
+  //   dispatch(setFilterByUrl(urlObj))
+  // }, [])
+
+  //put params into url
   React.useEffect(() => {
     window.scrollTo(0, 0)
-  }, [])
+    router.push({
+      query: {
+        category: categoryId,
+        sort,
+        p: pageNumber,
+        search: searchValue ? searchValue : null //TODO: как сделать если не надо дефолт в урл?
+      }
+    })
+
+    //TODO: fix eslint
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryId, sort, searchValue, pageNumber])
 
   return (
     <>
@@ -101,11 +133,3 @@ const Home = () => {
 }
 
 export default Home
-
-// export const getServerSideProps: GetServerSideProps =
-//   wrapper.getServerSideProps((store: AppStore) => async () => {
-//     await store.dispatch(pizzaApi.endpoints.getAllPizzas.initiate())
-//     return {
-//       props: {}
-//     }
-//   })
