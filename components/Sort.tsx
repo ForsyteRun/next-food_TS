@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { StylesConfig } from 'react-select/dist/declarations/src/styles'
 import { sortItems } from '../types/types'
 import { sortReducer } from '../redux/slices/filter'
-import { useGetPizzasQuery } from '../api/pizzas.api'
+import { useGetSortQuery } from '../api/pizzas.api'
 
 const sortItems = [
   { value: 'rating', label: 'популярности', id: 0 },
@@ -16,10 +16,11 @@ const sortItems = [
 
 const Sort = () => {
   const dispatch = useDispatch()
-
   const onChange = (newValue: SingleValue<sortItems | null>) => {
     newValue && dispatch(sortReducer(newValue.value))
   }
+
+  // const { data: sortURL } = useGetSortQuery('ss')
 
   const itemStyles: StylesConfig = {
     valueContainer: (styles: any) => {

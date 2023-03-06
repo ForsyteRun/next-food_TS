@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import { Stack } from '@mui/system'
 import React, { FC, useState } from 'react'
-import { allSets, allSizes } from '../pages'
+import { allSets, allSizes } from '../pages/shop'
 import { theme } from '../theme/theme'
 import { CardDataType } from '../types/types'
 import s from './../styles/MainCard.module.scss'

@@ -6,7 +6,7 @@ import qs from 'qs'
 import { AppState } from '../redux/store'
 
 import { Grid, Typography } from '@mui/material'
-import { useGetPizzasQuery } from '../api/pizzas.api'
+import { useGetAllQuery, useGetSortQuery } from '../api/pizzas.api'
 import { Filter, MainCard, Sceleton, Sort } from '../components'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -43,46 +43,31 @@ const Home = () => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const { data, isFetching } = useGetPizzasQuery({
-    categoryId,
-    sort,
-    searchValue,
-    pageNumber
-  })
+  const { data, isFetching } = useGetAllQuery()
+  const { data: sortURL } = useGetSortQuery(sort)
 
-  // const { data, isFetching } = useGetPizzasQuery(
-  //   {
-  //     categoryId,
-  //     sort,
-  //     searchValue,
-  //     pageNumber
-  //   },
-  //   {
-  //     refetchOnFocus: true
-  //   }
-  // )
-
-  // //parse url params from url
-  // React.useEffect(() => {
-  //   const urlObj = qs.parse(router.asPath.split('?')[1])
-  //   dispatch(setFilterByUrl(urlObj))
-  // }, [])
+  // parse url params from url
+  React.useEffect(() => {
+    const urlObj = qs.parse(router.asPath.split('?')[1])
+    // dispatch(setFilterByUrl(urlObj))
+    console.log(urlObj)
+  }, []) //TODO: создаются данные и на редаксе, и на rtkAPI
 
   //put params into url
-  React.useEffect(() => {
-    window.scrollTo(0, 0)
-    router.push({
-      query: {
-        category: categoryId,
-        sort,
-        p: pageNumber,
-        search: searchValue ? searchValue : null //TODO: как сделать если не надо дефолт в урл?
-      }
-    })
+  // React.useEffect(() => {
+  //   window.scrollTo(0, 0)
+  //   router.push({
+  //     query: {
+  //       category: categoryId,
+  //       sort,
+  //       p: pageNumber,
+  //       search: searchValue ? searchValue : null //TODO: как сделать если не надо дефолт в урл?
+  //     }
+  //   })
 
-    //TODO: fix eslint
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryId, sort, searchValue, pageNumber])
+  //   //TODO: fix eslint
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [categoryId, sort, searchValue, pageNumber])
 
   return (
     <>

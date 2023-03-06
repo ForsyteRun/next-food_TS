@@ -1,22 +1,19 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { CardDataType } from '../types/types'
 
 export const pizzaApi = createApi({
   reducerPath: 'pizzaApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://63fec9bfc5c800a72385b5d4.mockapi.io/'
+    baseUrl: 'https://63fec9bfc5c800a72385b5d4.mockapi.io'
   }),
+  tagTypes: ['pizzas'],
   endpoints: (build) => ({
-    getPizzas: build.query({
-      query: ({ categoryId, sort, searchValue, pageNumber }) => ({
-        url: '/items',
-        params: {
-          category: categoryId === null ? '' : categoryId,
-          sortBy: sort,
-          search: searchValue,
-          p: pageNumber,
-          l: 4
-        }
-      })
+    getAll: build.query<CardDataType[], void>({
+      query: () => '/items'
+    }),
+
+    getSort: build.query<CardDataType[], string>({
+      query: (str) => `/items?sortBy=${str}`
     })
   })
   // endpoints: (build) => ({
@@ -31,4 +28,4 @@ export const pizzaApi = createApi({
   // })
 })
 
-export const { useGetPizzasQuery } = pizzaApi
+export const { useGetAllQuery, useGetSortQuery } = pizzaApi
