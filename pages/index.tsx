@@ -43,8 +43,12 @@ const Home = () => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const { data, isFetching } = useGetPizzasQuery('')
-  console.log(data)
+  const { data, isFetching } = useGetPizzasQuery({
+    categoryId,
+    sort,
+    searchValue,
+    pageNumber
+  })
 
   // const { data, isFetching } = useGetPizzasQuery(
   //   {
